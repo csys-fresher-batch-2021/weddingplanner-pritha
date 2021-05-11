@@ -4,8 +4,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import in.pritha.util.Logger;
+
 public class WeddingStyleDisplay {
-	private static Map<String, Integer> weddingStylesMap = new HashMap<String, Integer>();
+	private static final Map<String, Integer> weddingStylesMap = new HashMap<>();
+
+	private WeddingStyleDisplay() {
+		// to avoid object creation
+	}
 
 	// Static block gets executed when class is first loaded
 	static {
@@ -30,7 +36,7 @@ public class WeddingStyleDisplay {
 	 */
 	public static void displayWeddingStyles() {
 
-		System.out.println("Wedding Types:");
+		Logger.println("Wedding Types:");
 
 		weddingStylesMap.put("Traditional Wedding", 100000);
 		weddingStylesMap.put("Formal Wedding", 80000);
@@ -43,7 +49,7 @@ public class WeddingStyleDisplay {
 		Set<String> keySet = weddingStylesMap.keySet();
 		for (String key : keySet) {
 			Integer value = weddingStylesMap.get(key);
-			System.out.println(key + "- You may charge upto " + value + "Rs.");
+			Logger.println(key + "- You may charge upto " + value + "Rs.");
 		}
 
 	}
