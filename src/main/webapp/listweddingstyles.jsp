@@ -1,7 +1,5 @@
 <%@page import="java.util.Set"%>
 <%@page import="java.util.Map"%>
-
-<%@page import="java.util.List"%>
 <%@page import="in.pritha.service.WeddingStyleDisplay"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -23,7 +21,8 @@
 	<table class="table table-bordered">
 	<caption>Wedding Styles with their Packages</caption>
 	<thead>
-	<tr><th scope="col">S.no</th><th>Wedding Styles</th>
+	<tr><th scope="col">S.no</th>
+	<th scope="col">Wedding Styles</th>
 	<th scope="col">Package(Rs)</th></tr>
 	</thead>
 	<tbody>
