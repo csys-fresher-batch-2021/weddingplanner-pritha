@@ -1,6 +1,7 @@
 package in.pritha.util;
 
-public class Logger {
+public class Logger
+	
 	private Logger() {
 		//to avoid object creation
 	}

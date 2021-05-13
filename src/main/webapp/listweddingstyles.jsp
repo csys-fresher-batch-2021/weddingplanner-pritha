@@ -1,12 +1,11 @@
 <%@page import="java.util.Set"%>
-<%@page import="java.util.Map"%>
+<%@page import="java.util.Map"%
 
-<%@page import="java.util.List"%>
 <%@page import="in.pritha.service.WeddingStylesService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>GRACEWED-Wedding Styles</title>
@@ -21,12 +20,13 @@
 	<h3 id="heading">Wedding Styles</h3>
 	<br><br/>
 	<table class="table table-bordered">
+	<caption>Wedding Styles with their Packages</caption>
 	<thead>
-	<tr><th>S.no</th><th>Wedding Styles</th><th>Package(Rs)</th></tr>
+	<tr><th scope="col">S.no</th>
+	<th scope="col">Wedding Styles</th>
+	<th scope="col">Package(Rs)</th></tr>
 	</thead>
 	<tbody>
-	<%-- <% Scriplets---> to write java code%>
-	<%= Expression---> to get values of variable %> --%>
 	<%
 	Map<String, Integer> weddingStylesMap = WeddingStylesService.getWeddingStyles();
 		int i=0;
