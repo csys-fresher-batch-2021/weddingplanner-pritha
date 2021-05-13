@@ -2,7 +2,7 @@
 <%@page import="java.util.Map"%>
 
 <%@page import="java.util.List"%>
-<%@page import="in.pritha.service.WeddingStyleDisplay"%>
+<%@page import="in.pritha.service.WeddingStylesService"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -28,12 +28,12 @@
 	<%-- <% Scriplets---> to write java code%>
 	<%= Expression---> to get values of variable %> --%>
 	<%
-	Map<String, Integer> weddingStylesMap = WeddingStyleDisplay.getWeddingStyles();
-	int i=0;
-	Set<String> keySet = weddingStylesMap.keySet();
-	for (String key : keySet) {
-		Integer value = weddingStylesMap.get(key);
-		i++;
+	Map<String, Integer> weddingStylesMap = WeddingStylesService.getWeddingStyles();
+		int i=0;
+		Set<String> keySet = weddingStylesMap.keySet();
+		for (String key : keySet) {
+			Integer value = weddingStylesMap.get(key);
+			i++;
 	%>
 	<tr>
 	<td><%=i %></td>
@@ -43,12 +43,9 @@
 	<% 
 	}
 	%>
-	
-	
-	
-	
 	</tbody>
 	</table>
+	<a href="addweddingstyles.jsp">Add Wedding Styles</a>
 
 </main>
 </body>

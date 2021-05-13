@@ -4,22 +4,42 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import in.pritha.model.WeddingStyle;
 import in.pritha.util.Logger;
+import in.pritha.validator.WeddingStyleValidator;
 
-public class WeddingStyleDisplay {
+public class WeddingStylesService {
 	private static final Map<String, Integer> weddingStylesMap = new HashMap<>();
 
-	private WeddingStyleDisplay() {
+	private WeddingStylesService() {
 		// to avoid object creation
 	}
 
 	// Static block gets executed when class is first loaded
 	static {
-		weddingStylesMap.put("Traditional Wedding", 100000);
-		weddingStylesMap.put("Formal Wedding", 80000);
-		weddingStylesMap.put("Informal Wedding", 90000);
-		weddingStylesMap.put("Festival Wedding", 300000);
-		weddingStylesMap.put("Vintage style Wedding", 500000);
+		weddingStylesMap.put("TRADITIONAL WEDDING", 100000);
+		weddingStylesMap.put("FORMAL WEDDING", 80000);
+		weddingStylesMap.put("INFORMAL WEDDING", 90000);
+		weddingStylesMap.put("FESTIVAL WEDDING", 300000);
+		weddingStylesMap.put("VINTAGE STYLE WEDDING", 500000);
+	}
+
+	/**
+	 * This method add the wedding styles with their packages entered by the admin
+	 * If the wedding style exists already, it will throw exception If the stylename
+	 * is a new wedding style, it will add that in the wedding style map
+	 * Stylename and Packages gets validated before the logic starts
+	 * @param styleName
+	 * @param packages
+	 * @return true if the new wedding style gets added
+	 */
+	public static boolean addWeddingStyles(WeddingStyle obj) {
+		boolean isAdded = false;
+		if(WeddingStyleValidator.isValidToAdd(obj.getWeddingStyles(), obj.getPackages())) {
+			weddingStylesMap.put(obj.getWeddingStyles().toUpperCase(), obj.getPackages());
+			isAdded = true;
+		}
+		return isAdded;	
 	}
 
 	/**
@@ -51,6 +71,6 @@ public class WeddingStyleDisplay {
 			Integer value = weddingStylesMap.get(key);
 			Logger.println(key + "- You may charge upto " + value + "Rs.");
 		}
-
 	}
+
 }
