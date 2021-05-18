@@ -69,18 +69,15 @@ public class UserLoginService{
 		return allUserDetails;
 	}
 
-	public static boolean createAndConfirmPassword(User user) throws MyException{
+	public static boolean createAndConfirmPassword(User user) throws MyException, ClassNotFoundException, SQLException{
 		boolean isPasswordMatched = false;
 		
 			if(UserValidator.isMatchedPassword(user.getCreatePassword(),user.getConfirmPassword())) {
-				try {
+		
 					LoginDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
-				} catch (ClassNotFoundException | SQLException e) {
-					e.printStackTrace();
-					throw new RuntimeException("Can't change password");
-				}
-				isPasswordMatched = true;
-			}
+					isPasswordMatched = true;
+				} 
+				
 		
 		return isPasswordMatched;
 	}

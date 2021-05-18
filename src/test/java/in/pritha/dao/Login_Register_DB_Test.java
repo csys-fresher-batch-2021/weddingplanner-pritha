@@ -52,9 +52,9 @@ public class Login_Register_DB_Test {
 		User user = new User("KarthiBalaji","Kart@7176");
 		UserLoginService.login(user);
 	}
-	@Test
+	//@Test
 	public void testF_ModifyPasswordInDB() throws ClassNotFoundException, SQLException {
-		User user = new User("Prit#7173","Prit#7173","pritha");
+		User user = new User("Cedric@123","Cedric@123","pritha");
 		UserLoginService.createAndConfirmPassword(user);
 	}
 	@Test

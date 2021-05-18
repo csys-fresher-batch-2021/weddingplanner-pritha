@@ -2,6 +2,8 @@ package in.pritha.service;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,10 +17,12 @@ public class UserForgotPasswordTestCase {
 	//TestCases for valid Created passwords
 	/**
 	 * This method tests with valid password and it should return true
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @throws MyException
 	 */
-	@Test
-	public void testA_WithValidCreatedPassword()  {
+	//@Test
+	public void testA_WithValidCreatedPassword() throws ClassNotFoundException, SQLException  {
 		//User(create password, confirm pasword, usersername)
 		try {
 			User user = new User("Prit@7172","Prit@7172","pritha");
@@ -32,10 +36,12 @@ public class UserForgotPasswordTestCase {
 	public ExpectedException exceptionRule = ExpectedException.none();
 	/**
 	 * This method tests with invalid password and it should throw exceptiom
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 * @throws MyException
 	 */
 	@Test
-	public void testB_WithInValidCreatedPassword() {
+	public void testB_WithInValidCreatedPassword() throws ClassNotFoundException, SQLException {
 		//User(create password, confirm pasword, usersername)
 		try {
 			//exceptionRule.expect(MyException.class);
@@ -51,9 +57,11 @@ public class UserForgotPasswordTestCase {
 	/**
 	 * This method tests with unmatched password and it should throw exceptiom
 	 * @throws MyException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
 	@Test
-	public void testC_WithUnMatchedPassword() throws MyException {
+	public void testC_WithUnMatchedPassword() throws MyException, ClassNotFoundException, SQLException {
 		//User(create password, confirm pasword, usersername)
 		try {
 			//exceptionRule.expect(MyException.class);
@@ -68,9 +76,11 @@ public class UserForgotPasswordTestCase {
 	/**
 	 * This method tests with matched password and it should return true
 	 * @throws MyException
+	 * @throws SQLException 
+	 * @throws ClassNotFoundException 
 	 */
-	@Test
-	public void testD_WithMatchedPassword() throws MyException {
+	//@Test
+	public void testD_WithMatchedPassword() throws MyException, ClassNotFoundException, SQLException {
 		//User(create password, confirm pasword, usersername)
 		User user = new User("Prit@7172","Prit@7172","pritha");
 		boolean isPasswordMatched = UserLoginService.createAndConfirmPassword(user);

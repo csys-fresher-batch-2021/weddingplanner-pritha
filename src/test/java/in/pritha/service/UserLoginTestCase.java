@@ -20,7 +20,7 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	@Test
+	//@Test
 	public void testA_UsernameWithSmallCase() throws ClassNotFoundException, SQLException {
 		User user = new User("pritha","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -31,7 +31,7 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	@Test
+	//@Test
 	public void testB_UsernameWithMixedCase() throws ClassNotFoundException, SQLException {
 		User user = new User("PRitHA","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -42,7 +42,7 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	@Test
+	//@Test
 	public void testC_UsernameWithUpperCase() throws ClassNotFoundException, SQLException {
 		User user = new User("PRITHA","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -96,7 +96,7 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	@Test
+	//@Test
 	public void testG_WithExistingUserName() throws ClassNotFoundException, SQLException {
 		User user = new User("PRITHA","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
