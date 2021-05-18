@@ -36,7 +36,7 @@ public class WeddingStyle {
 	 * @param packages
 	 */
 	public WeddingStyle(String weddingStyles, Integer packages) {
-		super();
+		super(); 
 		this.styleName = weddingStyles;
 		this.packages = packages;
 	}

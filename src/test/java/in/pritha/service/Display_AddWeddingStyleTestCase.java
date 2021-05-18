@@ -14,7 +14,7 @@ import org.junit.runner.manipulation.Alphanumeric;
 import in.pritha.model.WeddingStyle;
 
 @OrderWith(Alphanumeric.class)
-public class WeddingStyleDisplayTestCase {
+public class Display_AddWeddingStyleTestCase {
 
 	/**
 	 * This testcase will get all the lists of Wedding Style Types stored in HashMap
@@ -81,8 +81,8 @@ public class WeddingStyleDisplayTestCase {
 	 */
 	@Test
 	public void testE_AddWeddingStylesWithInvalidInput() {
-		exceptionRule.expect(IllegalArgumentException.class);
-		exceptionRule.expectMessage("Entered StyleName or Package is invalid");
+		exceptionRule.expect(NullPointerException.class);
+		exceptionRule.expectMessage("Invalid input");
 		WeddingStyle obj = new WeddingStyle("  ", 0);
 		WeddingStylesService.addWeddingStyles(obj);
 
