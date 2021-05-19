@@ -2,10 +2,10 @@ package in.pritha.service;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
+
 
 import in.pritha.model.WeddingStyle;
-import in.pritha.util.Logger;
+
 import in.pritha.validator.WeddingStyleValidator;
 
 public class WeddingStylesService {

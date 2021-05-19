@@ -1,7 +1,7 @@
 package in.pritha.service;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.util.Map;
 
 import in.pritha.dao.RegisterDAO;
@@ -60,12 +60,7 @@ public class UserLoginService{
 	 */
 	public static Map<String, String> getUserLists() {
 		Map<String, String> allUserDetails = null;
-		try {
-			allUserDetails= RegisterDAO.getAllUserDetails();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException("Can't fetch user details");
-		}
+		allUserDetails= RegisterDAO.getAllUserDetails();
 		return allUserDetails;
 	}
 
