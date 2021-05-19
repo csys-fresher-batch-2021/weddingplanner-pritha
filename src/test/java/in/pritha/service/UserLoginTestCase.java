@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
 import in.pritha.exception.MyException;
+import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
  class UserLoginTestCase {
@@ -28,8 +29,15 @@ import in.pritha.model.User;
 	@Order(1)
 	 void testA_UsernameWithSmallCase() {
 		User user = new User("pritha","Prit@7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertTrue(isLoggedInUser);
+		boolean isLoggedInUser;
+		try {
+			isLoggedInUser = UserLoginService.login(user);
+			assertTrue(isLoggedInUser);
+		} catch (ServiceException e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 	/**
 	 * This method tests with mixed case username
@@ -40,8 +48,15 @@ import in.pritha.model.User;
 	@Order(2)
 	 void testB_UsernameWithMixedCase()  {
 		User user = new User("PRitHA","Prit@7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertTrue(isLoggedInUser);
+		boolean isLoggedInUser;
+		try {
+			isLoggedInUser = UserLoginService.login(user);
+			assertTrue(isLoggedInUser);
+		} catch (ServiceException e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 	/**
 	 * This method tests with uppercase username
@@ -52,8 +67,15 @@ import in.pritha.model.User;
 	@Order(3)
 	 void testC_UsernameWithUpperCase() {
 		User user = new User("PRITHA","Prit@7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertTrue(isLoggedInUser);
+		boolean isLoggedInUser;
+		try {
+			isLoggedInUser = UserLoginService.login(user);
+			assertTrue(isLoggedInUser);
+		} catch (ServiceException e) {
+		
+			e.printStackTrace();
+		}
+		
 	}
 	//Test Cases for password
 	/**
@@ -118,8 +140,15 @@ import in.pritha.model.User;
 	@Order(7)
 	 void testG_WithExistingUserName()  {
 		User user = new User("PRITHA","Prit@7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertTrue(isLoggedInUser);
+		boolean isLoggedInUser;
+		try {
+			isLoggedInUser = UserLoginService.login(user);
+			assertTrue(isLoggedInUser);
+		} catch (ServiceException e) {
+			
+			e.printStackTrace();
+		}
+		
 	}
 	/**
 	 * This method tests with new credentials

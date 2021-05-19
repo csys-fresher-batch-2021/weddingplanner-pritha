@@ -48,10 +48,11 @@ public class UserLoginService{
 	 * @param userName
 	 * @param passWord
 	 * @return true if the details exists in userListMap
+	 * @throws ServiceException 
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public static boolean login(User user)  {
+	public static boolean login(User user) throws ServiceException  {
 		boolean validUser = false;
 		//validate it
 		if(UserValidator.isExistingUser(user.getuserName(),user.getpassWord())){

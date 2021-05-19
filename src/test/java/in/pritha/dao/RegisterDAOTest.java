@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import in.pritha.exception.DBException;
 import in.pritha.exception.MyException;
+import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 import in.pritha.service.UserLoginService;
 
@@ -23,7 +25,11 @@ class RegisterDAOTest {
 	@Order(1)
 	void testA_AddUserWithNewCredentials1() {
 		User user = new User("PRITHA", "Prit@7172");
-		UserLoginService.register(user);
+		try {
+			UserLoginService.register(user);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 		assertTrue(true);
 	}
 
@@ -31,15 +37,26 @@ class RegisterDAOTest {
 	@Test
 	void testB_AddUserWithNewCredentials2() {
 		User user = new User("Karthi", "Kart@7172");
-		UserLoginService.register(user);
+		try {
+			UserLoginService.register(user);
+		} catch (ServiceException e) {
+			e.printStackTrace();
+		}
 		assertTrue(true);
 	}
 
 	@Order(3)
 	@Test
 	void testC_getAllUserDetails()  {
-		Map<String, String> userDetails = RegisterDAO.getAllUserDetails();
-		System.out.println(userDetails);
+		//Map<String, String> userDetails;
+		try {
+			 RegisterDAO.getAllUserDetails();
+			//System.out.println(userDetails);
+		} catch (DBException e) {
+			
+			e.printStackTrace();
+		}
+		
 		assertTrue(true);
 	}
 
@@ -70,15 +87,25 @@ class RegisterDAOTest {
 	@Order(6)
 	void testF_ModifyPasswordInDB()  {
 		User user = new User("Cedric@123", "Cedric@123", "pritha");
-		UserLoginService.createAndConfirmPassword(user);
+		try {
+			UserLoginService.createAndConfirmPassword(user);
+		} catch (MyException | ServiceException e) {
+			e.printStackTrace();
+		}
 		assertTrue(true);
 	}
 
 	@Test
 	@Order(7)
 	void testG_getAllUserDetailsAfterModifiedPassword()  {
-		Map<String, String> userDetails = RegisterDAO.getAllUserDetails();
-		System.out.println(userDetails);
+		//Map<String, String> userDetails;
+		try {
+			RegisterDAO.getAllUserDetails();
+		} catch (DBException e) {
+			
+			e.printStackTrace();
+		}
+		
 		assertTrue(true);
 
 	}

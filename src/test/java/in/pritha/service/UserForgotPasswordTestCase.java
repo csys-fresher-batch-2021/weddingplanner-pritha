@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 import in.pritha.exception.MyException;
+import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 
 class UserForgotPasswordTestCase {
@@ -21,14 +22,14 @@ class UserForgotPasswordTestCase {
 	 * @throws ClassNotFoundException
 	 * @throws MyException
 	 */
-	 @Test
-	void testA_WithValidCreatedPassword()  {
+	@Test
+	void testA_WithValidCreatedPassword() {
 		// User(create password, confirm pasword, usersername)
 		try {
 			User user = new User("Prit@7172", "Prit@7172", "pritha");
 			boolean isValidCreatedPassword = UserLoginService.createAndConfirmPassword(user);
 			assertTrue(isValidCreatedPassword);
-		} catch (MyException e) {
+		} catch (MyException | ServiceException e) {
 			e.printStackTrace();
 		}
 	}
@@ -48,7 +49,7 @@ class UserForgotPasswordTestCase {
 			User user = new User("  ", "  ", "pritha");
 			UserLoginService.createAndConfirmPassword(user);
 			fail();
-		} catch (MyException e) {
+		} catch (MyException | ServiceException e) {
 			// e.printStackTrace();
 			assertEquals("Your Password must be like this eg.Prit@7172", e.getMessage());
 		}
@@ -62,13 +63,15 @@ class UserForgotPasswordTestCase {
 	 * @throws ClassNotFoundException
 	 */
 	@Test
-	void testC_WithUnMatchedPassword()  {
-		
+	void testC_WithUnMatchedPassword() {
+
 		try {
 
 			User user = new User("Prit@7172", "Prit@7173", "pritha");
+
 			UserLoginService.createAndConfirmPassword(user);
-		} catch (MyException e) {
+
+		} catch (MyException | ServiceException e) {
 			assertEquals("Created and Confirmed Password doesn't match", e.getMessage());
 			e.printStackTrace();
 		}
@@ -82,11 +85,17 @@ class UserForgotPasswordTestCase {
 	 * @throws ClassNotFoundException
 	 */
 	// @Test
-	void testD_WithMatchedPassword()  {
+	void testD_WithMatchedPassword() {
 		// User(create password, confirm pasword, usersername)
 		User user = new User("Prit@7172", "Prit@7172", "pritha");
-		boolean isPasswordMatched = UserLoginService.createAndConfirmPassword(user);
-		assertTrue(isPasswordMatched);
+		boolean isPasswordMatched;
+		try {
+			isPasswordMatched = UserLoginService.createAndConfirmPassword(user);
+			assertTrue(isPasswordMatched);
+		} catch (MyException | ServiceException e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

@@ -34,7 +34,9 @@ public class LoginServlet extends HttpServlet {
 	//2-Call Service
 		boolean isLoggedInUser=true;
 		try {
-			isLoggedInUser = UserLoginService.login(user);
+			
+				isLoggedInUser = UserLoginService.login(user);
+			
 			if(isLoggedInUser) {
 				//3-create and set values to session
 				HttpSession session = request.getSession();
@@ -50,7 +52,7 @@ public class LoginServlet extends HttpServlet {
 				
 			}
 			
-		} catch (IOException e) {
+		} catch (IOException | ServiceException e) {
 			e.printStackTrace();
 		} 
 	
