@@ -23,6 +23,7 @@ public class RegisterServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		//1-Get Form values
 				String username = request.getParameter("Username");
