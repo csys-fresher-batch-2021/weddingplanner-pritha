@@ -1,13 +1,14 @@
 package in.pritha.service;
 
-import static org.junit.Assert.*;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.sql.SQLException;
 
-import org.junit.Assert;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
+import org.junit.jupiter.api.Test;
 
 import in.pritha.exception.MyException;
 import in.pritha.model.User;
@@ -32,8 +33,7 @@ public class UserForgotPasswordTestCase {
 			e.printStackTrace();
 		}
 	}
-	@Rule
-	public ExpectedException exceptionRule = ExpectedException.none();
+	
 	/**
 	 * This method tests with invalid password and it should throw exceptiom
 	 * @throws SQLException 

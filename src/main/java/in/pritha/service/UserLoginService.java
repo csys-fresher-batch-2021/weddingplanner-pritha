@@ -4,7 +4,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-import in.pritha.dao.LoginDAO;
+import in.pritha.dao.RegisterDAO;
 import in.pritha.exception.MyException;
 import in.pritha.model.User;
 import in.pritha.validator.UserValidator;
@@ -23,7 +23,7 @@ public class UserLoginService{
 		//validate it
 		if(!(UserValidator.isExistingUser(user.getuserName(),user.getpassWord()))){
 			validUser=false;
-			LoginDAO.addUser(user.getuserName(), user.getpassWord());
+			RegisterDAO.addUser(user.getuserName(), user.getpassWord());
 		}
 		else {
 			throw new MyException("Your Details Already Exist!.You can sign in!");
@@ -61,7 +61,7 @@ public class UserLoginService{
 	public static Map<String, String> getUserLists() {
 		Map<String, String> allUserDetails = null;
 		try {
-			allUserDetails= LoginDAO.getAllUserDetails();
+			allUserDetails= RegisterDAO.getAllUserDetails();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 			throw new RuntimeException("Can't fetch user details");
@@ -74,7 +74,7 @@ public class UserLoginService{
 		
 			if(UserValidator.isMatchedPassword(user.getCreatePassword(),user.getConfirmPassword())) {
 		
-					LoginDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
+					RegisterDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
 					isPasswordMatched = true;
 				} 
 				

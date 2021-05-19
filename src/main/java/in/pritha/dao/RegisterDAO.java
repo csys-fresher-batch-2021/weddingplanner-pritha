@@ -10,7 +10,7 @@ import java.util.Map;
 import in.pritha.model.User;
 import in.pritha.util.ConnectionUtil;
 
-public class LoginDAO {
+public class RegisterDAO {
 
 	public static void addUser(String userName, String passWord) throws ClassNotFoundException,SQLException{
 	//*****add username*****
@@ -21,7 +21,7 @@ public class LoginDAO {
 	 * String sql1= "create table userDetails(username varchar(100) not null)";
 	 * String sql2 ="alter table userDetails add passWord varchar(100) primary key";
 	 */
-	String sql = "insert into user_Details( username,password) values (?,?)";
+	String sql = "insert into user_details( username,password) values (?,?)";
 	//4-execute query
 	/*
 	 * PreparedStatement pst1 = connection.prepareStatement(sql1); PreparedStatement

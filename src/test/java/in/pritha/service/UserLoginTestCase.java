@@ -1,18 +1,22 @@
 package in.pritha.service;
 
-import static org.junit.Assert.*;
+
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.OrderWith;
-import org.junit.runner.manipulation.Alphanumeric;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import in.pritha.exception.MyException;
 import in.pritha.model.User;
-@OrderWith(Alphanumeric.class)
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserLoginTestCase {
 	//TestCases for Username
 	/**
@@ -20,7 +24,8 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	//@Test
+	@Test
+	@Order(1)
 	public void testA_UsernameWithSmallCase() throws ClassNotFoundException, SQLException {
 		User user = new User("pritha","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -31,7 +36,8 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	//@Test
+	@Test
+	@Order(2)
 	public void testB_UsernameWithMixedCase() throws ClassNotFoundException, SQLException {
 		User user = new User("PRitHA","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -42,7 +48,8 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	//@Test
+	@Test
+	@Order(3)
 	public void testC_UsernameWithUpperCase() throws ClassNotFoundException, SQLException {
 		User user = new User("PRITHA","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -54,15 +61,18 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	@Rule
-	public ExpectedException exceptionRule = ExpectedException.none();
+	
 	@Test
+	@Order(4)
 	public void testD_PasswordWithoutSmallCase() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Entered details are invalid");
 		User user = new User("PRITHA","prit@7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Entered details are invalid", exception.getMessage());
+		
+		
 	}
 	/**
 	 * This method tests password without special characters 
@@ -70,12 +80,15 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(5)
 	public void testE_PasswordWithoutSpecialCharacters() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Entered details are invalid");
 		User user = new User("PRITHA","Prit7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Entered details are invalid", exception.getMessage());
+		
 	}
 	/**
 	 * This method tests password without numbers
@@ -83,12 +96,17 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(6)
 	public void testF_PasswordWithoutNumbers() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Entered details are invalid");
 		User user = new User("PRITHA","pritHA@HI");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Entered details are invalid", exception.getMessage());
+		
+		
+		
 	}
 	//Test Cases for checking existing and new credentials
 	/**
@@ -96,7 +114,8 @@ public class UserLoginTestCase {
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	//@Test
+	@Test
+	@Order(7)
 	public void testG_WithExistingUserName() throws ClassNotFoundException, SQLException {
 		User user = new User("PRITHA","Prit@7172");
 		boolean isLoggedInUser = UserLoginService.login(user);
@@ -108,12 +127,16 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(8)
 	public void testH_WithNewUserName() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Your Details doesn't Exist!.You have to sin up!");
 		User user = new User("Nishanth","prit12A@HI");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Your Details doesn't Exist!.You have to sin up!", exception.getMessage());
+		
+
 	}
 	//TestCases for checking (username-password) match
 	/**
@@ -122,12 +145,16 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(9)
 	public void testI_WithCorrectUsernameAndIncorrectPassword() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Your Details doesn't Exist!.You have to sin up!");
 		User user = new User("PRITHA","Prit@7173");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Your Details doesn't Exist!.You have to sin up!", exception.getMessage());
+		
+		
 	}
 	/**
 	 * This method tests with correct inusername and correct password
@@ -135,12 +162,15 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(10)
 	public void testJ_WithInCorrectUsernameAndcorrectPassword() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Your Details doesn't Exist!.You have to sin up!");
 		User user = new User("PrithaPadmanathan","Prit@7172");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Your Details doesn't Exist!.You have to sin up!", exception.getMessage());
+		
 	}
 	//TestCases for Invalid credentials
 	/**
@@ -149,12 +179,16 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(11)
 	public void testK_WithInValidCredentials() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(MyException.class);
-		exceptionRule.expectMessage("Entered details are invalid");
 		User user = new User("Pr@123","pritha");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(MyException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Entered details are invalid", exception.getMessage());
+		
+		
 	}
 	/**
 	 * This method tests with null username and null password
@@ -162,12 +196,16 @@ public class UserLoginTestCase {
 	 * @throws ClassNotFoundException 
 	 */
 	@Test
+	@Order(12)
 	public void testL_WithInValidCredentials() throws ClassNotFoundException, SQLException {
-		exceptionRule.expect(NullPointerException.class);
-		exceptionRule.expectMessage("Invalid input");
 		User user = new User(" "," ");
-		boolean isLoggedInUser = UserLoginService.login(user);
-		assertFalse(isLoggedInUser);
+		Exception exception = assertThrows(NullPointerException.class, () -> {
+			boolean isLoggedInUser = UserLoginService.login(user);
+			assertFalse(isLoggedInUser);
+	    });
+		assertEquals("Invalid input", exception.getMessage());
+		
+	
 	}
 	
 	
