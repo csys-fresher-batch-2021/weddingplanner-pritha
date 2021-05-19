@@ -1,6 +1,10 @@
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 <link rel="stylesheet" href="assets/css/fontawesome.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
+<%
+String loggedInUserName = (String)session.getAttribute("VerfiedLoggedInUser");
+String role = (String)session.getAttribute("Role");
+%>
 
 <header>
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -26,15 +30,21 @@
       </li>
     </ul>
      <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+     <% if(loggedInUserName ==null && role == null){ %>
       <li class="nav-item active">
-        <a class="nav-link" href="login.jsp">Login</a>
+        <a class="nav-link" href="LoginJSP.jsp">Login</a>
       </li>
-      <li class="nav-item">
+       <li class="nav-item">
         <a class="nav-link" href="register.jsp">Register</a>
       </li>
+      <% } else { %>
       <li class="nav-item">
-        <a class="nav-link" href="admin.jsp">Admin</a>
+        <a class="nav-link" href="#">Welcome <%=loggedInUserName %></a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="logout.jsp">Logout</a>
+      </li>
+      <% } %>
       </ul>
    
   </div>

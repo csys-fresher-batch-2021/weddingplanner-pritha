@@ -1,20 +1,20 @@
 package in.pritha.service;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Map;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.junit.runner.OrderWith;
-import org.junit.runner.manipulation.Alphanumeric;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 
 import in.pritha.model.WeddingStyle;
 
-@OrderWith(Alphanumeric.class)
-public class WeddingStyleDisplayTestCase {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+class Display_AddWeddingStyleTestCase {
 
 	/**
 	 * This testcase will get all the lists of Wedding Style Types stored in HashMap
@@ -22,7 +22,8 @@ public class WeddingStyleDisplayTestCase {
 	 */
 
 	@Test
-	public void testA_WeddingStylesListDisplay() {
+	@Order(1)
+	void testA_WeddingStylesListDisplay() {
 		Map<String, Integer> weddingStyles = WeddingStylesService.getWeddingStyles();
 		// assertEquals(expected,actual)
 		assertEquals(5, weddingStyles.size());
@@ -32,8 +33,10 @@ public class WeddingStyleDisplayTestCase {
 	 * This testcase will add the new Wedding Style to HashMap Then, it tests the
 	 * number of wedding styles availablity in HashMap
 	 */
+
 	@Test
-	public void testB_AddWeddingStylesWithNewStyleName() {
+	@Order(2)
+	void testB_AddWeddingStylesWithNewStyleName() {
 		WeddingStyle obj = new WeddingStyle("Modern Wedding", 60000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
@@ -48,15 +51,17 @@ public class WeddingStyleDisplayTestCase {
 	 * the number of wedding styles availablity in HashMap- it should throw
 	 * exception
 	 */
-	@Rule
-	public ExpectedException exceptionRule = ExpectedException.none();
 
 	@Test
-	public void testC_AddWeddingStylesWithExistingStyleName() {
-		exceptionRule.expect(RuntimeException.class);
-		exceptionRule.expectMessage("This Wedding Style Name Already Exists!");
-		WeddingStyle obj = new WeddingStyle("Modern Wedding",60000);
-		WeddingStylesService.addWeddingStyles(obj);
+	@Order(3)
+	void testC_AddWeddingStylesWithExistingStyleName() {
+
+		WeddingStyle obj = new WeddingStyle("Modern Wedding", 60000);
+
+		Exception exception = assertThrows(RuntimeException.class, () -> {
+			WeddingStylesService.addWeddingStyles(obj);
+		});
+		assertEquals("This Wedding Style Name Already Exists!", exception.getMessage());
 
 	}
 
@@ -64,8 +69,10 @@ public class WeddingStyleDisplayTestCase {
 	 * This testcase will add the new Wedding Style to HashMap with valid wedding
 	 * style. Then, it tests the number of wedding styles availablity in HashMap
 	 */
+
 	@Test
-	public void testD_AddWeddingStylesWithValidInput() {
+	@Order(4)
+	void testD_AddWeddingStylesWithValidInput() {
 		WeddingStyle obj = new WeddingStyle("Outdoor Wedding", 50000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
@@ -79,12 +86,15 @@ public class WeddingStyleDisplayTestCase {
 	 * style and package Then, it tests the number of wedding styles availablity in
 	 * HashMap- it should throw exception
 	 */
+
 	@Test
-	public void testE_AddWeddingStylesWithInvalidInput() {
-		exceptionRule.expect(IllegalArgumentException.class);
-		exceptionRule.expectMessage("Entered StyleName or Package is invalid");
+	@Order(5)
+	void testE_AddWeddingStylesWithInvalidInput() {
 		WeddingStyle obj = new WeddingStyle("  ", 0);
-		WeddingStylesService.addWeddingStyles(obj);
+		Exception exception = assertThrows(NullPointerException.class, () -> {
+			WeddingStylesService.addWeddingStyles(obj);
+		});
+		assertEquals("Invalid input", exception.getMessage());
 
 	}
 

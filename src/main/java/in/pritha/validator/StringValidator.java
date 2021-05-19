@@ -16,8 +16,9 @@ public class StringValidator {
 		boolean isValid = true;
 		input = input.trim();
 		if (input == null || input.equals("") || input.length() > 30) {
-			isValid = false;
+			throw new NullPointerException("Invalid input");
 		}
+		
 		String specialCharactersString = "!@#$%&*()'+,-./:;<=>?[]^_`{|}";
 		String numbers = "0123456789";
 		for (int i = 0; i < input.length(); i++) {
@@ -29,5 +30,6 @@ public class StringValidator {
 		}
 		return isValid;
 	}
+	
 
 }

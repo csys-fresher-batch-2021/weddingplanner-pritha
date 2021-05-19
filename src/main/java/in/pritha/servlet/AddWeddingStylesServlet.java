@@ -22,8 +22,9 @@ public class AddWeddingStylesServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException{
 		String styleName = request.getParameter("styleName");
 		Integer packages = Integer.parseInt(request.getParameter("package"));
 		WeddingStyle style = new WeddingStyle(styleName, packages);
@@ -37,16 +38,15 @@ public class AddWeddingStylesServlet extends HttpServlet {
 				response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
 			}
 
-		} catch (IllegalArgumentException e) {
+		} catch (RuntimeException | IOException e) {
 			String errorMessage = e.getMessage();
-			response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
+			try {
+				response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
-		} catch (RuntimeException e) {
-			String errorMessage = e.getMessage();
-			response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
-			e.printStackTrace();
-		}
-
+		} 
 	}
 
 }
