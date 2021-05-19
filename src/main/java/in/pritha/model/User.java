@@ -1,5 +1,8 @@
 package in.pritha.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class User {
 	
 	private String userName;
@@ -7,7 +10,9 @@ public class User {
 	private Long mobileNo;
 	private String createPassword;
 	private String confirmPassword;
-	
+	private LocalDate weddingDate;
+	private LocalTime weddingTime;
+	private String weddingLocation;
 	/**
 	 * This method return the userName
 	 * @return
@@ -41,6 +46,24 @@ public class User {
 	 */
 	public String getConfirmPassword() {
 		return confirmPassword;
+	}
+	/**
+	 * This method return Wedding Date
+	 */
+	public LocalDate getWeddingDate() {
+		return weddingDate;
+	}
+	/**
+	 * This method return Wedding Time
+	 */
+	public LocalTime getWeddingTime() {
+		return weddingTime;
+	}
+	/**
+	 * This method return Wedding Location
+	 */
+	public String getLocation() {
+		return weddingLocation;
 	}
 	/**
 	 * Private constructor to initialize fields
@@ -77,14 +100,27 @@ public class User {
 		this.userName = userName;
 		this.passWord = passWord;
 	}
+
+	public User(String userName, LocalDate weddingDate, LocalTime weddingTime, String weddingLocation) {
+		super();
+		this.userName = userName;
+		this.weddingDate = weddingDate;
+		this.weddingTime = weddingTime;
+		this.weddingLocation = weddingLocation;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userName=" + userName + ", passWord=" + passWord + ", mobileNo=" + mobileNo + ", createPassword="
+				+ createPassword + ", confirmPassword=" + confirmPassword + ", weddingDate=" + weddingDate
+				+ ", weddingTime=" + weddingTime + ", weddingLocation=" + weddingLocation + "]";
+	}
+	
+
 	/**
 	 * to string method
 	 */
-	@Override
-	public String toString() {
-		return "User [userName=" + userName + ", passWord=" + passWord + ", createPassword=" + createPassword
-				+ ", confirmPassword=" + confirmPassword + "]";
-	}
+	
 	
 	
 
