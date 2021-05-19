@@ -23,7 +23,7 @@ public class RegisterServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		//1-Get Form values
 				String username = request.getParameter("Username");
 				String password = request.getParameter("Password");
@@ -31,23 +31,24 @@ public class RegisterServlet extends HttpServlet {
 			//set values
 				User user = new User(username,password,mobileno);
 			//2-Call Service
-				boolean isNewUser=true;
+				
 				try {
 					//3-call service
-					UserLoginService.register(user);
-				} catch (ClassNotFoundException | SQLException e) {
-	
+					boolean isNewUser=UserLoginService.register(user);
+					if(isNewUser){
+						HttpSession session = request.getSession();
+						session.setAttribute("RegisteredUser",username);
+						session.setAttribute("Role","Customer");
+						response.sendRedirect("LoginJSP.jsp");
+					}
+					else {
+						response.sendRedirect("register.jsp?errorMessage=Invalid register Credentials");
+					}
+				} catch (ClassNotFoundException | SQLException | IOException e) {
 					e.printStackTrace();
 				}
-				if(isNewUser){
-					HttpSession session = request.getSession();
-					session.setAttribute("RegisteredUser",username);
-					session.setAttribute("Role","Customer");
-					response.sendRedirect("LoginJSP.jsp");
-				}
-				else {
-					response.sendRedirect("register.jsp?errorMessage=Invalid register Credentials");
-				}
+				
+				
 	}
 
 }
