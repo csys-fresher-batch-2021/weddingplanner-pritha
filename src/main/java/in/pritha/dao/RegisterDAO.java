@@ -7,9 +7,9 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-
+import in.pritha.exception.DBException;
 import in.pritha.util.ConnectionUtil;
-import in.pritha.util.Logger;
+
 
 public class RegisterDAO {
 
@@ -17,38 +17,42 @@ public class RegisterDAO {
 
 	}
 
-	public static void addUser(String userName, String passWord)  {
+	public static void addUser(String userName, String passWord) throws DBException  {
 
 		Connection connection = null;
+		PreparedStatement pst = null;
 		try {
 			connection = ConnectionUtil.getConnection();
 
 			String sql = "insert into user_details( username,password) values (?,?)";
 
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst= connection.prepareStatement(sql);
 			pst.setString(1, userName.toUpperCase()); // to avoid case sensitive
 			pst.setString(2, passWord);
 
-			int rows = pst.executeUpdate();
-			Logger.println("No.of.rows.inserted " + rows);
-		} catch (ClassNotFoundException | SQLException e) {
+			 pst.executeUpdate();
 			
+		} catch (ClassNotFoundException | SQLException e) {			
 			e.printStackTrace();
-		}
+			e.getMessage();
+			throw new DBException(e,"Unable to add user details in db");
+		}finally {
 
-		ConnectionUtil.close(connection);
+		ConnectionUtil.close(pst,connection);
+		}
 	}
 
-	public static Map<String, String> getAllUserDetails() {
+	public static Map<String, String> getAllUserDetails() throws DBException {
 		final Map<String, String> userListMap = new HashMap<>();
 		// Step 1: get Connection
 		Connection connection = null;
+		PreparedStatement pst = null;
 		try {
 			connection = ConnectionUtil.getConnection();
 			// Step 2: Query Statement
 			String sql = "select * from user_Details";
 			// Step 3: Execute Query
-			PreparedStatement pst = connection.prepareStatement(sql);
+			pst = connection.prepareStatement(sql);
 			ResultSet result = pst.executeQuery();
 			while (result.next()) {
 				// Getting the Values
@@ -58,33 +62,40 @@ public class RegisterDAO {
 				userListMap.put(userName, passWord);
 			}
 		} catch (ClassNotFoundException | SQLException e) {
+			e.getMessage();
 			e.printStackTrace();
+			throw new DBException(e,"Can't list user details in db");
 		}
-		ConnectionUtil.close(connection);
+		finally {
+		ConnectionUtil.close(pst,connection);
+		}
 		return userListMap;
 	}
 
-	public static void modifyUserPassWord(String userName, String modifiedPassWord)
+	public static void modifyUserPassWord(String userName, String modifiedPassWord) throws DBException
 			{
 
 		Connection connection = null;
+		PreparedStatement pst=null;
 		try {
 			connection = ConnectionUtil.getConnection();
 
 			String sql = "update user_Details set password=? where username=?";
 			// 4-execute query
 
-			PreparedStatement pst = connection.prepareStatement(sql);
+			 pst = connection.prepareStatement(sql);
 			pst.setString(2, userName.toUpperCase()); // to avoid case sensitive
 			pst.setString(1, modifiedPassWord);
 
-			int rows = pst.executeUpdate();
-			Logger.println("No.of.rows.updated " + rows);
+			pst.executeUpdate();
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			e.getMessage();
+			throw new DBException(e,"can't modify password in db");
+			
 		} finally {
 		// 5-release connection
-		ConnectionUtil.close(connection);
+		ConnectionUtil.close(pst, connection);
 	}
 	}
 

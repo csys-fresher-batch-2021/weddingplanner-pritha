@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 import in.pritha.service.UserLoginService;
 
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
 				
 			}
 			
-		} catch (ClassNotFoundException | SQLException  | IOException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 		} 
 	

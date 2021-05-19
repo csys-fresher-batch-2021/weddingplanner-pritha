@@ -5,25 +5,35 @@ import java.sql.SQLException;
 import java.util.Map;
 
 import in.pritha.dao.RegisterDAO;
+import in.pritha.exception.DBException;
 import in.pritha.exception.MyException;
+import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 import in.pritha.validator.UserValidator;
 
 
 public class UserLoginService{
-	
+	 private UserLoginService() {
+		 //private constructor
+	 }
 	
 	
 	//1-Validator
 	//2-db
 	//3-sendNotification
 	
-	public static boolean register(User user) throws ClassNotFoundException, SQLException {
+	public static boolean register(User user) throws ServiceException  {
 		boolean validUser = true;
 		//validate it
 		if(!(UserValidator.isExistingUser(user.getuserName(),user.getpassWord()))){
 			validUser=false;
-			RegisterDAO.addUser(user.getuserName(), user.getpassWord());
+			try {
+				RegisterDAO.addUser(user.getuserName(), user.getpassWord());
+			} catch (DBException e) {
+				e.printStackTrace();
+				throw new ServiceException("You can't register!.Check your details");
+				
+			}
 		}
 		else {
 			throw new MyException("Your Details Already Exist!.You can sign in!");
@@ -41,7 +51,7 @@ public class UserLoginService{
 	 * @throws SQLException 
 	 * @throws ClassNotFoundException 
 	 */
-	public static boolean login(User user) throws ClassNotFoundException, SQLException {
+	public static boolean login(User user)  {
 		boolean validUser = false;
 		//validate it
 		if(UserValidator.isExistingUser(user.getuserName(),user.getpassWord())){
@@ -57,19 +67,31 @@ public class UserLoginService{
 	 * This method gets all the available users with their passwords
 	 * 
 	 * @return weddingStylesMap
+	 * @throws ServiceException 
 	 */
-	public static Map<String, String> getUserLists() {
+	public static Map<String, String> getUserLists() throws ServiceException {
 		Map<String, String> allUserDetails = null;
-		allUserDetails= RegisterDAO.getAllUserDetails();
+		try {
+			allUserDetails= RegisterDAO.getAllUserDetails();
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException("User Details cant be displayed");
+		}
 		return allUserDetails;
 	}
 
-	public static boolean createAndConfirmPassword(User user) throws MyException, ClassNotFoundException, SQLException{
+	public static boolean createAndConfirmPassword(User user) throws MyException, ServiceException{
 		boolean isPasswordMatched = false;
 		
 			if(UserValidator.isMatchedPassword(user.getCreatePassword(),user.getConfirmPassword())) {
 		
-					RegisterDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
+					try {
+						RegisterDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
+					} catch (DBException e) {
+						e.printStackTrace();
+						throw new ServiceException("Password can't changed");
+						
+					}
 					isPasswordMatched = true;
 				} 
 				

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 import in.pritha.service.UserLoginService;
 
@@ -45,7 +46,7 @@ public class RegisterServlet extends HttpServlet {
 					else {
 						response.sendRedirect("register.jsp?errorMessage=Invalid register Credentials");
 					}
-				} catch (ClassNotFoundException | SQLException | IOException e) {
+				} catch (  IOException | ServiceException e) {
 					e.printStackTrace();
 				}
 				

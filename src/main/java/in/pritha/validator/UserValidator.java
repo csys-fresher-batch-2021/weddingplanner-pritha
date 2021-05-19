@@ -1,6 +1,6 @@
 package in.pritha.validator;
 import in.pritha.exception.MyException;
-
+import in.pritha.exception.ServiceException;
 
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -9,8 +9,11 @@ import java.util.regex.Pattern;
 import in.pritha.service.UserLoginService;
 
 public class UserValidator {
+	private UserValidator() {
+		//private constructor
+	}
 	
-	public static boolean isExistingUser(String userName , String passWord) {
+	public static boolean isExistingUser(String userName , String passWord) throws ServiceException {
 		boolean loggedInUser=false;
 		if(StringValidator.isValidString(userName) && UserValidator.isvalidPassWord(passWord)){
 			Set<String> keys = UserLoginService.getUserLists().keySet();
@@ -44,6 +47,7 @@ public class UserValidator {
         // return false
         if (passWord == null) {
             return false;
+          
         }
         // Pattern class contains matcher() method
         // to find matching between given password
@@ -62,13 +66,13 @@ public class UserValidator {
 			isEqual = true;
 			}
 			else {
-			MyException me =new MyException("Created and Confirmed Password doesn't match");
-            throw me; 
+		 throw new MyException("Created and Confirmed Password doesn't match");
+            
 			}
 		}
 		else {
-			MyException me =new MyException("Your Password must be like this eg.Prit@7172");
-            throw me; 
+			throw new MyException("Your Password must be like this eg.Prit@7172");
+            
 		}
 		
 	return isEqual;
