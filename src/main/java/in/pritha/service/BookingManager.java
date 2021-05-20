@@ -8,6 +8,8 @@ import in.pritha.model.User;
 import in.pritha.validator.BookingDateTimeValidator;
 
 public class BookingManager {
+	private BookingManager() {
+	}
 
 	public static boolean booking(User user) throws ServiceException, DBException {
 		//1-validate

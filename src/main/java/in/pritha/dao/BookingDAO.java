@@ -35,7 +35,7 @@ public class BookingDAO {
 			pst.setTime(3, Time.valueOf(weddingTime));
 			pst.setString(4, weddingLocation);
 	         pst.executeUpdate();
-			//System.out.println("No.of.rows.inserted "+rows);
+			
 		//5-release connection
 
 		}catch(SQLException  | ClassNotFoundException e) {

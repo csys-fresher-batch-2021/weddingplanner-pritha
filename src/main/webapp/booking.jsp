@@ -9,7 +9,7 @@
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-  <h1><b>BOOKING</b></h1>
+  <h1><strong>BOOKING</strong>></h1>
         <br><br/>
     <form action="BookingServlet">
             <label for="weddingdate"><strong>Select Your Wedding Date</strong>> </label>

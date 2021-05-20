@@ -6,6 +6,10 @@ import java.time.LocalTime;
 import in.pritha.exception.MyException;
 
 public class BookingDateTimeValidator {
+	
+	private BookingDateTimeValidator() {
+		
+	}
 	/**
 	 * This method checks the date and time by the user
 	 * @param wedDate
@@ -19,11 +23,11 @@ public class BookingDateTimeValidator {
 
 		if ((wedDate.isBefore(currentdate)) || (wedTime.isBefore(currenttime))
 				|| (wedDate.isEqual(currentdate))) {
-			valid = false;
+			
 			throw new MyException("Your Entered Date/time is incorrect");
 		}
 		if(!(StringValidator.isValidString(wedLocation))) {
-			valid=false;
+			
 			throw new MyException("Your Location is incorrect");
 		}
 
