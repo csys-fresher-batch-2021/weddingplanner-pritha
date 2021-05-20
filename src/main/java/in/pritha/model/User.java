@@ -1,5 +1,8 @@
 package in.pritha.model;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 public class User {
 	
 	private String userName;
@@ -7,6 +10,12 @@ public class User {
 	private Long mobileNo;
 	private String createPassword;
 	private String confirmPassword;
+	private LocalDate weddingDate;
+	
+
+	private LocalTime weddingTime;
+	private String weddingLocation;
+	
 	
 	/**
 	 * This method return the userName
@@ -43,6 +52,24 @@ public class User {
 		return confirmPassword;
 	}
 	/**
+	 * This method return weddingdate
+	 */
+	public LocalDate getWeddingDate() {
+		return weddingDate;
+	}
+	/**
+	 * This method return weddingtime
+	 */
+	public LocalTime getWeddingTime() {
+		return weddingTime;
+	}
+	/**
+	 * This method return weddingdate
+	 */
+	public String getWeddingLocation() {
+		return weddingLocation;
+	}
+	/**
 	 * Private constructor to initialize fields
 	 * @param createPassword
 	 * @param confirmPassword
@@ -77,6 +104,20 @@ public class User {
 		this.userName = userName;
 		this.passWord = passWord;
 	}
+	/**
+	 * Private constructor to avoid object creation
+	 * @param weddingDate
+	 * @param weddingTime
+	 * @param weddingLocation
+	 */
+	public User(String userName ,LocalDate weddingDate, LocalTime weddingTime, String weddingLocation) {
+		super();
+		this.userName= userName;
+		this.weddingDate = weddingDate;
+		this.weddingTime = weddingTime;
+		this.weddingLocation = weddingLocation;
+	}
+
 	/**
 	 * to string method
 	 */

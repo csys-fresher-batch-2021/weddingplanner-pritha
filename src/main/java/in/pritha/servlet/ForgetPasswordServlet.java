@@ -23,7 +23,7 @@ public class ForgetPasswordServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 		
 		String createpassword = request.getParameter("CreatePassword");
 		String confirmpassword = request.getParameter("ConfirmPassword");
@@ -44,9 +44,13 @@ public class ForgetPasswordServlet extends HttpServlet {
 				String errorMessage = "Unable to change your password";
 				response.sendRedirect("forgetpassword.jsp?infoMessage=" + errorMessage);
 			}
-		} catch (MyException e) {
+		} catch (MyException | IOException e) {
 			String errorMessage = e.getMessage();
-			response.sendRedirect("forgetpassword.jsp?errorMessage=" + errorMessage);
+			try {
+				response.sendRedirect("forgetpassword.jsp?errorMessage=" + errorMessage);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			e.printStackTrace();
 		} 
 	}

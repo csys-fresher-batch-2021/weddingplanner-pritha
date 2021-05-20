@@ -19,8 +19,9 @@
 	<h3 id="heading">Wedding Styles</h3>
 	<br><br/>
 	<table class="table table-bordered">
+	<caption>Wedding Styles with Packages</caption>
 	<thead>
-	<tr><th>S.no</th><th>Wedding Styles</th><th>Package(Rs)</th></tr>
+	<tr><th scope="col">S.no</th><th scope="col">Wedding Styles</th><th scope="col">Package(Rs)</th></tr>
 	</thead>
 	<tbody>
 	<%-- <% Scriplets---> to write java code%>

@@ -2,17 +2,21 @@ package in.pritha.util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 
 
 public class ConnectionUtil {
 	
-	
+	private ConnectionUtil() {
+		
+	}
 
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
 		String driverClass = "org.postgresql.Driver";
-		String url = "jdbc:postgresql://localhost/login_db";
+		String url = "jdbc:postgresql://localhost/weddingapp_db";
 		String username = "postgres";
 		String password = "Cedricliahh@36";
 		// Step 1: Load the jdbc driver in memory
@@ -22,11 +26,25 @@ public class ConnectionUtil {
 		System.out.println("Connection Created");
 		return connection;
 	}
-	public static void close(Connection con) {
+	public static void close(Statement pst, Connection con) {
 		try {
+			if (con != null && pst!=null) {
+				con.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void close(ResultSet rs,Statement pst, Connection con) {
+		try {
+			if(rs!=null) {
+				rs.close();
+			}
+			if(pst!=null) {
+				pst.close();
+				}
 			if (con != null) {
 				con.close();
-				System.out.println("Connection Released");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
 	//1-Get Form values
 		String username = request.getParameter("Username");
 		String password = request.getParameter("Password");
@@ -43,12 +43,20 @@ public class LoginServlet extends HttpServlet {
 			session.setAttribute("VerfiedLoggedInUser",username);
 			session.setAttribute("Role","Customer");
 			String infoMessage = "Successfully logged In";
-			response.sendRedirect("listweddingstyles.jsp?infoMessage="+infoMessage);
+			try {
+				response.sendRedirect("listweddingstyles.jsp?infoMessage="+infoMessage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 	
 		}
 		else {
 			String errorMessage = "Login failed";
-			response.sendRedirect("LoginJSP.jsp?errorMessage="+errorMessage);
+			try {
+				response.sendRedirect("LoginJSP.jsp?errorMessage="+errorMessage);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			
 		}
 		

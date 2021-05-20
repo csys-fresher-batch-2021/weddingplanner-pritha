@@ -14,7 +14,7 @@ import org.junit.runner.manipulation.Alphanumeric;
 import in.pritha.model.WeddingStyle;
 
 @OrderWith(Alphanumeric.class)
-public class Display_AddWeddingStyleTestCase {
+ class Display_AddWeddingStyleTestCase {
 
 	/**
 	 * This testcase will get all the lists of Wedding Style Types stored in HashMap
@@ -22,7 +22,7 @@ public class Display_AddWeddingStyleTestCase {
 	 */
 
 	@Test
-	public void testA_WeddingStylesListDisplay() {
+	 void testA_WeddingStylesListDisplay() {
 		Map<String, Integer> weddingStyles = WeddingStylesService.getWeddingStyles();
 		// assertEquals(expected,actual)
 		assertEquals(5, weddingStyles.size());
@@ -33,7 +33,7 @@ public class Display_AddWeddingStyleTestCase {
 	 * number of wedding styles availablity in HashMap
 	 */
 	@Test
-	public void testB_AddWeddingStylesWithNewStyleName() {
+	 void testB_AddWeddingStylesWithNewStyleName() {
 		WeddingStyle obj = new WeddingStyle("Modern Wedding", 60000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
@@ -49,10 +49,10 @@ public class Display_AddWeddingStyleTestCase {
 	 * exception
 	 */
 	@Rule
-	public ExpectedException exceptionRule = ExpectedException.none();
+	 ExpectedException exceptionRule = ExpectedException.none();
 
 	@Test
-	public void testC_AddWeddingStylesWithExistingStyleName() {
+	 void testC_AddWeddingStylesWithExistingStyleName() {
 		exceptionRule.expect(RuntimeException.class);
 		exceptionRule.expectMessage("This Wedding Style Name Already Exists!");
 		WeddingStyle obj = new WeddingStyle("Modern Wedding",60000);
@@ -65,7 +65,7 @@ public class Display_AddWeddingStyleTestCase {
 	 * style. Then, it tests the number of wedding styles availablity in HashMap
 	 */
 	@Test
-	public void testD_AddWeddingStylesWithValidInput() {
+	 void testD_AddWeddingStylesWithValidInput() {
 		WeddingStyle obj = new WeddingStyle("Outdoor Wedding", 50000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
@@ -80,7 +80,7 @@ public class Display_AddWeddingStyleTestCase {
 	 * HashMap- it should throw exception
 	 */
 	@Test
-	public void testE_AddWeddingStylesWithInvalidInput() {
+	 void testE_AddWeddingStylesWithInvalidInput() {
 		exceptionRule.expect(NullPointerException.class);
 		exceptionRule.expectMessage("Invalid input");
 		WeddingStyle obj = new WeddingStyle("  ", 0);

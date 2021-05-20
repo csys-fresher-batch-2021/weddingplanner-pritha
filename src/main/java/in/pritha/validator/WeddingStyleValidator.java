@@ -1,5 +1,6 @@
 package in.pritha.validator;
 
+import in.pritha.exception.MyException;
 import in.pritha.service.WeddingStylesService;
 
 public class WeddingStyleValidator {
@@ -22,10 +23,10 @@ public class WeddingStyleValidator {
 		if (StringValidator.isValidString(styleName) && NumberValidator.isValidNumber(packages)) {
 			if (WeddingStylesService.getWeddingStyles().containsKey(styleName.toUpperCase())) {
 				isValidToAdd = false;
-				throw new RuntimeException("This Wedding Style Name Already Exists!");
+				throw new MyException("This Wedding Style Name Already Exists!");
 			}
 		} else {
-			throw new IllegalArgumentException("Entered StyleName or Package is invalid");
+			throw new MyException("Entered StyleName or Package is invalid");
 		}
 		return isValidToAdd;
 		

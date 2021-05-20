@@ -1,10 +1,11 @@
 package in.pritha.service;
 
 import java.sql.SQLException;
-import java.util.HashMap;
+
 import java.util.Map;
 
 import in.pritha.dao.LoginDAO;
+import in.pritha.exception.DBException;
 import in.pritha.exception.MyException;
 import in.pritha.model.User;
 import in.pritha.validator.UserValidator;
@@ -12,7 +13,9 @@ import in.pritha.validator.UserValidator;
 
 public class UserLoginService{
 	
-	
+	private UserLoginService(){
+		
+	}
 	
 	//1-Validator
 	//2-db
@@ -23,7 +26,11 @@ public class UserLoginService{
 		//validate it
 		if(!(UserValidator.isExistingUser(user.getuserName(),user.getpassWord()))){
 			validUser=false;
-			LoginDAO.addUser(user.getuserName(), user.getpassWord());
+			try {
+				LoginDAO.addUser(user.getuserName(), user.getpassWord());
+			} catch (DBException e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			throw new MyException("Your Details Already Exist!.You can sign in!");
@@ -48,7 +55,7 @@ public class UserLoginService{
 			validUser=true;
 		}
 		else {
-			throw new MyException("Your Details doesn't Exist!.You have to sin up!");
+			throw new MyException("Your Details doesn't Exist!.You have to sign up!");
 		}
 		return validUser;
 	}
@@ -62,9 +69,9 @@ public class UserLoginService{
 		Map<String, String> allUserDetails = null;
 		try {
 			allUserDetails= LoginDAO.getAllUserDetails();
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (DBException e) {
 			e.printStackTrace();
-			throw new RuntimeException("Can't fetch user details");
+			throw new MyException("Can't fetch user details");
 		}
 		return allUserDetails;
 	}
@@ -74,7 +81,13 @@ public class UserLoginService{
 		
 			if(UserValidator.isMatchedPassword(user.getCreatePassword(),user.getConfirmPassword())) {
 		
-					LoginDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
+					try {
+						LoginDAO.modifyUserPassWord(user.getuserName(), user.getConfirmPassword());
+					} catch (DBException e) {
+						e.printStackTrace();
+						throw new MyException("Can't modify password");
+						
+					}
 					isPasswordMatched = true;
 				} 
 				

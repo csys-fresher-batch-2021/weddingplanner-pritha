@@ -14,6 +14,7 @@ import in.pritha.service.WeddingStylesService;
 /**
  * Servlet implementation class AddWeddingStylesServlet
  */
+
 @WebServlet("/AddWeddingStylesServlet")
 public class AddWeddingStylesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,7 +25,7 @@ public class AddWeddingStylesServlet extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+			throws ServletException {
 		String styleName = request.getParameter("styleName");
 		Integer packages = Integer.parseInt(request.getParameter("package"));
 		WeddingStyle style = new WeddingStyle(styleName, packages);
@@ -38,15 +39,11 @@ public class AddWeddingStylesServlet extends HttpServlet {
 				response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
 			}
 
-		} catch (IllegalArgumentException e) {
-			String errorMessage = e.getMessage();
-			response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
+		} catch (RuntimeException | IOException e) {
+			//String errorMessage = e.getMessage();
+			//response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
 			e.printStackTrace();
-		} catch (RuntimeException e) {
-			String errorMessage = e.getMessage();
-			response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
-			e.printStackTrace();
-		}
+		} 
 
 	}
 
