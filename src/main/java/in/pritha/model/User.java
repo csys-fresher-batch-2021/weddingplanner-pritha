@@ -62,7 +62,7 @@ public class User {
 	/**
 	 * This method return Wedding Location
 	 */
-	public String getLocation() {
+	public String getWeddingLocation() {
 		return weddingLocation;
 	}
 	/**
