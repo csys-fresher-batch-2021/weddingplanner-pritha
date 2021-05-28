@@ -7,9 +7,7 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 public class LocalDateAdapter implements JsonSerializer<LocalDate> {
-	private LocalDateAdapter() {
-		
-	}
+	
 	public JsonElement serialize(LocalDate localDate, Type type, JsonSerializationContext jsonSerializationContext) {
 		return new JsonPrimitive(localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
 	}

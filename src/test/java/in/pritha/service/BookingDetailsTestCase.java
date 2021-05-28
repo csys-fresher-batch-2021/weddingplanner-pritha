@@ -14,7 +14,7 @@ import in.pritha.exception.DBException;
 import in.pritha.exception.MyException;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Booking;
-import in.pritha.model.User;
+
 
  class BookingDetailsTestCase {
 

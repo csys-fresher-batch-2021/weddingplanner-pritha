@@ -11,9 +11,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
 public class LocalTimeAdapter implements JsonSerializer<LocalTime> {
-	private LocalTimeAdapter() {
-		
-	}
+	
 	 
 		public JsonElement serialize(LocalTime localTime, Type type, JsonSerializationContext jsonSerializationContext) {
 			return new JsonPrimitive(localTime.format(DateTimeFormatter.ofPattern("HH:mm:ss")));

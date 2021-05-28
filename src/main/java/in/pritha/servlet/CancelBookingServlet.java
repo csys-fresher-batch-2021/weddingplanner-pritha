@@ -1,10 +1,7 @@
 package in.pritha.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalTime;
-import java.util.List;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,13 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import in.pritha.model.Booking;
 import in.pritha.service.BookingManager;
-import in.pritha.util.LocalDateAdapter;
-import in.pritha.util.LocalTimeAdapter;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -30,7 +21,7 @@ import in.pritha.util.ServletUtil;
 public class CancelBookingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		try {
 			// Step 1: called service and Convert to Json string

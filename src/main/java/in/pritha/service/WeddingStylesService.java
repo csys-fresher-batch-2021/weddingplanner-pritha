@@ -42,12 +42,18 @@ public class WeddingStylesService {
 	 * @param styleName
 	 * @param packages
 	 * @return true if the new wedding style gets added
+	 * @throws ServiceException 
 	 */
-	public static boolean addWeddingStyles(WeddingStyle obj) {
+	public static boolean addWeddingStyles(WeddingStyle obj) throws ServiceException {
 		boolean isAdded = false;
-		if(WeddingStyleValidator.isValidToAdd(obj.getWeddingStyles(), obj.getPackages())) {
-			weddingStylesMap.put(obj.getWeddingStyles().toUpperCase(), obj.getPackages());
-			isAdded = true;
+		try {
+			if(WeddingStyleValidator.isValidToAdd(obj.getWeddingStyles(), obj.getPackages())) {
+				weddingStylesMap.put(obj.getWeddingStyles().toUpperCase(), obj.getPackages());
+				isAdded = true;
+			}
+		} catch (ServiceException e) {
+			throw new ServiceException("Can't add wedding style");
+			
 		}
 		return isAdded;	
 	}

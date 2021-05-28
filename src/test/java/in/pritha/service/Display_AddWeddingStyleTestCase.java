@@ -40,11 +40,12 @@ class Display_AddWeddingStyleTestCase {
 	/**
 	 * This testcase will add the new Wedding Style to HashMap Then, it tests the
 	 * number of wedding styles availablity in HashMap
+	 * @throws ServiceException 
 	 */
 
 	@Test
 	@Order(2)
-	void testB_AddWeddingStylesWithNewStyleName() {
+	void testB_AddWeddingStylesWithNewStyleName() throws ServiceException {
 		WeddingStyle obj = new WeddingStyle("Modern Wedding", 60000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
@@ -82,11 +83,12 @@ class Display_AddWeddingStyleTestCase {
 	/**
 	 * This testcase will add the new Wedding Style to HashMap with valid wedding
 	 * style. Then, it tests the number of wedding styles availablity in HashMap
+	 * @throws ServiceException 
 	 */
 
 	@Test
 	@Order(4)
-	void testD_AddWeddingStylesWithValidInput() {
+	void testD_AddWeddingStylesWithValidInput() throws ServiceException  {
 		WeddingStyle obj = new WeddingStyle("Outdoor Wedding", 50000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);

@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import in.pritha.exception.ServiceException;
 import in.pritha.model.WeddingStyle;
 import in.pritha.service.WeddingStylesService;
+import in.pritha.util.ServletUtil;
 
 /**
  * Servlet implementation class AddWeddingStylesServlet
@@ -38,13 +40,9 @@ public class AddWeddingStylesServlet extends HttpServlet {
 				response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
 			}
 
-		} catch (RuntimeException | IOException e) {
-			String errorMessage = e.getMessage();
-			try {
-				response.sendRedirect("addweddingstyles.jsp?errorMessage=" + errorMessage);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
+		} catch (RuntimeException | IOException | ServiceException e) {
+			ServletUtil.sendRedirect(response, "addweddingstyles.jsp");
+			
 			e.printStackTrace();
 		} 
 	}

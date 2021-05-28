@@ -3,7 +3,7 @@ package in.pritha.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
 import java.util.List;
 
@@ -21,7 +21,7 @@ import com.google.gson.GsonBuilder;
 import in.pritha.model.Booking;
 import in.pritha.service.BookingManager;
 import in.pritha.util.LocalDateAdapter;
-import in.pritha.util.LocalDateTimeAdapter;
+
 import in.pritha.util.LocalTimeAdapter;
 import in.pritha.util.ServletUtil;
 

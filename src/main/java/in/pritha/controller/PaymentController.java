@@ -6,7 +6,7 @@ import in.pritha.model.Payment;
 import in.pritha.service.PaymentManager;
 
 public class PaymentController {
-	private PaymentController() {
+	public PaymentController() {
 		
 	}
 	public String validateCard(String cardType, String cardUserName, Long cardNumber, LocalDate cardExpiryDate, Integer cvv, Integer amount, String purpose        ) {

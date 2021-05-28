@@ -18,11 +18,11 @@ import javax.servlet.http.HttpSession;
 import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Booking;
-import in.pritha.model.User;
+
 import in.pritha.model.WeddingStyle;
 import in.pritha.service.BookingManager;
 import in.pritha.service.BudgetEstimationService;
-import in.pritha.util.ServletUtil;
+
 
 
 /**

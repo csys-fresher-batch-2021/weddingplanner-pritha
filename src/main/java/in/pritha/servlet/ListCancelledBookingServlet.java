@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Booking;
 import in.pritha.service.BookingManager;
-import in.pritha.util.ServletUtil;
+
 
 /**
  * Servlet implementation class ListCancelledBookingServlet
