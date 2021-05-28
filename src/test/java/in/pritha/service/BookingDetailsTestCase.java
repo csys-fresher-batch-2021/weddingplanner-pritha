@@ -13,7 +13,8 @@ import org.junit.jupiter.api.Test;
 import in.pritha.exception.DBException;
 import in.pritha.exception.MyException;
 import in.pritha.exception.ServiceException;
-import in.pritha.model.User;
+import in.pritha.model.Booking;
+
 
  class BookingDetailsTestCase {
 
@@ -23,8 +24,8 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase1() throws ServiceException, DBException {
-		User user = new User("pritha",LocalDate.of(2021, 05, 21), LocalTime.of(14, 47, 33),"chennai");
-		boolean valid = BookingManager.booking(user);
+		Booking booking = new Booking("pritha",LocalDate.of(2021, 05, 21), LocalTime.of(14, 47, 33),"chennai");
+		boolean valid = BookingManager.validateBooking(booking);
 		// assertExpected(actual)
 		assertTrue(valid);
 	}
@@ -35,9 +36,9 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase2() throws ServiceException, DBException {
-		User user = new User("karthi",LocalDate.of(2021, 05, 17), LocalTime.of(21, 47, 33),"chennai");
+		Booking booking= new Booking("karthi",LocalDate.of(2021, 05, 17), LocalTime.of(21, 47, 33),"chennai");
 		Exception exception = assertThrows(MyException.class, () -> {
-			boolean valid = BookingManager.booking(user);
+			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
 		assertEquals("Your Entered Date/time is incorrect", exception.getMessage());
@@ -50,9 +51,9 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase3() throws ServiceException, DBException {
-		User user = new User("nishanth",LocalDate.of(2021, 05, 19), LocalTime.of(21, 51, 33),"chennai");
+		Booking booking = new Booking("nishanth",LocalDate.of(2021, 05, 19), LocalTime.of(21, 51, 33),"chennai");
 		Exception exception = assertThrows(MyException.class, () -> {
-			boolean valid = BookingManager.booking(user);
+			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
 		assertEquals("Your Entered Date/time is incorrect", exception.getMessage());
@@ -65,9 +66,9 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase4() throws ServiceException, DBException {
-		User user = new User("gayathri",LocalDate.of(2021, 05, 19), LocalTime.of(21, 47, 33),"chennai");
+		Booking booking = new Booking("gayathri",LocalDate.of(2021, 05, 19), LocalTime.of(21, 47, 33),"chennai");
 		Exception exception = assertThrows(MyException.class, () -> {
-			boolean valid = BookingManager.booking(user);
+			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
 		assertEquals("Your Entered Date/time is incorrect", exception.getMessage());
@@ -81,9 +82,9 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase5() throws ServiceException, DBException {
-		User user = new User("suresh",LocalDate.of(2021, 05, 19), LocalTime.of(21, 50, 30),"chennai");
+		Booking booking = new Booking("suresh",LocalDate.of(2021, 05, 19), LocalTime.of(21, 50, 30),"chennai");
 		Exception exception = assertThrows(MyException.class, () -> {
-			boolean valid = BookingManager.booking(user);
+			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
 		assertEquals("Your Entered Date/time is incorrect", exception.getMessage());
@@ -95,9 +96,9 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase6() throws ServiceException, DBException {
-		User user = new User("pravin",LocalDate.of(2020, 05, 19), LocalTime.of(22, 47, 33),"chennai");
+		Booking booking = new Booking("pravin",LocalDate.of(2020, 05, 19), LocalTime.of(22, 47, 33),"chennai");
 		Exception exception = assertThrows(MyException.class, () -> {
-			boolean valid = BookingManager.booking(user);
+			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
 		assertEquals("Your Entered Date/time is incorrect", exception.getMessage());
@@ -110,9 +111,9 @@ import in.pritha.model.User;
 	 */
 	@Test
 	 void dateTimevalidateTestCase7() throws ServiceException, DBException {
-		User user = new User("prasath",LocalDate.of(2020, 05, 19), LocalTime.of(21, 50, 33),"chennai");
+		Booking booking = new Booking("prasath",LocalDate.of(2020, 05, 19), LocalTime.of(21, 50, 33),"chennai");
 		Exception exception = assertThrows(MyException.class, () -> {
-			boolean valid = BookingManager.booking(user);
+			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
 		assertEquals("Your Entered Date/time is incorrect", exception.getMessage());

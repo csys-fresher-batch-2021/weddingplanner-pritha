@@ -19,20 +19,20 @@ public class BookingDateTimeValidator {
 	public static boolean dateTimeValidator(LocalDate wedDate, LocalTime wedTime, String wedLocation) {
 		boolean valid = false;
 		LocalDate currentdate = LocalDate.now(); // current date //
-		LocalTime currenttime = LocalTime.now();// current time //
-
-		if ((wedDate.isBefore(currentdate)) || (wedTime.isBefore(currenttime))
+		LocalTime time1 = LocalTime.parse("04:00:00"); //from 4 am to 4 pm should be the wedding time//
+		LocalTime time2 = LocalTime.parse("16:00:00");
+		if ((wedDate.isBefore(currentdate)) || (wedTime.isBefore(time1) || wedTime.isAfter(time2))
 				|| (wedDate.isEqual(currentdate))) {
 			
 			throw new MyException("Your Entered Date/time is incorrect");
 		}
+		else {
+			valid=true;
+		}
+		
 		if(!(StringValidator.isValidString(wedLocation))) {
 			
 			throw new MyException("Your Location is incorrect");
-		}
-
-		if (wedDate.isAfter(currentdate) && wedTime.isAfter(currenttime)) {
-			valid = true;
 		}
 
 		return valid;

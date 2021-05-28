@@ -1,9 +1,14 @@
 package in.pritha.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
+import in.pritha.dao.WeddingAppDAO;
+import in.pritha.exception.DBException;
+import in.pritha.exception.ServiceException;
 import in.pritha.model.WeddingStyle;
 
 import in.pritha.validator.WeddingStyleValidator;
@@ -14,14 +19,19 @@ public class WeddingStylesService {
 	private WeddingStylesService() {
 		// to avoid object creation
 	}
-
+	private static final List<WeddingStyle> imagesList= new ArrayList<>();
 	// Static block gets executed when class is first loaded
 	static {
-		weddingStylesMap.put("TRADITIONAL WEDDING", 100000);
-		weddingStylesMap.put("FORMAL WEDDING", 80000);
-		weddingStylesMap.put("INFORMAL WEDDING", 90000);
-		weddingStylesMap.put("FESTIVAL WEDDING", 300000);
-		weddingStylesMap.put("VINTAGE STYLE WEDDING", 500000);
+		WeddingStyle wed1 = new WeddingStyle("traditional.jfif");
+		imagesList.add(wed1);
+		WeddingStyle wed2 = new WeddingStyle("formal.jpg");
+		imagesList.add(wed2);
+		WeddingStyle wed3 = new WeddingStyle("informal.jfif");
+		imagesList.add(wed3);
+		WeddingStyle wed4 = new WeddingStyle("vintage.jpg");
+		imagesList.add(wed4);
+		WeddingStyle wed5 = new WeddingStyle("festival.webp");
+		imagesList.add(wed5);
 	}
 
 	/**
@@ -32,12 +42,18 @@ public class WeddingStylesService {
 	 * @param styleName
 	 * @param packages
 	 * @return true if the new wedding style gets added
+	 * @throws ServiceException 
 	 */
-	public static boolean addWeddingStyles(WeddingStyle obj) {
+	public static boolean addWeddingStyles(WeddingStyle obj) throws ServiceException {
 		boolean isAdded = false;
-		if(WeddingStyleValidator.isValidToAdd(obj.getWeddingStyles(), obj.getPackages())) {
-			weddingStylesMap.put(obj.getWeddingStyles().toUpperCase(), obj.getPackages());
-			isAdded = true;
+		try {
+			if(WeddingStyleValidator.isValidToAdd(obj.getWeddingStyles(), obj.getPackages())) {
+				weddingStylesMap.put(obj.getWeddingStyles().toUpperCase(), obj.getPackages());
+				isAdded = true;
+			}
+		} catch (ServiceException e) {
+			throw new ServiceException("Can't add wedding style");
+			
 		}
 		return isAdded;	
 	}
@@ -46,9 +62,28 @@ public class WeddingStylesService {
 	 * This method gets all the available wedding styles with their package
 	 * 
 	 * @return weddingStylesMap
+	 * @throws ServiceException 
 	 */
-	public static Map<String, Integer> getWeddingStyles() {
-		return weddingStylesMap;
+	public static Map<String, Integer> getWeddingStyles() throws ServiceException {
+		Map<String, Integer> allWeddingStyles = null;
+		try {
+			allWeddingStyles= WeddingAppDAO.getAllWeddingStyles();
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException("Wedding styles cant be displayed");
+		}
+		return allWeddingStyles;
+	}
+
+	public static Map<String, Integer> getWeddingLocations() throws ServiceException {
+		Map<String, Integer> allWeddingLocations = null;
+		try {
+			allWeddingLocations= WeddingAppDAO.getAllWeddingLocations();
+		} catch (DBException e) {
+			e.printStackTrace();
+			throw new ServiceException("Wedding locations cant be displayed");
+		}
+		return allWeddingLocations;
 	}
 
 	
