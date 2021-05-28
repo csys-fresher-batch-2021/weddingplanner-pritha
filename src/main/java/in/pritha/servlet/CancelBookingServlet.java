@@ -1,0 +1,64 @@
+package in.pritha.servlet;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import in.pritha.model.Booking;
+import in.pritha.service.BookingManager;
+import in.pritha.util.LocalDateAdapter;
+import in.pritha.util.LocalTimeAdapter;
+import in.pritha.util.ServletUtil;
+
+/**
+ * Servlet implementation class CancelBookingServlet
+ */
+@WebServlet("/CancelBookingServlet")
+public class CancelBookingServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		try {
+			// Step 1: called service and Convert to Json string
+			
+			
+			System.out.println("CANCEL SERVLET");
+			HttpSession session = request.getSession();
+			String bookedUserName = (String) session.getAttribute("BookedUserName");
+			System.out.println(bookedUserName);
+			Integer bookingId = (Integer) session.getAttribute("BOOKING_ID");
+			System.out.println(bookingId);
+			String bookingStatus = (String) session.getAttribute("BOOKING_STATUS");
+			System.out.println(bookingStatus);
+			String reason = request.getParameter("reason");
+			System.out.println(reason);
+			boolean iscancelled = BookingManager.cancelBooking(bookingId,bookedUserName,bookingStatus,reason) ;
+			System.out.println(iscancelled);
+			RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp");
+			dispatcher.forward(request, response);
+				
+			}catch(Exception e){
+				ServletUtil.sendRedirect(response,"bookingsummary.jsp");
+			}
+
+		
+		
+
+	}
+
+	
+}

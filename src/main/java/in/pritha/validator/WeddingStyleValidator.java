@@ -1,5 +1,6 @@
 package in.pritha.validator;
 
+import in.pritha.exception.ServiceException;
 import in.pritha.service.WeddingStylesService;
 
 public class WeddingStyleValidator {
@@ -16,8 +17,9 @@ public class WeddingStyleValidator {
 	 * @param styleName
 	 * @param packages
 	 * @return true if the new wedding style and package is valid
+	 * @throws ServiceException 
 	 */
-	public static boolean isValidToAdd(String styleName, Integer packages) {
+	public static boolean isValidToAdd(String styleName, Integer packages) throws ServiceException {
 		boolean isValidToAdd = true;
 		if (StringValidator.isValidString(styleName) && NumberValidator.isValidNumber(packages)) {
 			if (WeddingStylesService.getWeddingStyles().containsKey(styleName.toUpperCase())) {

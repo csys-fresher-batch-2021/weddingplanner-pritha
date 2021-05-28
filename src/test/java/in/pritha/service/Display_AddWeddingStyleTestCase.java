@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
+import in.pritha.exception.ServiceException;
 import in.pritha.model.WeddingStyle;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -24,9 +25,16 @@ class Display_AddWeddingStyleTestCase {
 	@Test
 	@Order(1)
 	void testA_WeddingStylesListDisplay() {
-		Map<String, Integer> weddingStyles = WeddingStylesService.getWeddingStyles();
-		// assertEquals(expected,actual)
-		assertEquals(5, weddingStyles.size());
+		Map<String, Integer> weddingStyles;
+		try {
+			weddingStyles = WeddingStylesService.getWeddingStyles();
+			assertEquals(5, weddingStyles.size());
+		} catch (ServiceException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	/**
@@ -40,9 +48,15 @@ class Display_AddWeddingStyleTestCase {
 		WeddingStyle obj = new WeddingStyle("Modern Wedding", 60000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
-		Map<String, Integer> weddingStyles = WeddingStylesService.getWeddingStyles();
-		// assertEquals(expected,actual)
-		assertEquals(5 + 1, weddingStyles.size());
+		Map<String, Integer> weddingStyles;
+		try {
+			weddingStyles = WeddingStylesService.getWeddingStyles();
+			assertEquals(5 + 1, weddingStyles.size());
+		} catch (ServiceException e) {
+			
+			e.printStackTrace();
+		}
+		
 
 	}
 
@@ -76,9 +90,16 @@ class Display_AddWeddingStyleTestCase {
 		WeddingStyle obj = new WeddingStyle("Outdoor Wedding", 50000);
 		boolean isAdded = WeddingStylesService.addWeddingStyles(obj);
 		assertTrue(isAdded);
-		Map<String, Integer> weddingStyles = WeddingStylesService.getWeddingStyles();
-		// assertEquals(expected,actual)
-		assertEquals(6 + 1, weddingStyles.size());
+		Map<String, Integer> weddingStyles;
+		try {
+			weddingStyles = WeddingStylesService.getWeddingStyles();
+			assertEquals(6 + 1, weddingStyles.size());
+		} catch (ServiceException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	/**

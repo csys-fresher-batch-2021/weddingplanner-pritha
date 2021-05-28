@@ -1,19 +1,28 @@
 package in.pritha.servlet;
 
+
 import java.io.IOException;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
+import in.pritha.model.Booking;
 import in.pritha.model.User;
+import in.pritha.model.WeddingStyle;
 import in.pritha.service.BookingManager;
+import in.pritha.service.BudgetEstimationService;
+import in.pritha.util.ServletUtil;
 
 
 /**
@@ -31,23 +40,47 @@ public class BookingServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1-Get Form values
-		String username = request.getParameter("Username");
-		LocalDate weddingdate = LocalDate.parse(request.getParameter("wdate"));
-		LocalTime weddingtime =LocalTime.parse( request.getParameter("wtime"));
-		String weddinglocation = request.getParameter("wloc");
+		Integer bookingId= BookingManager.generateBookingId(1000,8888);
+		String status="BOOKED";
+		String userName = request.getParameter("BookingUsername");
+		LocalDate weddingDate = LocalDate.parse(request.getParameter("wdate"));
+		LocalTime weddingTime =LocalTime.parse( request.getParameter("wtime"));
+		String weddingLocation = request.getParameter("wloc");
+		String weddingStyle = request.getParameter("weddingstyles");
+		
+		String weddingStyleLocation = request.getParameter("locations");
+		
+		String weddingFoodType = request.getParameter("food");
+		
+		String weddingGuestCount = request.getParameter("guest");
+		
+		String weddingDecorType = request.getParameter("decor");
+		
 	//set values
-		User user = new User(username,weddingdate,weddingtime,weddinglocation);
+		
+		Booking booking = new Booking(bookingId,status,userName,weddingDate,weddingTime,weddingLocation,weddingStyle,weddingStyleLocation,weddingFoodType,weddingGuestCount,weddingDecorType);
+		WeddingStyle wed = new WeddingStyle(weddingStyle,weddingStyleLocation,weddingFoodType,weddingGuestCount,weddingDecorType);
+
 	//2-Call Service
 		try {
-			if(BookingManager.booking(user)) {
+			if(BookingManager.validateBooking(booking) ) {
+				
+				//create and set values to session
+				HttpSession session = request.getSession();
+				session.setAttribute("BOOKING_DETAIL", booking);
+				session.setAttribute("BookedUserName",userName);
+				session.setAttribute("BOOKING_ID", bookingId);
+				session.setAttribute("BOOKING_STATUS", status);
 				//3-redirect to next page if details are correct
-				String infoMessage = "You are eligible for Booking.Go ahead!";
-				response.sendRedirect("budgetestimation.jsp?infoMessage="+infoMessage);
+				
+			
+				Integer fare = BudgetEstimationService.fareEstimation(wed);
+				request.setAttribute("FARE", fare);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("bookingsummary.jsp");
+				dispatcher.forward(request, response);
+				
 			}
-			else {
-				String errorMessage = "Booking failed";
-				response.sendRedirect("booking.jsp?errorMessage="+errorMessage);
-			}
+			
 		} catch (ServiceException | DBException | IOException e) {
 			//4-redirect to same page if details are incorrect
 			String errorMessage = "Booking failed";

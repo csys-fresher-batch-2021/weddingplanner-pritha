@@ -18,9 +18,6 @@ public class UserLoginService{
 	 }
 	
 	
-	//1-Validator
-	//2-db
-	//3-sendNotification
 	
 	public static boolean register(User user) throws ServiceException  {
 		boolean validUser = true;

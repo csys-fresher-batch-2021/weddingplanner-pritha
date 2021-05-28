@@ -1,7 +1,7 @@
 package in.pritha.servlet;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,7 +40,7 @@ public class RegisterServlet extends HttpServlet {
 					if(isNewUser){
 						HttpSession session = request.getSession();
 						session.setAttribute("RegisteredUser",username);
-						session.setAttribute("Role","Customer");
+						//session.setAttribute("Role","Customer");
 						response.sendRedirect("LoginJSP.jsp");
 					}
 					else {
