@@ -9,25 +9,36 @@
     #heading { color: #2E8B57; } /*green*/
 
 </style>
+<script type="text/javascript">
+function back_block() {
+window.history.foward(-1)
+}
+</script>
 
 
 </head>
-<body>
+
+
 <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 	<br><br/>
 	<h3 id="heading">Login</h3>
 	<br><br/>
 	<% 
-		String errorMessage = request.getParameter("errorMessage");
-		if(errorMessage!=null){
-			out.println("<font colour ='red'>"+errorMessage+"</font>");
-		}
-		String infoMessage = request.getParameter("infoMessage");
-		if(infoMessage!=null){
-			out.println("<font colour ='green'>"+infoMessage+"</font>");
-		}
-		%>
+	String infoMessage = request.getParameter("infoMessage");
+	if(infoMessage!=null){
+		out.println("<p style='font-size:40px'>&#128525<font colour ='#008000'>"+infoMessage+"</font>");
+	}
+	%>
+	<%
+	String errorMessage = request.getParameter("errorMessage");
+	if(errorMessage!=null){
+		out.println("<p style='font-size:40px'>&#128543<font color = '#F32013'>"+errorMessage+"</font></p>");
+		
+		
+	}
+	
+	%> 
 <form action="LoginServlet" method="get">
 			<label for="Username"><strong>USERNAME</strong></label> 
 			<input type="text"
@@ -49,6 +60,12 @@
         	<br><br/>Forgot<a href="forgetpassword.jsp" > password? </a>
 		
 	</form>
+
+    
+    
+   
+  
+
 	</main>
 </body>
 </html>

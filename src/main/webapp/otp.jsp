@@ -17,12 +17,21 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
+	<% 
+	String infoMessage = request.getParameter("infoMessage");
+	if(infoMessage!=null){
+		out.println("<p style='font-size:40px'>&#128525<font colour ='#008000'>"+infoMessage+"</font>");
+	}
+	%>
 	<%
 	String errorMessage = request.getParameter("errorMessage");
 	if(errorMessage!=null){
-		out.println("<font colour =red>"+errorMessage+"</font>");
+		out.println("<p style='font-size:40px'>&#128543<font color = '#F32013'>"+errorMessage+"</font></p>");
+		
+		
 	}
-	%>
+	
+	%> 
 	
 <%
 	String otp =(String) session.getAttribute("OTP");
@@ -35,6 +44,7 @@
 	<%
 	}
 	%>
+	
 <form action="CheckOtpServlet">
 	
 	<div class="d-flex justify-content-center align-items-center container">

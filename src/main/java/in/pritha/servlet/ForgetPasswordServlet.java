@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import in.pritha.exception.MyException;
+
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
-import in.pritha.service.UserLoginService;
+import in.pritha.service.UserService;
 
 /**
  * Servlet implementation class ForgetPasswordServlet
@@ -31,7 +31,7 @@ public class ForgetPasswordServlet extends HttpServlet {
 		User user = new User(createpassword,confirmpassword,username);
 		try {
 			boolean isMatchedPassword=true;
-			isMatchedPassword = UserLoginService.createAndConfirmPassword(user);
+			isMatchedPassword = UserService.createAndConfirmPassword(user);
 			if(isMatchedPassword) {
 				String infoMessage = "Password Changed Successfully";
 				response.sendRedirect("LoginJSP.jsp?infoMessage=" + infoMessage);
@@ -40,7 +40,7 @@ public class ForgetPasswordServlet extends HttpServlet {
 				String errorMessage = "Unable to change your password";
 				response.sendRedirect("forgetpassword.jsp?infoMessage=" + errorMessage);
 			}
-		} catch (MyException | IOException | ServiceException e) {
+		} catch (IOException | ServiceException e) {
 			e.getMessage();
 			e.printStackTrace();
 		} 

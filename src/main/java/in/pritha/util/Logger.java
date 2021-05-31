@@ -6,12 +6,17 @@ public class Logger {
 	}
 
 	/**
-	 * This method will print whatever the paramteres passed
+	 * This method will print whatever the arguments passed
 	 * 
 	 * @param message
 	 */
 	public static void println(String message) {
 		System.out.println(message);
+	}
+
+	public static void println(int rows) {
+		System.out.println(rows);
+		
 	}
 
 }

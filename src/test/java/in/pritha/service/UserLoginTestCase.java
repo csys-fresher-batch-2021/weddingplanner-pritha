@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 
-import in.pritha.exception.MyException;
+
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
@@ -31,7 +31,7 @@ import in.pritha.model.User;
 		User user = new User("pritha","Prit@7172");
 		boolean isLoggedInUser;
 		try {
-			isLoggedInUser = UserLoginService.login(user);
+			isLoggedInUser = UserService.login(user);
 			assertTrue(isLoggedInUser);
 		} catch (ServiceException e) {
 			
@@ -50,7 +50,7 @@ import in.pritha.model.User;
 		User user = new User("PRitHA","Prit@7172");
 		boolean isLoggedInUser;
 		try {
-			isLoggedInUser = UserLoginService.login(user);
+			isLoggedInUser = UserService.login(user);
 			assertTrue(isLoggedInUser);
 		} catch (ServiceException e) {
 			
@@ -69,7 +69,7 @@ import in.pritha.model.User;
 		User user = new User("PRITHA","Prit@7172");
 		boolean isLoggedInUser;
 		try {
-			isLoggedInUser = UserLoginService.login(user);
+			isLoggedInUser = UserService.login(user);
 			assertTrue(isLoggedInUser);
 		} catch (ServiceException e) {
 		
@@ -88,8 +88,8 @@ import in.pritha.model.User;
 	@Order(4)
 	 void testD_PasswordWithoutSmallCase() {
 		User user = new User("PRITHA","prit@7172");
-		Exception exception = assertThrows(MyException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Entered details are invalid", exception.getMessage());
@@ -105,8 +105,8 @@ import in.pritha.model.User;
 	@Order(5)
 	 void testE_PasswordWithoutSpecialCharacters() {
 		User user = new User("PRITHA","Prit7172");
-		Exception exception = assertThrows(MyException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Entered details are invalid", exception.getMessage());
@@ -121,8 +121,8 @@ import in.pritha.model.User;
 	@Order(6)
 	 void testF_PasswordWithoutNumbers()  {
 		User user = new User("PRITHA","pritHA@HI");
-		Exception exception = assertThrows(MyException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Entered details are invalid", exception.getMessage());
@@ -142,7 +142,7 @@ import in.pritha.model.User;
 		User user = new User("PRITHA","Prit@7172");
 		boolean isLoggedInUser;
 		try {
-			isLoggedInUser = UserLoginService.login(user);
+			isLoggedInUser = UserService.login(user);
 			assertTrue(isLoggedInUser);
 		} catch (ServiceException e) {
 			
@@ -159,8 +159,8 @@ import in.pritha.model.User;
 	@Order(8)
 	 void testH_WithNewUserName(){
 		User user = new User("Nishanth","prit12A@HI");
-		Exception exception = assertThrows(MyException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Your Details doesn't Exist!.You have to sin up!", exception.getMessage());
@@ -177,8 +177,8 @@ import in.pritha.model.User;
 	@Order(9)
 	 void testI_WithCorrectUsernameAndIncorrectPassword() {
 		User user = new User("PRITHA","Prit@7173");
-		Exception exception = assertThrows(MyException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Your Details doesn't Exist!.You have to sin up!", exception.getMessage());
@@ -194,8 +194,8 @@ import in.pritha.model.User;
 	@Order(10)
 	 void testJ_WithInCorrectUsernameAndcorrectPassword()  {
 		User user = new User("PrithaPadmanathan","Prit@7172");
-		Exception exception = assertThrows(MyException.class, () -> {
-			UserLoginService.login(user);			
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			UserService.login(user);			
 	    });
 		assertEquals("Your Details doesn't Exist!.You have to sin up!", exception.getMessage());
 		
@@ -210,8 +210,8 @@ import in.pritha.model.User;
 	@Order(11)
 	 void testK_WithInValidCredentials()  {
 		User user = new User("Pr@123","pritha");
-		Exception exception = assertThrows(MyException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+		Exception exception = assertThrows(ServiceException.class, () -> {
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Entered details are invalid", exception.getMessage());
@@ -228,7 +228,7 @@ import in.pritha.model.User;
 	 void testL_WithInValidCredentials() {
 		User user = new User(" "," ");
 		Exception exception = assertThrows(NullPointerException.class, () -> {
-			boolean isLoggedInUser = UserLoginService.login(user);
+			boolean isLoggedInUser = UserService.login(user);
 			assertFalse(isLoggedInUser);
 	    });
 		assertEquals("Invalid input", exception.getMessage());

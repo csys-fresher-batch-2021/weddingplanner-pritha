@@ -1,34 +1,45 @@
 package in.pritha.validator;
-import in.pritha.exception.MyException;
+
 import in.pritha.exception.ServiceException;
+import in.pritha.exception.ValidationException;
 
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import in.pritha.service.UserLoginService;
+import in.pritha.service.UserService;
 
 public class UserValidator {
 	private UserValidator() {
 		//private constructor
 	}
 	
-	public static boolean isExistingUser(String userName , String passWord) throws ServiceException {
+	public static boolean isExistingUser(String userName , String passWord) throws ValidationException {
 		boolean loggedInUser=false;
+		try {
 		if(StringValidator.isValidString(userName) && UserValidator.isvalidPassWord(passWord)){
-			Set<String> keys = UserLoginService.getUserLists().keySet();
+			Set<String> keys;
+			
+				keys = UserService.getUserLists().keySet();
+			
 			for (String key : keys) {
-			String value = UserLoginService.getUserLists().get(key);
+			String value = UserService.getUserLists().get(key);
 			if (userName.toUpperCase().equals(key) && passWord.equals(value)) { // to avoid case sensitive
 				loggedInUser = true;
 				break;
 			}
+			
 			}
 		}
-		else {
-			throw new MyException("Entered details are invalid");
 		}
-	return loggedInUser;
+		
+		 catch (ServiceException e) {
+			 e.getMessage();
+			 throw new ValidationException(e,"Entered details are invalid");
+			
+		}
+		
+			return loggedInUser;
 		
 	}
 	
@@ -59,19 +70,19 @@ public class UserValidator {
         return m.matches();
 	}
 
-	public static boolean isMatchedPassword(String createPassword, String confirmPassword) throws MyException {
+	public static boolean isMatchedPassword(String createPassword, String confirmPassword) throws ValidationException {
 		boolean isEqual = false;
 		if(UserValidator.isvalidPassWord(createPassword) && UserValidator.isvalidPassWord(confirmPassword)) {
 			if(createPassword.equals(confirmPassword)) {
 			isEqual = true;
 			}
 			else {
-		 throw new MyException("Created and Confirmed Password doesn't match");
+		 throw new ValidationException("Created and Confirmed Password doesn't match");
             
 			}
 		}
 		else {
-			throw new MyException("Your Password must be like this eg.Prit@7172");
+			throw new ValidationException("Your Password must be like this eg.Prit@7172");
             
 		}
 		

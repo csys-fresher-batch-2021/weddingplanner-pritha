@@ -17,14 +17,27 @@
 	<main class="container-fluid">
 		<h3 id="heading">Register</h3>
 		<br>
+		
+		<%
+	String errorMessage = request.getParameter("errorMessage");
+	if(errorMessage!=null){
+		out.println("<p style='font-size:40px'>&#128543<font color = '#F32013'>"+errorMessage+"</font></p>");
+		
+		
+	}
+	String infoMessage = request.getParameter("infoMessage");
+	if(infoMessage!=null){
+		out.println("<p style='font-size:40px'>&#128525<font colour ='#008000'>"+infoMessage+"</font>");
+	}
+	%>
 
 		<form action="RegisterServlet" method="get">
 			<label for="Username"><strong>USERNAME</strong></label><br> <input
 				type="text" name="Username" id="Username"
 				title="Username must be lowercase characters and length should be(4-8)"
-				placeholder="Username" pattern="[a-z]{4,8}" required autofocus>
+				placeholder="Username" pattern="[a-z]{4,20}" required autofocus>
 			<p id="heading">
-				<em>Hint : Username must be lowercase and 4-8 characters in
+				<em>Hint : Username must be lowercase and 4-20 characters in
 					length.</em>
 			</p>
 			<label for="mobileno"><strong>MOBILE NO</strong></label><br> <input
@@ -44,7 +57,13 @@
 			&nbsp; &nbsp;
 			<button type="reset" class="btn btn-secondary">Reset</button>
 			&nbsp; &nbsp;
+			<br>
+			<br>
+			
+	
+	
 		</form>
+		
 	</main>
 </body>
 </html>

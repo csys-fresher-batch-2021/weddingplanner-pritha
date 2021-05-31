@@ -2,6 +2,8 @@ package in.pritha.service;
 
 import java.util.ArrayList;
 
+import in.pritha.dao.PaymentDAO;
+import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Payment;
 import in.pritha.util.OTPUtil;
@@ -24,6 +26,20 @@ public class PaymentManager {
 
 		}
 		return otp;
+	}
+	public static boolean addpaymentDetails(Payment payment) throws ServiceException {
+		boolean isPaymentDetailsAdded = false;
+		try {
+			PaymentDAO.addPaymentDetails(payment.getUserName(),payment.getBookingId(),payment.getCardType(),payment.getAmount(),payment.getStatus(),payment.getTransactionCode());
+			isPaymentDetailsAdded = true;
+		} catch (DBException e) {
+			e.printStackTrace();
+			e.getMessage();
+			throw new ServiceException(e,"Can't add payment details");
+			
+		}
+		return isPaymentDetailsAdded;
+		
 	}
 
 
