@@ -9,13 +9,47 @@ public class Payment {
 	
 	private String cardType;
 	private String userName;
+	private Integer bookingId;
 	private Long cardNo;
 	private LocalDate expiryDate;
 	private Integer cvv;
 	private Integer amount;
 	private String purpose;
+	private String status;
+	private String transactionCode;
 
 	
+
+	public Payment(String userName, Integer bookingId, String cardType, Integer amount, String status,
+			String transactionCode) {
+		super();
+		this.cardType = cardType;
+		this.userName = userName;
+		this.bookingId = bookingId;
+		this.amount = amount;
+		this.status = status;
+		this.transactionCode = transactionCode;
+	}
+
+	public Payment() {
+		// TODO Auto-generated constructor stub
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getTransactionCode() {
+		return transactionCode;
+	}
+
+	public void setTransactionCode(String transactionCode) {
+		this.transactionCode = transactionCode;
+	}
 
 	/**
 	 * Encaspulation is done and using set and get methods, retrieved the hiding
@@ -88,6 +122,13 @@ public class Payment {
 
 	public Integer getCvv() {
 		return cvv;
+	}
+	public Integer getBookingId() {
+		return bookingId;
+	}
+
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
 	}
 
 }

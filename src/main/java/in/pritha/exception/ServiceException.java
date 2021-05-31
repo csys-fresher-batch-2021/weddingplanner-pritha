@@ -10,4 +10,8 @@ public class ServiceException extends Exception {
 		{
 		   super(exceptionmessage); //call parent class exception
 		}
+		
+		public ServiceException(Throwable e, String message) {
+			super(message,e);
+		}
 }

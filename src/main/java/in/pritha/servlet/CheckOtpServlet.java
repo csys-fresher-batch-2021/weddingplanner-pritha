@@ -3,6 +3,7 @@ package in.pritha.servlet;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import in.pritha.controller.PaymentController;
+import in.pritha.exception.ControllerException;
+import in.pritha.exception.ServiceException;
+import in.pritha.model.Payment;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -22,7 +26,9 @@ public class CheckOtpServlet extends HttpServlet {
        
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String otpIndex1=  request.getParameter("1");
+		
+    	try {
+    	String otpIndex1=  request.getParameter("1");
 		
 		String otpIndex2=  request.getParameter("2");
 		
@@ -34,16 +40,47 @@ public class CheckOtpServlet extends HttpServlet {
 		PaymentController payment = new PaymentController();
 		
 		boolean isOtpCorrect = payment.validateOTP(otpIndex1,otpIndex2,otpIndex3,otpIndex4,generatedOTP);
-		if(isOtpCorrect) {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp");
+		if(isOtpCorrect){
+			ServletContext servletcontext = getServletContext();
+		
+			String cardUserName = (String)servletcontext.getAttribute("CARDUSERNAME");
+		System.out.println("*"+cardUserName);
+		
+		Integer bookingId = (Integer)session.getAttribute("BOOKING_ID");
+		System.out.println("*"+bookingId);
+		
+		
+		String cardType = (String)servletcontext.getAttribute("CARDTYPE");
+		System.out.println("*"+cardType);
+		
+		
+		
+		Integer amount = (Integer)servletcontext.getAttribute("AMOUNT");
+		
+		System.out.println("*"+amount);
+		String status= "PAID";
+		String transactioncode = (String) session.getAttribute("OTP");
+		System.out.println("*"+transactioncode);
+		boolean isAddPaymentDetails =payment.addPaymentDetails(cardUserName,bookingId,cardType,amount,status,transactioncode);
+		if(isAddPaymentDetails) {
+		String infoMessage ="Booking Successful With Payment";
+		RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp?infoMessage="+infoMessage);
 		dispatcher.forward(request, response);
-		}else {
+		}}
+		else {
 			String errorMessage="Entered OTP is incorrect";
 			ServletUtil.sendRedirect(response, "otp.jsp?errorMessage="+errorMessage);
 		}
-		
-		
-	}
-
-	
+    }
+		catch(ControllerException e) {
+			String errorMessage="Entered OTP is incorrect";
+			ServletUtil.sendRedirect(response, "otp.jsp?errorMessage="+errorMessage);
+		}
+    	
+    }
 }
+
+    	
+		
+		
+	

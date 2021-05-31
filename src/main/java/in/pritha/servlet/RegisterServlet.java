@@ -1,7 +1,5 @@
 package in.pritha.servlet;
 
-import java.io.IOException;
-
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
-import in.pritha.service.UserLoginService;
+import in.pritha.service.UserService;
+import in.pritha.util.ServletUtil;
 
 /**
  * Servlet implementation class RegisterServlet
@@ -25,29 +24,34 @@ public class RegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException  {
 		//1-Get Form values
 				String username = request.getParameter("Username");
 				String password = request.getParameter("Password");
-				Long mobileno = Long.parseLong(request.getParameter("phone_number"));
+				//Long mobileno = Long.parseLong(request.getParameter("phone_number"));
 			//set values
-				User user = new User(username,password,mobileno);
+				User user = new User(username,password);
 			//2-Call Service
 				
 				try {
 					//3-call service
-					boolean isNewUser=UserLoginService.register(user);
+					boolean isNewUser=UserService.register(user);
+					System.out.println("Hi"+isNewUser);
 					if(isNewUser){
 						HttpSession session = request.getSession();
 						session.setAttribute("RegisteredUser",username);
 						//session.setAttribute("Role","Customer");
-						response.sendRedirect("LoginJSP.jsp");
+						String infoMessage = "Successfully Registered";
+						ServletUtil.sendRedirect(response, "LoginJSP.jsp?infoMessage="+infoMessage);
 					}
 					else {
-						response.sendRedirect("register.jsp?errorMessage=Invalid register Credentials");
+						String errorMessage= "Invalid Details";
+						ServletUtil.sendRedirect(response, "register.jsp?errorMessage="+errorMessage);
 					}
-				} catch (  IOException | ServiceException e) {
-					e.printStackTrace();
+				} catch (ServiceException e) {
+					String errorMessage= "Invalid Details";
+					ServletUtil.sendRedirect(response, "register.jsp?errorMessage="+errorMessage);
+					
 				}
 				
 				

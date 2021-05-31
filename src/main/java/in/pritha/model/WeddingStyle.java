@@ -14,6 +14,7 @@ public class WeddingStyle {
 	private String decorType;
 	private Integer decorPackages;
 	private String imageURL;
+	private String image;
 	
 	
 	public String getImageURL() {
@@ -129,6 +130,23 @@ public class WeddingStyle {
 		super(); 
 		this.styleName = weddingStyles;
 		this.packages = packages;
+	}
+
+	public WeddingStyle(String weddingStyle, int packages, String image) {
+		super();
+		this.styleName = weddingStyle;
+		this.packages = packages;
+		this.image = image;
+		
+		
+	}
+
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 	

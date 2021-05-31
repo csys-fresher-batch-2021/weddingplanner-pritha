@@ -1,32 +1,47 @@
 package in.pritha.service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
+
 import in.pritha.dao.BookingDAO;
+import in.pritha.dao.PaymentDAO;
 import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
+import in.pritha.exception.ValidationException;
 import in.pritha.model.Booking;
-
+import in.pritha.model.Payment;
 import in.pritha.validator.BookingDateTimeValidator;
 
 public class BookingManager {
 	private BookingManager() {
 	}
 
-	public static boolean validateBooking(Booking booking) throws ServiceException, DBException {
+	public static boolean validateBooking(Booking booking) throws ServiceException{
 		// 1-validate
-		boolean isEligibleToBook = BookingDateTimeValidator.dateTimeValidator(booking.getWeddingDate(), booking.getWeddingTime(), booking.getWeddingLocation());
-
-		if (isEligibleToBook) {
-			BookingDAO.addBookingDetails(booking.getBooking_id(),booking.getStatus(),booking.getUserName(),
-					booking.getWeddingDate(), booking.getWeddingTime(), booking.getWeddingLocation(),
-					booking.getWeddingStyle(), booking.getWeddingStyleLocation(), booking.getWeddingFoodType(),
-					booking.getWeddingGuestCount(), booking.getWeddingDecorType());
-		} else {
-			throw new ServiceException("Can't Book . Check Your Details!");
+		boolean isEligibleToBook;
+		try {
+			isEligibleToBook = BookingDateTimeValidator.dateTimeValidator(booking.getWeddingDate(), booking.getWeddingTime(), booking.getWeddingLocation());
+			if (isEligibleToBook) {
+				BookingDAO.addBookingDetails(booking.getBooking_id(),booking.getStatus(),booking.getUserName(),
+						booking.getWeddingDate(), booking.getWeddingTime(), booking.getWeddingLocation(),
+						booking.getWeddingStyle(), booking.getWeddingStyleLocation(), booking.getWeddingFoodType(),
+						booking.getWeddingGuestCount(), booking.getWeddingDecorType());
+			} else {
+				
+				throw new ServiceException("Can't Book . Check Your Details!");
+			}
+		
+		} catch (ValidationException |DBException e) {
+			e.getMessage();
+			throw new ServiceException(e,"Can't Book . Check Your Details!");
+			
 		}
+
+	
 		return isEligibleToBook;
 	}
 
@@ -104,4 +119,18 @@ public class BookingManager {
 		
 	}
 
+	public static List<Payment> listAllPaidBookingDetails() throws ServiceException {
+	List<Payment> paidBookingDetailsList = new ArrayList<Payment>();
+	try {
+		// brring from db
+		paidBookingDetailsList = PaymentDAO.displayAllPaidBookingDetails();
+	} catch (DBException e) {
+		throw new ServiceException("can't display paid booking details");
+	}
+
+	return paidBookingDetailsList;		
+		
+	}
+
+	
 }

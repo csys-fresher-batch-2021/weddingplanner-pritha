@@ -61,6 +61,9 @@ String role = (String)session.getAttribute("Role");
       <li class="nav-item active">
         <a class="nav-link" href="ListCancelledBookingServlet">VIEW CANCELLED BOOKINGS</a>
       </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="ListPaidBookingsServlet">VIEW PAID BOOKINGS</a>
+      </li>
        <% }
       else { %>
       <li class="nav-item">
@@ -70,10 +73,13 @@ String role = (String)session.getAttribute("Role");
         <a class="nav-link" href="booking.jsp">Booking</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="logout.jsp">Logout</a>
+        <a class="nav-link" href="LogoutServlet">Logout</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="mybookingsummary.jsp">My Bookings</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="ListUserHistoryServlet">My Account</a>
       </li>
       <% } %>
       </ul>

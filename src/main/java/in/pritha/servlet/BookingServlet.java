@@ -25,6 +25,7 @@ import in.pritha.service.BudgetEstimationService;
 
 
 
+
 /**
  * Servlet implementation class BookingServlet
  */
@@ -81,7 +82,7 @@ public class BookingServlet extends HttpServlet {
 				
 			}
 			
-		} catch (ServiceException | DBException | IOException e) {
+		} catch (ServiceException  | IOException e) {
 			//4-redirect to same page if details are incorrect
 			String errorMessage = "Booking failed";
 			response.sendRedirect("booking.jsp?errorMessage="+errorMessage);

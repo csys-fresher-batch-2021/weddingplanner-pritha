@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import org.junit.jupiter.api.Test;
 
-import in.pritha.exception.MyException;
+
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 
@@ -27,9 +27,9 @@ class UserForgotPasswordTestCase {
 		// User(create password, confirm pasword, usersername)
 		try {
 			User user = new User("Prit@7172", "Prit@7172", "pritha");
-			boolean isValidCreatedPassword = UserLoginService.createAndConfirmPassword(user);
+			boolean isValidCreatedPassword = UserService.createAndConfirmPassword(user);
 			assertTrue(isValidCreatedPassword);
-		} catch (MyException | ServiceException e) {
+		} catch ( ServiceException e) {
 			e.printStackTrace();
 		}
 	}
@@ -47,9 +47,9 @@ class UserForgotPasswordTestCase {
 		try {
 
 			User user = new User("  ", "  ", "pritha");
-			UserLoginService.createAndConfirmPassword(user);
+			UserService.createAndConfirmPassword(user);
 			fail();
-		} catch (MyException | ServiceException e) {
+		} catch (ServiceException e) {
 			// e.printStackTrace();
 			assertEquals("Your Password must be like this eg.Prit@7172", e.getMessage());
 		}
@@ -69,9 +69,9 @@ class UserForgotPasswordTestCase {
 
 			User user = new User("Prit@7172", "Prit@7173", "pritha");
 
-			UserLoginService.createAndConfirmPassword(user);
+			UserService.createAndConfirmPassword(user);
 
-		} catch (MyException | ServiceException e) {
+		} catch ( ServiceException e) {
 			assertEquals("Created and Confirmed Password doesn't match", e.getMessage());
 			e.printStackTrace();
 		}
@@ -90,9 +90,9 @@ class UserForgotPasswordTestCase {
 		User user = new User("Prit@7172", "Prit@7172", "pritha");
 		boolean isPasswordMatched;
 		try {
-			isPasswordMatched = UserLoginService.createAndConfirmPassword(user);
+			isPasswordMatched = UserService.createAndConfirmPassword(user);
 			assertTrue(isPasswordMatched);
-		} catch (MyException | ServiceException e) {
+		} catch ( ServiceException e) {
 			e.printStackTrace();
 		}
 		

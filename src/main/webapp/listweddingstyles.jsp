@@ -43,7 +43,6 @@ String role = (String)session.getAttribute("Role");
 	
 	<td><%=i%></td>
 	
-     
 	<td><%=key %></td>
 	<td><%=value %></td>
 	</tr>

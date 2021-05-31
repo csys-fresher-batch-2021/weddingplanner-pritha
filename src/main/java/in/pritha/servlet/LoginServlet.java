@@ -1,7 +1,9 @@
 package in.pritha.servlet;
 
-import java.io.IOException;
 
+
+
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,7 +14,8 @@ import javax.servlet.http.HttpSession;
 
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
-import in.pritha.service.UserLoginService;
+import in.pritha.service.UserService;
+import in.pritha.util.ServletUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -35,28 +38,30 @@ public class LoginServlet extends HttpServlet {
 		boolean isLoggedInUser=true;
 		try {
 			
-				isLoggedInUser = UserLoginService.login(user);
-			
-			if(isLoggedInUser) {
-				//3-create and set values to session
-				HttpSession session = request.getSession();
-				session.setAttribute("VerfiedLoggedInUser",username);
-				session.setAttribute("Role","Customer");
-				String infoMessage = "Successfully logged In";
-				response.sendRedirect("listweddingstyles.jsp?infoMessage="+infoMessage);
+			isLoggedInUser = UserService.login(user);
 		
-			}
-			else {
-				String errorMessage = "Login failed";
-				response.sendRedirect("LoginJSP.jsp?errorMessage="+errorMessage);
-				
-			}
-			
-		} catch (IOException | ServiceException e) {
-			e.printStackTrace();
-		} 
+		if(isLoggedInUser) {
+			//3-create and set values to session
+			HttpSession session = request.getSession();
+			session.setAttribute("VerfiedLoggedInUser",username);
+			session.setAttribute("Role","Customer");
+			String infoMessage = "Successfully logged In";
+			ServletUtil.sendRedirect(response,"index.jsp?infoMessage="+infoMessage);
 	
+		}
+		else {
+			String errorMessage = "Login failed";
+			ServletUtil.sendRedirect(response,"LoginJSP.jsp?errorMessage="+errorMessage);
+			
+		}
 		
+	} catch (ServiceException e) {
+		String errorMessage = "Login failed";
+		ServletUtil.sendRedirect(response,"LoginJSP.jsp?errorMessage="+errorMessage);
+		
+	} 
+
+	
 		
 	}
 

@@ -24,13 +24,13 @@ public class RegisterDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String sql = "insert into user_details( username,password) values (?,?)";
+			String sql = "insert into user_details(username,password) values (?,?)";
 
 			pst= connection.prepareStatement(sql);
 			pst.setString(1, userName.toUpperCase()); // to avoid case sensitive
 			pst.setString(2, passWord);
-
-			 pst.executeUpdate();
+			pst.executeUpdate();
+			System.out.println(pst); 
 			
 		} catch (ClassNotFoundException | SQLException e) {			
 			e.printStackTrace();
@@ -50,7 +50,7 @@ public class RegisterDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 			// Step 2: Query Statement
-			String sql = "select * from user_Details";
+			String sql = "select * from user_details";
 			// Step 3: Execute Query
 			pst = connection.prepareStatement(sql);
 			ResultSet result = pst.executeQuery();
@@ -80,7 +80,7 @@ public class RegisterDAO {
 		try {
 			connection = ConnectionUtil.getConnection();
 
-			String sql = "update user_Details set password=? where username=?";
+			String sql = "update user_details set password=? where username=?";
 			// 4-execute query
 
 			 pst = connection.prepareStatement(sql);

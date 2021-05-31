@@ -2,6 +2,7 @@ package in.pritha.controller;
 
 import java.time.LocalDate;
 
+import in.pritha.exception.ControllerException;
 import in.pritha.model.Payment;
 import in.pritha.service.PaymentManager;
 
@@ -9,7 +10,7 @@ public class PaymentController {
 	public PaymentController() {
 		
 	}
-	public String validateCard(String cardType, String cardUserName, Long cardNumber, LocalDate cardExpiryDate, Integer cvv, Integer amount, String purpose        ) {
+	public String validateCard(String cardType, String cardUserName, Long cardNumber, LocalDate cardExpiryDate, Integer cvv, Integer amount, String purpose        ) throws ControllerException {
 		
 		String otp=null;
 		try {
@@ -26,6 +27,7 @@ public class PaymentController {
 		}catch(Exception e) {
 			e.getMessage();
 			e.printStackTrace();
+			throw new ControllerException(e,"Unable to call service to validate payment details");
 			
 		}
 		return otp;
@@ -37,6 +39,27 @@ public class PaymentController {
 			enteredOtpValidated = true;
 		}
 		return enteredOtpValidated;
+	}
+	public boolean addPaymentDetails(String cardUserName, Integer bookingId, String cardType, Integer amount,
+			String status, String transactioncode ) throws ControllerException {
+		boolean isAdded = false;
+	try {
+		Payment payment = new Payment();
+		payment.setUserName(cardUserName);
+		payment.setBookingId(bookingId);
+		payment.setCardType(cardType);
+		payment.setAmount(amount);
+		payment.setStatus(status);
+		payment.setTransactionCode(transactioncode);
+		isAdded = PaymentManager.addpaymentDetails(payment);
+		
+	}catch(Exception e) {
+		e.getMessage();
+		e.printStackTrace();
+		throw new ControllerException(e,"Unable to call service to add payment details");
+		
+	}
+	return isAdded;
 	}
 
 }

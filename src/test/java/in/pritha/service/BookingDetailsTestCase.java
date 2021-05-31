@@ -11,7 +11,7 @@ import java.time.LocalTime;
 import org.junit.jupiter.api.Test;
 
 import in.pritha.exception.DBException;
-import in.pritha.exception.MyException;
+
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Booking;
 
@@ -23,11 +23,18 @@ import in.pritha.model.Booking;
 	 * true
 	 */
 	@Test
-	 void dateTimevalidateTestCase1() throws ServiceException, DBException {
+	 void dateTimevalidateTestCase1()  {
 		Booking booking = new Booking("pritha",LocalDate.of(2021, 05, 21), LocalTime.of(14, 47, 33),"chennai");
-		boolean valid = BookingManager.validateBooking(booking);
-		// assertExpected(actual)
-		assertTrue(valid);
+		boolean valid;
+		try {
+			valid = BookingManager.validateBooking(booking);
+			assertTrue(valid);
+		} catch (ServiceException e) {
+			e.getMessage();
+			e.printStackTrace();
+		}
+		
+		
 	}
 	
 	/*
@@ -35,9 +42,9 @@ import in.pritha.model.Booking;
 	 * false
 	 */
 	@Test
-	 void dateTimevalidateTestCase2() throws ServiceException, DBException {
+	 void dateTimevalidateTestCase2()  {
 		Booking booking= new Booking("karthi",LocalDate.of(2021, 05, 17), LocalTime.of(21, 47, 33),"chennai");
-		Exception exception = assertThrows(MyException.class, () -> {
+		Exception exception = assertThrows(ServiceException.class, () -> {
 			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
@@ -50,9 +57,9 @@ import in.pritha.model.Booking;
 	 * return false
 	 */
 	@Test
-	 void dateTimevalidateTestCase3() throws ServiceException, DBException {
+	 void dateTimevalidateTestCase3()  {
 		Booking booking = new Booking("nishanth",LocalDate.of(2021, 05, 19), LocalTime.of(21, 51, 33),"chennai");
-		Exception exception = assertThrows(MyException.class, () -> {
+		Exception exception = assertThrows(ServiceException.class, () -> {
 			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
@@ -65,9 +72,9 @@ import in.pritha.model.Booking;
 	 * false
 	 */
 	@Test
-	 void dateTimevalidateTestCase4() throws ServiceException, DBException {
+	 void dateTimevalidateTestCase4()  {
 		Booking booking = new Booking("gayathri",LocalDate.of(2021, 05, 19), LocalTime.of(21, 47, 33),"chennai");
-		Exception exception = assertThrows(MyException.class, () -> {
+		Exception exception = assertThrows(ServiceException.class, () -> {
 			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
@@ -81,9 +88,9 @@ import in.pritha.model.Booking;
 	 * false
 	 */
 	@Test
-	 void dateTimevalidateTestCase5() throws ServiceException, DBException {
+	 void dateTimevalidateTestCase5() {
 		Booking booking = new Booking("suresh",LocalDate.of(2021, 05, 19), LocalTime.of(21, 50, 30),"chennai");
-		Exception exception = assertThrows(MyException.class, () -> {
+		Exception exception = assertThrows(ServiceException.class, () -> {
 			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
@@ -95,9 +102,9 @@ import in.pritha.model.Booking;
 	 * false
 	 */
 	@Test
-	 void dateTimevalidateTestCase6() throws ServiceException, DBException {
+	 void dateTimevalidateTestCase6()  {
 		Booking booking = new Booking("pravin",LocalDate.of(2020, 05, 19), LocalTime.of(22, 47, 33),"chennai");
-		Exception exception = assertThrows(MyException.class, () -> {
+		Exception exception = assertThrows(ServiceException.class, () -> {
 			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });
@@ -112,7 +119,7 @@ import in.pritha.model.Booking;
 	@Test
 	 void dateTimevalidateTestCase7() throws ServiceException, DBException {
 		Booking booking = new Booking("prasath",LocalDate.of(2020, 05, 19), LocalTime.of(21, 50, 33),"chennai");
-		Exception exception = assertThrows(MyException.class, () -> {
+		Exception exception = assertThrows(ServiceException.class, () -> {
 			boolean valid = BookingManager.validateBooking(booking);
 			assertFalse(valid);
 	    });

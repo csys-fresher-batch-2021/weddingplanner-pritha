@@ -19,18 +19,25 @@ public class WeddingStylesService {
 	private WeddingStylesService() {
 		// to avoid object creation
 	}
+	
+	public static List<WeddingStyle> getWeddingStylesWithImage() throws ServiceException {
+		return imagesList;
+	}
+
+	
+	
 	private static final List<WeddingStyle> imagesList= new ArrayList<>();
 	// Static block gets executed when class is first loaded
 	static {
-		WeddingStyle wed1 = new WeddingStyle("traditional.jfif");
+		WeddingStyle wed1 = new WeddingStyle("Traditional Wedding",100000,"traditional.jfif");
 		imagesList.add(wed1);
-		WeddingStyle wed2 = new WeddingStyle("formal.jpg");
+		WeddingStyle wed2 = new WeddingStyle("Formal Wedding",200000,"formal.jpg");
 		imagesList.add(wed2);
-		WeddingStyle wed3 = new WeddingStyle("informal.jfif");
+		WeddingStyle wed3 = new WeddingStyle("Informal Wedding",300000,"informal.jfif");
 		imagesList.add(wed3);
-		WeddingStyle wed4 = new WeddingStyle("vintage.jpg");
+		WeddingStyle wed4 = new WeddingStyle("VintageStyle Wedding",400000,"vintage.jpg");
 		imagesList.add(wed4);
-		WeddingStyle wed5 = new WeddingStyle("festival.webp");
+		WeddingStyle wed5 = new WeddingStyle("Festival Wedding",500000,"festival.webp");
 		imagesList.add(wed5);
 	}
 
