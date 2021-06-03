@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import in.pritha.dao.PaymentDAO;
 import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
+import in.pritha.model.Discount;
 import in.pritha.model.Payment;
 import in.pritha.util.OTPUtil;
 import in.pritha.validator.PaymentValidator;
@@ -22,6 +23,7 @@ public class PaymentManager {
 		if (!errorsLists.isEmpty()) {
 			throw new ServiceException("Invalid card details");
 		} else {
+			System.out.println("calling to send otp to mobile");
 			otp = OTPUtil.generateOTP();		
 
 		}
@@ -41,6 +43,9 @@ public class PaymentManager {
 		return isPaymentDetailsAdded;
 		
 	}
+	
+	
+	
 
 
 }

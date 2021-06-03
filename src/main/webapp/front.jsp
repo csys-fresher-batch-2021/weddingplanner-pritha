@@ -29,27 +29,9 @@
 String loggedInUserName = (String)session.getAttribute("VerfiedLoggedInUser");
 String role = (String)session.getAttribute("Role");
 String bookedInUserName = (String)session.getAttribute("BookedUserName");
-Integer bookingId = (Integer)session.getAttribute("BOOKING_ID");
-Integer fare =(Integer) session.getAttribute("FARE");
-
 
 
 %>  
-<% 
-	String infoMessage = request.getParameter("infoMessage");
-	if(infoMessage!=null){
-		out.println("<p style='font-size:40px'>&#128525<font colour ='#008000'>"+infoMessage+"</font>");
-	}
-	%>
-	<%
-	String errorMessage = request.getParameter("errorMessage");
-	if(errorMessage!=null){
-		out.println("<p style='font-size:40px'>&#128559<font color = '#F32013'>"+errorMessage+"</font></p>");
-		
-		
-	}
-	
-	%> 
 	
 		<br>
 		<header>
@@ -67,16 +49,9 @@ Integer fare =(Integer) session.getAttribute("FARE");
                     <div class="card" style="width: 16rem;">
                         <img class="card-img-top" src="assets/img/login.jpg" alt="Card image cap">
                         <div class="card-body">
-                          <h5 class="card-title">SIGN UP/LOGIN</h5>
+                          <h5 class="card-title">LOGIN</h5>
                           <p class="card-text">Sign in to explore more!<br><br><br></p>
-                           <% if(loggedInUserName ==null ){ %>
-                          <a href="register.jsp" class="btn btn-primary ">Sign Up</a>
-                        &nbsp; &nbsp;&nbsp; &nbsp;
-                          <a href="LoginJSP.jsp" class="btn btn-primary ">Login</a>
-                        <% }   else { %>
-                         <a href="LoginJSP.jsp" class="btn btn-primary ">Login</a>
-                        
-                         <% } %>
+                          <a href="LoginJSP.jsp" class="btn btn-primary ">Explore</a>
                         </div>
                       </div>
                 </div>
@@ -102,9 +77,9 @@ Integer fare =(Integer) session.getAttribute("FARE");
                           <h5 class="card-title">DISCOUNT</h5>
                           <p class="card-text">Get discount for your number of bookings!<br><br><br><br> </p>
                          <% if(loggedInUserName !=null ){ %> 
-                          <a href="DiscountServlet" class="btn btn-primary">Explore</a>
+                          <a href="discount.jsp" class="btn btn-primary">Explore</a>
                         <% }   else { %>
-                          <a href="DiscountServlet" class="btn btn-primary disabled">Explore</a>
+                          <a href="discount.jsp" class="btn btn-primary disabled">Explore</a>
                          <% } %>
                         </div>
                          
@@ -117,10 +92,10 @@ Integer fare =(Integer) session.getAttribute("FARE");
                         
                           <h5 class="card-title">Make Payment</h5>
                           <p class="card-text">Online payment is mandatory* to land your Wedding quickly!<br> </p>
-                          <% if(bookedInUserName !=null && bookingId!=0){ %>
-                          <a href="onlinepayment.jsp?fare=<%=fare %>" class="btn btn-primary">Explore</a>
+                          <% if(bookedInUserName !=null ){ %>
+                          <a href="onlinepayment.jsp" class="btn btn-primary">Explore</a>
                         <% }   else { %>
-                         <a href="onlinepayment.jsp?" class="btn btn-primary disabled">Explore</a>
+                         <a href="onlinepayment.jsp" class="btn btn-primary disabled">Explore</a>
                         <% } %>
                         </div>
                       </div>

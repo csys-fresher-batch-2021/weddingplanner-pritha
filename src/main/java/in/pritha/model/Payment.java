@@ -17,8 +17,17 @@ public class Payment {
 	private String purpose;
 	private String status;
 	private String transactionCode;
+	private String discountCode;
 
 	
+
+	public String getDiscountCode() {
+		return discountCode;
+	}
+
+	public void setDiscountCode(String discountCode) {
+		this.discountCode = discountCode;
+	}
 
 	public Payment(String userName, Integer bookingId, String cardType, Integer amount, String status,
 			String transactionCode) {

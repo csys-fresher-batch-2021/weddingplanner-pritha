@@ -76,7 +76,7 @@ out.println(booking);
 	}    
 	%>
 	<br><br> 
-	 <a href="onlinepayment.jsp" > Click here to proceed for Online Payment.. </a>  
+	 <a href="onlinepayment.jsp?fare=<%=fare %>" > Click here to proceed for Online Payment.. </a>  
 	<script>
 	 function cancel() {
 	       window.location.href="http://localhost:8080/app/cancelbooking.jsp";  

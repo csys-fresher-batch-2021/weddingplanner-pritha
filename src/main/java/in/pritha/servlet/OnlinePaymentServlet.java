@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import in.pritha.controller.PaymentController;
+import in.pritha.service.SendOtp;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -44,13 +45,15 @@ public class OnlinePaymentServlet extends HttpServlet {
 				LocalDate cardExpiryDate= LocalDate.parse(request.getParameter("expirydate"));
 				Integer cvv= Integer.parseInt(request.getParameter("cvv"));
 				Integer amount= Integer.parseInt(request.getParameter("amount"));
-				
 				servletcontext.setAttribute("AMOUNT", amount);
 				String purpose= request.getParameter("purpose");
+				String discountCode = request.getParameter("discount");
+				System.out.println("discountcode"+discountCode);
 				
 				//2-call controller
 				PaymentController payment = new PaymentController();
-				String otp = payment.validateCard(cardType,cardUserName,cardNumber,cardExpiryDate,cvv,amount,purpose);
+				System.out.println("Validating Card Details");
+				String otp = payment.validateCard(cardType,cardUserName,cardNumber,cardExpiryDate,cvv,amount,purpose,discountCode);
 				HttpSession session = request.getSession();
 				session.setAttribute("OTP", otp);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("otp.jsp");

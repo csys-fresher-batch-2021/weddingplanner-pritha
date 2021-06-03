@@ -9,12 +9,11 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-
-
-
+import in.pritha.dto.BookingDTO;
 import in.pritha.exception.DBException;
 import in.pritha.model.Booking;
 
@@ -333,6 +332,89 @@ public class BookingDAO {
 		
 	}
 
+	//Map<String,Integer> => userId, noOfBookings
+	// Total no of bookings - dashboard feature
+	public static Integer findNumberOfBookings(String userName) throws DBException {
+		int numberOfBookings = 0;
+		// Step 1: get Connection
+		Connection connection = null;
+		PreparedStatement pst = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			// Step 2: Query Statement-aggre
+			String sql = "select COUNT(*) as no_of_bookings "
+					+ "FROM booking_details\r\n"
+					+ "where username=? and status='BOOKED'\r\n"
+					+ "having count(*)>=1";
+			// Step 3: Execute Query
+			pst = connection.prepareStatement(sql);
+			//input set
+			pst.setString(1, userName.toUpperCase());
+			ResultSet result = pst.executeQuery();
+			while (result.next()) {
+				// Getting the Values
+				  numberOfBookings = result.getInt("no_of_bookings");
+				  System.out.println(numberOfBookings);
+				}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.getMessage();
+			e.printStackTrace();
+			throw new DBException(e,"Can't find number of bookings from db");
+		}
+		finally {
+		ConnectionUtil.close(pst,connection);
+		}
+		return numberOfBookings;
+		
+
+		
+	}
+
+	//LeaderBoard
+	public static List<BookingDTO> findNumberOfUserBookings() throws DBException {
+		
+		final List<BookingDTO> noOfBookingsList = new ArrayList<>();
+		// Step 1: get Connection
+		Connection connection = null;
+		PreparedStatement pst = null;
+		try {
+			connection = ConnectionUtil.getConnection();
+			// Step 2: Query Statement
+			String sql = "select username, COUNT(*) as no_of_bookings " 
+					+ "FROM booking_details\r\n"
+					+ "where status='BOOKED' group by username \r\n"
+					+ "Having count(*)>=1 order by no_of_bookings DESC";
+			// Step 3: Execute Query
+			pst = connection.prepareStatement(sql);
+			//input set
+			//pst.setString(1, userName.toUpperCase());
+			ResultSet result = pst.executeQuery();
+			while (result.next()) {
+				// Getting the Values
+				String userName = result.getString("username");
+				Integer noOfBookings = result.getInt("no_of_bookings");
+				//put(userName, noOfBookings");
+				BookingDTO bookingDTO= new BookingDTO(userName, noOfBookings);
+				noOfBookingsList.add(bookingDTO);
+				
+				// Store the value 
+				
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			e.getMessage();
+			e.printStackTrace();
+			throw new DBException(e,"Can't find number of bookings from db");
+		}
+		finally {
+		ConnectionUtil.close(pst,connection);
+		}
+		return noOfBookingsList;
+		
+
+		
+	}
+
+	
 	
 	
 } 

@@ -26,7 +26,7 @@
 					<label for="Username"><strong>Enter your Username</strong></label>
 					<input type="text" name="BookingUsername" id="Username"
 						title="Username can be either case characters and length should be(4-8)"
-						placeholder="Username" pattern="[a-zA-Z]{4,8}" required autofocus>
+						placeholder="Username" pattern="[a-zA-Z]{4,20}" required autofocus>
 					<br /> <br /> <label for="weddingdate"><strong>Select
 							Your Wedding Date</strong> </label> <input name='wdate' id='wdate' type='date'
 						value='2021-05-21' min='2021-05-21' max='2022-05-21' required>

@@ -43,14 +43,14 @@ window.history.foward(-1)
 			<label for="Username"><strong>USERNAME</strong></label> 
 			<input type="text"
 				name="Username" id="Username" title="Username can be either case characters and length should be(4-8)" placeholder="Username"
-				pattern="[a-zA-Z]{4,8}" required autofocus> <br /> <br />
-			<p id="heading"><em>Hint : Username can be either case and 4-8 characters in length.</em></p>
+				pattern="[a-zA-Z]{4,20}" required autofocus> <br /> <br />
+			<p id="heading"></p>
 			<label for="Password"><strong>PAASWORD</strong></label>
 			 <input type="password"
 				name="Password" title="Your Password must be like this eg.Prit@7172"  id="Password" placeholder="Password"
 				  pattern=".{8,20}" required
 				autofocus> <br /> <br />
-			<p id="heading"><em>Hint : Your Password must be like this eg.Prit@7172</em></p>
+			<p id="heading"><em></em></p>
 			<button type="submit" class="btn btn-primary">submit</button>
 			&nbsp; &nbsp;
 			<button type="reset" class="btn btn-secondary">Reset</button>
