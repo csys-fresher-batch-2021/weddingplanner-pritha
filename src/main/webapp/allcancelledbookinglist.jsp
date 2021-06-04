@@ -13,6 +13,9 @@
 	<main class="container-fluid">
 	<br><br/>
 	<h3 id="heading">ALL CONFIRMED BOOKING LIST</h3>
+	<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 	<table class="table table-bordered">
 	<caption> All Cancelled Bookings List</caption>
 	<thead>

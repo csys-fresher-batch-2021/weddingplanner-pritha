@@ -73,7 +73,10 @@ Integer fare =(Integer) session.getAttribute("FARE");
                           <a href="register.jsp" class="btn btn-primary ">Sign Up</a>
                         &nbsp; &nbsp;&nbsp; &nbsp;
                           <a href="LoginJSP.jsp" class="btn btn-primary ">Login</a>
-                        <% }   else { %>
+                           <% } else if(loggedInUserName.equalsIgnoreCase("admin") && loggedInUserName!=null){ %>
+                           <a href="admin.jsp" class="btn btn-primary ">Explore Admin page</a> 
+                           
+                        <% }  else { %>
                          <a href="LoginJSP.jsp" class="btn btn-primary ">Login</a>
                         
                          <% } %>
@@ -117,9 +120,12 @@ Integer fare =(Integer) session.getAttribute("FARE");
                         
                           <h5 class="card-title">Make Payment</h5>
                           <p class="card-text">Online payment is mandatory* to land your Wedding quickly!<br> </p>
-                          <% if(bookedInUserName !=null && bookingId!=0){ %>
-                          <a href="onlinepayment.jsp?fare=<%=fare %>" class="btn btn-primary">Explore</a>
-                        <% }   else { %>
+                          <% if(bookedInUserName !=null && bookingId!=0 & fare!=null){ 
+                          String informMessage ="You are paying for your last booking!";%>
+                          <a href="onlinepayment.jsp?fare=<%=fare %>&informMessage=<%=informMessage %>" class="btn btn-primary">Explore</a>
+                       
+                        <% } else { 
+                         %>
                          <a href="onlinepayment.jsp?" class="btn btn-primary disabled">Explore</a>
                         <% } %>
                         </div>

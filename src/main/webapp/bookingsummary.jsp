@@ -30,10 +30,13 @@ out.println(booking);
 <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 	<br><br/>
-	<h3 id="heading">***BUDGET FOR YOUR DESIGNED OCCASION****</h3>
+	<h3 id="heading">***Booking Summary****</h3>
 	<br><br/>
 	
 	<h2>List Booking details</h2>
+	<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 <table class="table table-bordered">
 <caption> My Last Booking Summary </caption>
 <thead>

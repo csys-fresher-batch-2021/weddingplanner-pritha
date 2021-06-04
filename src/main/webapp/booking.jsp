@@ -18,7 +18,13 @@
 		<h1 id="heading">BOOKING</h1>
 		<br>
 		<br />
+		<%
+	String inforMessage = request.getParameter("inforMessage");
+	if(inforMessage!=null){
+		out.println("<p style='font-size:40px'>&#128543<font color = '#F32013'>"+inforMessage+"</font></p>");
 		
+	}
+	%>
 		<form action="BookingServlet">
 			<div class="row">
 
@@ -29,10 +35,30 @@
 						placeholder="Username" pattern="[a-zA-Z]{4,20}" required autofocus>
 					<br /> <br /> <label for="weddingdate"><strong>Select
 							Your Wedding Date</strong> </label> <input name='wdate' id='wdate' type='date'
-						value='2021-05-21' min='2021-05-21' max='2022-05-21' required>
+						value='2021-05-21'  required>
+						
+	<script>
+	
+	function minDate(){
+		var today = new Date();
+		var dd = today.getDate();
+		var mm = today.getMonth()+1; //January is 0 so need to add 1 to make it 1!
+		var yyyy = today.getFullYear();
+		if(dd<10){
+		  dd='0'+dd
+		} 
+		if(mm<10){
+		  mm='0'+mm
+		} 
+
+		today = yyyy+'-'+mm+'-'+dd;
+		document.getElementById("wdate").setAttribute("min", today);
+	}
+	minDate();
+	</script>
 					<ul>
-						<li><em> Note <br></br> Date should be between
-								2021-05-21 and 2022-05-21
+						<li><em> Note <br></br> Date should be above today!
+								
 
 						</em></li>
 					</ul>

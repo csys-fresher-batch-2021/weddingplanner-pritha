@@ -25,6 +25,13 @@ img {
 		<%
 		String fare = request.getParameter("fare");
 		%>
+		<%
+	String inforMessage = request.getParameter("informMessage");
+	if(inforMessage!=null){
+		out.println("<p style='font-size:40px'>&#128077<font color ='#008000';'>"+inforMessage+"</font></p>");
+		
+	}
+	%>
 		<form action="OnlinePaymentServlet?fare=<%=fare %>" >
 			<label for="cardtypes"><strong>Choose a Card Type * </strong></label>
 			 <select name="cardtypes" id="cardtypes" required>

@@ -31,6 +31,9 @@ String bookedUserName = (String)session.getAttribute("VerfiedLoggedInUser");
      <button type="button" onclick="discountEligibilityCheck()">Click here to see if you are eligibilt for discount...></button>  
 
 <br><br>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 <table class="table table-bordered">
 <caption> My All Booking Summary </caption>
 <thead>

@@ -393,6 +393,7 @@ public class BookingDAO {
 				// Getting the Values
 				String userName = result.getString("username");
 				Integer noOfBookings = result.getInt("no_of_bookings");
+				System.out.println(noOfBookings);
 				//put(userName, noOfBookings");
 				BookingDTO bookingDTO= new BookingDTO(userName, noOfBookings);
 				noOfBookingsList.add(bookingDTO);

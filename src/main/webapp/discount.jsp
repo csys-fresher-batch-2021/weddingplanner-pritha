@@ -80,8 +80,9 @@ h1 {text-align: center;}
     <p class="expire">Expires: Jan 03, 2021</p>
   </div>
 </div>
+	
+
+</main>		
 		
-</main>		
-</main>		
 </body>
 </html>
