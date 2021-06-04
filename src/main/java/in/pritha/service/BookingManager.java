@@ -3,12 +3,15 @@ package in.pritha.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 
 
 import in.pritha.dao.BookingDAO;
+import in.pritha.dao.DiscountDAO;
 import in.pritha.dao.PaymentDAO;
+import in.pritha.dto.BookingDTO;
 import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
 import in.pritha.exception.ValidationException;
@@ -30,6 +33,8 @@ public class BookingManager {
 						booking.getWeddingDate(), booking.getWeddingTime(), booking.getWeddingLocation(),
 						booking.getWeddingStyle(), booking.getWeddingStyleLocation(), booking.getWeddingFoodType(),
 						booking.getWeddingGuestCount(), booking.getWeddingDecorType());
+				System.out.println(" call Discount dao");
+				DiscountDAO.addDiscountDetails(booking.getUserName(),booking.getBooking_id(),booking.getStatus());
 			} else {
 				
 				throw new ServiceException("Can't Book . Check Your Details!");
@@ -130,6 +135,29 @@ public class BookingManager {
 
 	return paidBookingDetailsList;		
 		
+	}
+
+	public static List<BookingDTO> calculateNumberOfBookings() throws ServiceException {
+		List<BookingDTO> numberOfBookingsList = null;
+			try {
+				numberOfBookingsList = BookingDAO.findNumberOfUserBookings();
+			} catch (DBException e) {
+				e.getMessage();
+				throw new ServiceException(e,"can't calculate number of bookings");
+				
+			}
+		return numberOfBookingsList;
+	}
+	public static Integer calculateNumberOfBookingsForUser(String username) throws ServiceException {
+		Integer numberOfBookings = null;
+			try {
+				numberOfBookings = BookingDAO.findNumberOfBookings(username);
+			} catch (DBException e) {
+				e.getMessage();
+				throw new ServiceException(e,"can't calculate number of bookings");
+				
+			}
+		return numberOfBookings;
 	}
 
 	

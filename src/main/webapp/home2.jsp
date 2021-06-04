@@ -36,7 +36,7 @@ String role = (String)session.getAttribute("Role");
  <tr>
  <td><%=i%></td>
  <td>
- <img src="assets/img/<%=wedding.getImage()%>"width="300" height="300" >
+ <img src="assets/img/<%=wedding.getImage()%>"width="400" height="200" >
  </td>
  <td><%=wedding.getWeddingStyles() %></td>
  <td><%=wedding.getPackages() %></td>

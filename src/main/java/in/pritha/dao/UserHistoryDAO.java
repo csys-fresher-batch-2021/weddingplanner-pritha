@@ -5,8 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +46,14 @@ public class UserHistoryDAO {
 				// Getting the Values
 				System.out.println("YES");
 				String userNameStr = result.getString("username");
-				Integer booking_id= result.getInt("bookingid");
+				Integer bookingId= result.getInt("bookingid");
 				Integer amount = result.getInt("amount");
-				Date bookingDate = result.getDate("bookingdate");
-				//LocalDate bookingDate = LocalDate.parse(result.getString("bookingdate"));
-				//LocalDate paymentDate= LocalDate.parse(result.getString("paymentdate"));
-				Date paymentDate = result.getDate("paymentdate");
-				UserHistoryDTO userhistoryDTO= new UserHistoryDTO(userNameStr,booking_id,amount,bookingDate,paymentDate);
+				Timestamp bookingDateSql = result.getTimestamp("bookingdate");
+				Timestamp paymentDateSql = result.getTimestamp("paymentdate");
+				LocalDateTime bookingDate = bookingDateSql.toLocalDateTime();
+				LocalDateTime paymentDate= paymentDateSql.toLocalDateTime();
+				
+				UserHistoryDTO userhistoryDTO= new UserHistoryDTO(userNameStr,bookingId,amount,bookingDate,paymentDate);
 				userHistoryList.add(userhistoryDTO);
 			}
 		} catch (ClassNotFoundException | SQLException e) {

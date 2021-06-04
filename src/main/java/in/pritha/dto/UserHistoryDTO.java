@@ -1,56 +1,54 @@
 package in.pritha.dto;
 
-import java.sql.Date;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class UserHistoryDTO {
 	
-	private String userName;
-	   public UserHistoryDTO(String userName, Integer bookingId, Integer amount,
-			Date bookingDate, Date paymentDate) {
+	
+	private String username;
+	public UserHistoryDTO(String username, Integer bookingId, Integer amount, LocalDateTime bookingDate,
+			LocalDateTime paymentDate) {
 		super();
-		this.userName = userName;
+		this.username = username;
 		this.bookingId = bookingId;
-		
 		this.amount = amount;
 		this.bookingDate = bookingDate;
 		this.paymentDate = paymentDate;
 	}
-	public String getUserName() {
-		return userName;
+	public String getUsername() {
+		return username;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
+	public void setUsername(String username) {
+		this.username = username;
 	}
+	private Integer bookingId;
+	   private Integer amount;
+	   private LocalDateTime bookingDate;
+	   private LocalDateTime paymentDate;
+	  // private SubjectDTO subject;
 	public Integer getBookingId() {
 		return bookingId;
 	}
 	public void setBookingId(Integer bookingId) {
 		this.bookingId = bookingId;
 	}
-	
 	public Integer getAmount() {
 		return amount;
 	}
 	public void setAmount(Integer amount) {
 		this.amount = amount;
 	}
-	public Date getBookingDate() {
+	public LocalDateTime getBookingDate() {
 		return bookingDate;
 	}
-	public void setBookingDate(Date bookingDate) {
+	public void setBookingDate(LocalDateTime bookingDate) {
 		this.bookingDate = bookingDate;
 	}
-	public Date getPaymentDate() {
+	public LocalDateTime getPaymentDate() {
 		return paymentDate;
 	}
-	public void setPaymentDate(Date paymentDate) {
+	public void setPaymentDate(LocalDateTime paymentDate) {
 		this.paymentDate = paymentDate;
 	}
-	private Integer bookingId;
-	   private Integer amount;
-	   private Date bookingDate;
-	   private Date paymentDate;
-	  // private SubjectDTO subject;
 
 }

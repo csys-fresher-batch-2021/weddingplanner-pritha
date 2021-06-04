@@ -37,7 +37,7 @@ public class WeddingStylesService {
 		imagesList.add(wed3);
 		WeddingStyle wed4 = new WeddingStyle("VintageStyle Wedding",400000,"vintage.jpg");
 		imagesList.add(wed4);
-		WeddingStyle wed5 = new WeddingStyle("Festival Wedding",500000,"festival.webp");
+		WeddingStyle wed5 = new WeddingStyle("Festival Wedding",500000,"fes.jpg");
 		imagesList.add(wed5);
 	}
 

@@ -93,6 +93,37 @@ public class PaymentDAO {
 		
 		
 	}
+
+	
+			public static void insertDiscountDetails(Integer bookingId ) throws DBException {
+				//2-Get Connection
+						Connection connection=null;
+						PreparedStatement pst=null;
+					try {	
+						 connection = ConnectionUtil.getConnection();
+						//3- query
+						String sql = "INSERT INTO discount_details (bookingid) values(?)";
+						//4-execute query
+						
+						 pst = connection.prepareStatement(sql);
+						//input set
+						 	
+						 	System.out.println(sql);
+						 	pst.setInt(1, bookingId);
+					        pst.executeUpdate();
+							
+						//5-release connection
+						}catch(SQLException  | ClassNotFoundException e) {
+						e.printStackTrace();
+						e.getMessage();
+						throw new DBException(e,"Can't add given discount details in DB");
+
+						}finally {
+							ConnectionUtil.close(pst,connection);
+						}
+
+		
+	}
 	
 
 

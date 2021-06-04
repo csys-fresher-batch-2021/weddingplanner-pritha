@@ -18,7 +18,8 @@ weddingguestcount varchar(100) not null,
 weddingdecortype varchar(100) not null,
 bookingid int not null,
 cancellationreason varchar(100),
-bookingdate  varchar(100) default to_char(CURRENT_TIMESTAMP, 'yyyy/mm/dd'));
+bookingdate  timestamp not null default CURRENT_TIMESTAMP );
+
 
 
 /*For payment details Table */
@@ -31,3 +32,18 @@ status varchar(100) default 'UNPAID',
 transactioncode varchar(25) 
 
 );
+
+/**
+ *For discount details 
+ */
+create table discount_details(
+id serial primary key,
+username varchar(100) not null,
+bookingid int unique not null ,
+booking_status varchar(100) not null,
+earned_coins int default '100',
+discount_status varchar(25) default 'UNUSED');
+
+//*copy data */
+INSERT INTO discount_details (bookingid)
+SELECT bookingid FROM booking_details;

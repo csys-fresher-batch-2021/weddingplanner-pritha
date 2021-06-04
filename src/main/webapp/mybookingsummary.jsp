@@ -11,17 +11,29 @@
     
 }
 
+
 </style>
 </head>
 <body>
+<%
+String bookedUserName = (String)session.getAttribute("VerfiedLoggedInUser");
+%>
 
 <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 	<br><br/>
-	<h3 id="heading">***BUDGET FOR YOUR DESIGNED OCCASION****</h3>
+	<h3 id="heading">My All Booking Summary</h3>
 	<br><br/>
 	
-	<h2>List Booking details</h2>
+	<font color = "red">Number Of Bookings  <span id="number"> </span>
+   </font>    
+        <br><br>
+     <button type="button" onclick="discountEligibilityCheck()">Click here to see if you are eligibilt for discount...></button>  
+
+<br><br>
+<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 <table class="table table-bordered">
 <caption> My All Booking Summary </caption>
 <thead>
@@ -33,21 +45,15 @@
 <tbody id="booking-tbl">
 </tbody>
 </table>
-<%-- <%
 
-String bookedUserName = (String)session.getAttribute("BookedUserName");
-%> --%>
+
+
+
+ 
 <script>
 function getAllBookingDetails(){
 	console.log("Fetching all details ");
 	
-	//Previous Page => Data => query params ???
-			
-			//let username = pritha ;
-			//console.log(username);
-	//let date = "2021-05-01";
-	//let time ="05:06:32";
-	//let queryParams = "?BookingUsername=" +userName;
 	let url = "ListBookingServlet"; //+ queryParams;
 	
 		fetch(url).then(res=> res.json()).then(res=>{
@@ -76,10 +82,46 @@ function getAllBookingDetails(){
 		document.querySelector("#booking-tbl").innerHTML= content;
 	});
 }
-getAllBookingDetails();
+
 
 	
 	
+ 
+ function getNumberOfBookings(){
+		console.log("Fetching all details ");
+		let url = "NumberOfBookingsServlet?VerfiedLoggedInUser=<%=bookedUserName%>"; 
+		
+			fetch(url).then(res=> res.json()).then(res=>{
+				
+			let numberOfBookings = res;
+			console.log("Got response from servlet", res);
+			localStorage.setItem("number_bookings", numberOfBookings);
+		
+			console.log(numberOfBookings);
+			
+			 //It returns the value that is stored in localstorage object
+            document.querySelector("#number").innerHTML = localStorage.getItem("number_bookings");
+			});
+ }
+ 
+ function discountEligibilityCheck(){
+	 var numberOfBookings = localStorage.getItem("number_bookings");
+	 
+	console.log("NUMBEROFBOOKINGS"+numberOfBookings);
+     if (numberOfBookings>=10) {
+    	 document.write("Congrats! You are eligibile for discount");
+    	 window.location.replace("discount.jsp"); 
+         //It stores the value in localStorage object with a key//
+         // So, fare is stored to print outside the method or class //
+ }
+     else{
+    	 alert("Sorry! You are not eligible for discount");
+    	 }
+     }
+ getNumberOfBookings();
+ getAllBookingDetails();
+ 
+ 
  </script>
  
 

@@ -39,11 +39,15 @@ public class CancelBookingServlet extends HttpServlet {
 			System.out.println(reason);
 			boolean iscancelled = BookingManager.cancelBooking(bookingId,bookedUserName,bookingStatus,reason) ;
 			System.out.println(iscancelled);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp");
+			//we should remove the session values as the booking is cancelled
+			session.removeAttribute("BookedUserName");
+			session.removeAttribute("BOOKING_ID");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 				
 			}catch(Exception e){
-				ServletUtil.sendRedirect(response,"bookingsummary.jsp");
+				String errorMessage = "Not able to cancel the booking";
+				ServletUtil.sendRedirect(response,"bookingsummary.jsp?errorMessage="+errorMessage);
 			}
 
 		

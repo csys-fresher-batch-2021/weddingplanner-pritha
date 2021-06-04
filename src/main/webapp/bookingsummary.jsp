@@ -30,10 +30,13 @@ out.println(booking);
 <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
 	<br><br/>
-	<h3 id="heading">***BUDGET FOR YOUR DESIGNED OCCASION****</h3>
+	<h3 id="heading">***Booking Summary****</h3>
 	<br><br/>
 	
 	<h2>List Booking details</h2>
+	<div class="progress">
+  <div class="progress-bar progress-bar-striped bg-success" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+</div>
 <table class="table table-bordered">
 <caption> My Last Booking Summary </caption>
 <thead>
@@ -76,7 +79,7 @@ out.println(booking);
 	}    
 	%>
 	<br><br> 
-	 <a href="onlinepayment.jsp" > Click here to proceed for Online Payment.. </a>  
+	 <a href="onlinepayment.jsp?fare=<%=fare %>" > Click here to proceed for Online Payment.. </a>  
 	<script>
 	 function cancel() {
 	       window.location.href="http://localhost:8080/app/cancelbooking.jsp";  

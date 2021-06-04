@@ -15,6 +15,7 @@ import in.pritha.controller.PaymentController;
 import in.pritha.exception.ControllerException;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Payment;
+import in.pritha.service.BookingManager;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -62,7 +63,22 @@ public class CheckOtpServlet extends HttpServlet {
 		String transactioncode = (String) session.getAttribute("OTP");
 		System.out.println("*"+transactioncode);
 		boolean isAddPaymentDetails =payment.addPaymentDetails(cardUserName,bookingId,cardType,amount,status,transactioncode);
-		if(isAddPaymentDetails) {
+		String userName = (String) session.getAttribute("VerfiedLoggedInUser");
+		System.out.println(userName);
+	
+		Integer numberOfBookings = BookingManager.calculateNumberOfBookingsForUser(userName);
+		System.out.println("Number of Bookings" +numberOfBookings);
+		Integer originalFare = (Integer) session.getAttribute("FARE");
+		System.out.println(originalFare);
+		//that means they used their discount- we have to update it in db
+		if(originalFare > amount && isAddPaymentDetails) {
+		boolean isAddDiscountDetails = payment.updateDiscountDetails(userName);
+		System.out.println("DiscountUpdated"+isAddDiscountDetails);
+		String infoMessage ="Booking Successful With Applied Discount";
+		RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp?infoMessage="+infoMessage);
+		dispatcher.forward(request, response);
+		}
+		else if(isAddPaymentDetails) {
 		String infoMessage ="Booking Successful With Payment";
 		RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp?infoMessage="+infoMessage);
 		dispatcher.forward(request, response);
@@ -72,7 +88,7 @@ public class CheckOtpServlet extends HttpServlet {
 			ServletUtil.sendRedirect(response, "otp.jsp?errorMessage="+errorMessage);
 		}
     }
-		catch(ControllerException e) {
+		catch(ControllerException | ServiceException e) {
 			String errorMessage="Entered OTP is incorrect";
 			ServletUtil.sendRedirect(response, "otp.jsp?errorMessage="+errorMessage);
 		}

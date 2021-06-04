@@ -26,10 +26,10 @@ String role = (String)session.getAttribute("Role");
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ListWeddingStyleServlet">Wedding Styles</a>
+        <a class="nav-link" href="home2.jsp">Wedding Styles</a>
       </li>
        <li class="nav-item">
-        <a class="nav-link" href="ListWeddingLocationsServlet">Wedding Locations</a>
+        <a class="nav-link" href="cardweddingstyles.jsp">Wedding Locations</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Additional Contracts</a>
@@ -52,17 +52,8 @@ String role = (String)session.getAttribute("Role");
       </li>
        <% } 
        else if(loggedInUserName.equalsIgnoreCase("admin") && loggedInUserName!=null){ %>
-      <li class="nav-item active">
-        <a class="nav-link" href="ViewAllBookingDetailsServlet">VIEW ALL BOOKINGS</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="ListConfirmedBookingServlet">VIEW CONFIRMED BOOKINGS</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="ListCancelledBookingServlet">VIEW CANCELLED BOOKINGS</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="ListPaidBookingsServlet">VIEW PAID BOOKINGS</a>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Welcome <%=loggedInUserName %></a>
       </li>
        <% }
       else { %>
@@ -78,9 +69,7 @@ String role = (String)session.getAttribute("Role");
       <li class="nav-item">
         <a class="nav-link" href="mybookingsummary.jsp">My Bookings</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="ListUserHistoryServlet">My Account</a>
-      </li>
+      
       <% } %>
       </ul>
      

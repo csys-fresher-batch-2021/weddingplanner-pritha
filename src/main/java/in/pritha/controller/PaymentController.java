@@ -3,14 +3,16 @@ package in.pritha.controller;
 import java.time.LocalDate;
 
 import in.pritha.exception.ControllerException;
+import in.pritha.model.Discount;
 import in.pritha.model.Payment;
+import in.pritha.service.DiscountManager;
 import in.pritha.service.PaymentManager;
 
 public class PaymentController {
 	public PaymentController() {
 		
 	}
-	public String validateCard(String cardType, String cardUserName, Long cardNumber, LocalDate cardExpiryDate, Integer cvv, Integer amount, String purpose        ) throws ControllerException {
+	public String validateCard(String cardType, String cardUserName, Long cardNumber, LocalDate cardExpiryDate, Integer cvv, Integer amount, String purpose,String discountCode        ) throws ControllerException {
 		
 		String otp=null;
 		try {
@@ -22,6 +24,8 @@ public class PaymentController {
 			payment.setCvv(cvv);
 			payment.setAmount(amount);
 			payment.setPurpose(purpose);
+			payment.setDiscountCode(discountCode);
+			System.out.println("calling service");
 			 otp = PaymentManager.generateOTP(payment);
 			
 		}catch(Exception e) {
@@ -32,6 +36,8 @@ public class PaymentController {
 		}
 		return otp;
 	}
+
+	
 
 	public boolean validateOTP(String otpIndex1, String otpIndex2, String otpIndex3, String otpIndex4, String generatedOTP) {
 		boolean enteredOtpValidated = false;
@@ -57,6 +63,22 @@ public class PaymentController {
 		e.getMessage();
 		e.printStackTrace();
 		throw new ControllerException(e,"Unable to call service to add payment details");
+		
+	}
+	return isAdded;
+	}
+	public boolean updateDiscountDetails(String userName)
+			throws ControllerException {
+		boolean isAdded = false;
+	try {
+		Discount discount = new Discount();
+		discount.setUsername(userName);
+		isAdded = DiscountManager.updateDiscountDetails(discount);
+		
+	}catch(Exception e) {
+		e.getMessage();
+		e.printStackTrace();
+		throw new ControllerException(e,"Unable to call service to add discount details");
 		
 	}
 	return isAdded;

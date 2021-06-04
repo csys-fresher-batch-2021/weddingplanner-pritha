@@ -8,6 +8,7 @@ import java.time.LocalTime;
 
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,6 +43,7 @@ public class BookingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1-Get Form values
 		Integer bookingId= BookingManager.generateBookingId(1000,8888);
+		System.out.println("****"+bookingId);
 		String status="BOOKED";
 		String userName = request.getParameter("BookingUsername");
 		LocalDate weddingDate = LocalDate.parse(request.getParameter("wdate"));
@@ -69,14 +71,22 @@ public class BookingServlet extends HttpServlet {
 				//create and set values to session
 				HttpSession session = request.getSession();
 				session.setAttribute("BOOKING_DETAIL", booking);
+				
 				session.setAttribute("BookedUserName",userName);
 				session.setAttribute("BOOKING_ID", bookingId);
+				
+				
 				session.setAttribute("BOOKING_STATUS", status);
 				//3-redirect to next page if details are correct
 				
 			
 				Integer fare = BudgetEstimationService.fareEstimation(wed);
 				request.setAttribute("FARE", fare);
+				session.setAttribute("FARE", fare);
+				ServletContext servletcontext = getServletContext();
+				servletcontext.setAttribute("FARE", fare);
+				servletcontext.setAttribute("BOOKING_ID", bookingId);
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("bookingsummary.jsp");
 				dispatcher.forward(request, response);
 				
