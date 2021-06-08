@@ -24,29 +24,29 @@ public class RedirectBookingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String value = request.getParameter("value");
 		Logger.println(value);
-		String redirect_jsp = request.getParameter("jsp");
-		Logger.println(redirect_jsp);
+		String redirectJsp = request.getParameter("jsp");
+		Logger.println(redirectJsp);
 		HttpSession session = request.getSession();
-	if(redirect_jsp.equals("decor.jsp")) {
+	if(redirectJsp.equals("decor.jsp")) {
 		Logger.println("food choosed");
 		session.setAttribute("FOODSTYLECHOOSEN",value);
 		
 	}
-	else if(redirect_jsp.equals("booking.jsp")) {
+	else if(redirectJsp.equals("booking.jsp")) {
 		Logger.println("decor choosed");
 		session.setAttribute("DECORSTYLECHOOSEN",value);
 	}
-	else if(redirect_jsp.equals("foodstyle.jsp")) {
+	else if(redirectJsp.equals("foodstyle.jsp")) {
 		Logger.println("location choosed");
 		session.setAttribute("LOCATIONSTYLECHOOSEN",value);
 	}
-	else if(redirect_jsp.equals("cardweddingstyles.jsp")) {
+	else if(redirectJsp.equals("cardweddingstyles.jsp")) {
 		Logger.println("wedding style choosed");
 		session.setAttribute("WEDDINGSTYLECHOOSEN",value);
 	}
 		request.setAttribute("infoMessage", "Item added to your Cart");
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(redirect_jsp);
+		RequestDispatcher dispatcher = request.getRequestDispatcher(redirectJsp);
 		dispatcher.forward(request, response);
 	}
 

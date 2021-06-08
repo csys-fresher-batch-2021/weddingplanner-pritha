@@ -29,7 +29,7 @@ public class OnlinePaymentServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) {
 		//1-get form values
 			try {
 				String cardType = request.getParameter("cardtypes");
@@ -61,7 +61,7 @@ public class OnlinePaymentServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 				
-	}catch(ControllerException e) {
+	}catch(ControllerException | NumberFormatException | ServletException | IOException  e) {
 		String errorMessage = "Card validation Failed! Try Again";
 		ServletUtil.sendRedirect(response,"onlinepayment.jsp?errorMessage="+errorMessage);
 	}

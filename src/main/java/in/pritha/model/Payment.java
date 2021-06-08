@@ -97,13 +97,7 @@ public class Payment {
 		this.cardType = cardType;
 	}
 
-	public String getUserName() {
-		return cardUserName;
-	}
-
-	public void setUserName(String userName) {
-		this.cardUserName = userName;
-	}
+	
 
 	public LocalDate getExpiryDate() {
 		return expiryDate;
@@ -165,6 +159,11 @@ public class Payment {
 
 	public void setBookingId(Integer bookingId) {
 		this.bookingId = bookingId;
+	}
+
+	public void setUserName(String cardUserName) {
+		this.cardUserName= cardUserName;
+		
 	}
 
 }

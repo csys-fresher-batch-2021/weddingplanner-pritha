@@ -47,7 +47,7 @@ public class PaymentManager {
 	public static boolean addpaymentDetails(Payment payment) throws ServiceException {
 		boolean isPaymentDetailsAdded = false;
 		try {
-			PaymentDAO.addPaymentDetails(payment.getUserName(),payment.getBookingId(),payment.getCardType(),payment.getAmount(),payment.getStatus(),payment.getTransactionCode());
+			PaymentDAO.addPaymentDetails(payment.getCardUserName(),payment.getBookingId(),payment.getCardType(),payment.getAmount(),payment.getStatus(),payment.getTransactionCode());
 			isPaymentDetailsAdded = true;
 		} catch (DBException e) {
 			e.printStackTrace();
