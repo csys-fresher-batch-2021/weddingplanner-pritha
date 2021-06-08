@@ -26,10 +26,16 @@ String role = (String)session.getAttribute("Role");
         <a class="nav-link" href="index.jsp">Home <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="home2.jsp">Wedding Styles</a>
+        <a class="nav-link" href="weddingstyles.jsp">Wedding Styles</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="cardweddingstyles.jsp">Wedding Locations</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="foodstyle.jsp">Food Styles</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="decor.jsp">Decor themes</a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="dropdownId" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Additional Contracts</a>
@@ -50,6 +56,7 @@ String role = (String)session.getAttribute("Role");
        <li class="nav-item">
         <a class="nav-link" href="register.jsp">Register</a>
       </li>
+      
        <% } 
        else if(loggedInUserName.equalsIgnoreCase("admin") && loggedInUserName!=null){ %>
       <li class="nav-item">

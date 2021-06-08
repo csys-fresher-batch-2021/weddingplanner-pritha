@@ -9,22 +9,37 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
+
 
 import in.pritha.dto.BookingDTO;
 import in.pritha.exception.DBException;
 import in.pritha.model.Booking;
 
 import in.pritha.util.ConnectionUtil;
+import in.pritha.util.Logger;
 
 public class BookingDAO {
 
 	private BookingDAO() {
 		//to avoid object creation
 	}
-
+	/**
+	 * This method adds booking details to booking_details table
+	 * @param booking_id
+	 * @param status
+	 * @param userName
+	 * @param weddingDate
+	 * @param weddingTime
+	 * @param weddingLocation
+	 * @param weddingStyle
+	 * @param weddingStyleLocation
+	 * @param weddingFoodType
+	 * @param weddingGuestCount
+	 * @param weddingDecorType
+	 * @throws DBException
+	 */
 	public static void addBookingDetails(Integer booking_id,String status,String userName,LocalDate weddingDate, LocalTime weddingTime, String weddingLocation, String weddingStyle, String weddingStyleLocation, String weddingFoodType, String weddingGuestCount, String weddingDecorType) throws DBException {
 		
 		//2-Get Connection
@@ -64,7 +79,13 @@ public class BookingDAO {
 		}
 
 }
-
+	/**
+	 * This method display booking details for logged in username
+	 * It works like my bookings feature
+	 * @param userName
+	 * @return list of booking details of that username
+	 * @throws DBException
+	 */
 	public static  List<Booking> displayBookingDetails(String userName) throws DBException {
 		List<Booking> bookingDetailsList = new ArrayList<>();
 		// Step 1: get Connection
@@ -114,7 +135,15 @@ public class BookingDAO {
 	
 	
 	
-	
+	/**
+	 * This method update the booking details table like cancelled
+	 * @param booking_id
+	 * @param status
+	 * @param userName
+	 * @param reason
+	 * @return  true if tabled updated
+	 * @throws DBException
+	 */
 	public static  boolean cancelBooking(Integer booking_id, String status,String userName,String reason) throws DBException {
 		// Step 1: get Connection
 		Connection connection = null;
@@ -145,6 +174,15 @@ public class BookingDAO {
 			
 	}
 	
+	/**
+	 * This method displays cancelled booking details with cancellation 
+	 * reason to the admin
+	 * @param id
+	 * @param userName
+	 * @param status
+	 * @return list of details
+	 * @throws DBException
+	 */
 	public static  List<Booking> cancelledBookingDetails(Integer id, String userName, String status) throws DBException {
 		List<Booking> bookingDetailsList = new ArrayList<>();
 		// Step 1: get Connection
@@ -190,6 +228,11 @@ public class BookingDAO {
 		return bookingDetailsList;
 		
 	}
+	/**
+	 * This method displays all the booking details of their product to admin
+	 * @return list of details
+	 * @throws DBException
+	 */
 	public static  List<Booking> displayAllBookingDetails() throws DBException {
 		List<Booking> bookingDetailsList = new ArrayList<>();
 		// Step 1: get Connection
@@ -235,7 +278,11 @@ public class BookingDAO {
 		return bookingDetailsList;
 		
 	}
-
+	/**
+	 * This method displays all the confirmed booking details to the admin
+	 * @return list of details
+	 * @throws DBException
+	 */
 	public static List<Booking> displayAllConfirmedBookingDetails() throws DBException {
 		List<Booking> bookingDetailsList = new ArrayList<>();
 		// Step 1: get Connection
@@ -283,6 +330,11 @@ public class BookingDAO {
 		
 	}
 
+	/**
+	 * This method displays all the cancelled booking details to admin
+	 * @return list of details
+	 * @throws DBException
+	 */
 	public static List<Booking> displayAllCancelledBookingDetails() throws DBException {
 		
 		List<Booking> bookingDetailsList = new ArrayList<>();
@@ -332,8 +384,13 @@ public class BookingDAO {
 		
 	}
 
-	//Map<String,Integer> => userId, noOfBookings
-	// Total no of bookings - dashboard feature
+	/**
+	 * If finds the Total no of bookings - for dashboard feature
+	 * @param userName
+	 * @return number of earne coins for that user
+	 * @throws DBException
+	 */
+	
 	public static Integer findNumberOfBookings(String userName) throws DBException {
 		int numberOfBookings = 0;
 		// Step 1: get Connection
@@ -354,7 +411,7 @@ public class BookingDAO {
 			while (result.next()) {
 				// Getting the Values
 				  numberOfBookings = result.getInt("no_of_bookings");
-				  System.out.println(numberOfBookings);
+				  Logger.println(numberOfBookings);
 				}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.getMessage();
@@ -370,7 +427,11 @@ public class BookingDAO {
 		
 	}
 
-	//LeaderBoard
+	/**
+	 * This method displays the total count of number of bookings
+	 * @return
+	 * @throws DBException
+	 */
 	public static List<BookingDTO> findNumberOfUserBookings() throws DBException {
 		
 		final List<BookingDTO> noOfBookingsList = new ArrayList<>();
@@ -387,14 +448,12 @@ public class BookingDAO {
 			// Step 3: Execute Query
 			pst = connection.prepareStatement(sql);
 			//input set
-			//pst.setString(1, userName.toUpperCase());
 			ResultSet result = pst.executeQuery();
 			while (result.next()) {
 				// Getting the Values
 				String userName = result.getString("username");
 				Integer noOfBookings = result.getInt("no_of_bookings");
-				System.out.println(noOfBookings);
-				//put(userName, noOfBookings");
+				Logger.println(noOfBookings);
 				BookingDTO bookingDTO= new BookingDTO(userName, noOfBookings);
 				noOfBookingsList.add(bookingDTO);
 				

@@ -32,6 +32,15 @@ img {
 		
 	}
 	%>
+	<%
+	String errorMessage = request.getParameter("errorMessage");
+	if(errorMessage!=null){
+		out.println("<p style='font-size:40px'>&#128543<font color = '#F32013'>"+errorMessage+"</font></p>");
+		
+		
+	}
+	
+	%> 
 		<form action="OnlinePaymentServlet?fare=<%=fare %>" >
 			<label for="cardtypes"><strong>Choose a Card Type * </strong></label>
 			 <select name="cardtypes" id="cardtypes" required>
@@ -121,7 +130,7 @@ img {
 			
 			</script>
 		</form>
-
+	<br><br/>Do you want to check your <a href="bookingsummary.jsp" > last booking summary? </a>
 
 </main>
 </body>

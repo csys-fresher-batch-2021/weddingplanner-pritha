@@ -52,7 +52,7 @@
     <h1>The Ken Burns Effect in CSS</h1>
  
     <div id="imageContainer">
-        <img src="assets/img/formal.jpg">
+        <img alt="Ken burns effect" src="assets/img/formal.jpg">
     </div>
  
     <script src="//www.kirupa.com/prefixfree.min.js"></script>

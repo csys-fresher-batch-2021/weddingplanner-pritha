@@ -1,12 +1,12 @@
 package in.pritha.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +16,7 @@ import in.pritha.dto.UserHistoryDTO;
 import in.pritha.exception.DBException;
 
 import in.pritha.util.ConnectionUtil;
+import in.pritha.util.Logger;
 
 public class UserHistoryDAO {
 	
@@ -35,16 +36,16 @@ public class UserHistoryDAO {
 			connection = ConnectionUtil.getConnection();
 			// Step 2: Query Statement
 			String sql = BASE_QUERY + " AND b.username = ? ";
-			System.out.println(sql);
+			Logger.println(sql);
 			// Step 3: Execute Query
 			pst = connection.prepareStatement(sql);
 			//input set
 			pst.setString(1, userName.toUpperCase());
-			System.out.println(userName);
+			Logger.println(userName);
 			ResultSet result = pst.executeQuery();
 			while (result.next()) {
 				// Getting the Values
-				System.out.println("YES");
+				Logger.println("YES");
 				String userNameStr = result.getString("username");
 				Integer bookingId= result.getInt("bookingid");
 				Integer amount = result.getInt("amount");

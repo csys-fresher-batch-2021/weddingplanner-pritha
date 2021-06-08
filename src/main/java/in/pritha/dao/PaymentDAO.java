@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import in.pritha.exception.DBException;
-import in.pritha.model.Booking;
+
 import in.pritha.model.Payment;
 import in.pritha.util.ConnectionUtil;
+import in.pritha.util.Logger;
 
 public class PaymentDAO {
 	private PaymentDAO() {
@@ -108,7 +109,7 @@ public class PaymentDAO {
 						 pst = connection.prepareStatement(sql);
 						//input set
 						 	
-						 	System.out.println(sql);
+						 	Logger.println(sql);
 						 	pst.setInt(1, bookingId);
 					        pst.executeUpdate();
 							

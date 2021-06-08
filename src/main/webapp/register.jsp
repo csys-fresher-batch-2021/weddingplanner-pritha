@@ -32,7 +32,7 @@
 	%>
 
 		<form action="RegisterServlet" method="get">
-			<label for="Username"><strong>USERNAME</strong></label><br> <input
+			<label for="Username"><strong>USERNAME *</strong></label><br> <input
 				type="text" name="Username" id="Username"
 				title="Username must be lowercase characters and length should be(4-8)"
 				placeholder="Username" pattern="[a-z]{4,20}" required autofocus>
@@ -46,7 +46,7 @@
 			<p id="heading">
 				<em>Hint : Mobile No must be 10 digits</em>
 			</p>
-			<label for="Password"><strong>PAASWORD</strong></label> <input
+			<label for="Password"><strong>PAASWORD *</strong></label> <input
 				type="password" name="Password"
 				title="Your Password must be like this eg.Prit@7172" id="Password"
 				placeholder="Password" pattern=".{8,20}" required autofocus>

@@ -1,6 +1,6 @@
 package in.pritha.servlet;
 
-import java.io.IOException;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 import in.pritha.service.UserService;
+import in.pritha.util.ServletUtil;
 
 /**
  * Servlet implementation class ForgetPasswordServlet
@@ -34,15 +35,16 @@ public class ForgetPasswordServlet extends HttpServlet {
 			isMatchedPassword = UserService.createAndConfirmPassword(user);
 			if(isMatchedPassword) {
 				String infoMessage = "Password Changed Successfully";
-				response.sendRedirect("LoginJSP.jsp?infoMessage=" + infoMessage);
+				ServletUtil.sendRedirect(response,"LoginJSP.jsp?infoMessage=" + infoMessage);
 			}
 			else {
 				String errorMessage = "Unable to change your password";
-				response.sendRedirect("forgetpassword.jsp?infoMessage=" + errorMessage);
+				ServletUtil.sendRedirect(response,"forgetpassword.jsp?errorMessage=" + errorMessage);
 			}
-		} catch (IOException | ServiceException e) {
-			e.getMessage();
-			e.printStackTrace();
+		} catch ( ServiceException e) {
+			String errorMessage = "Unable to change your password";
+			ServletUtil.sendRedirect(response,"forgetpassword.jsp?errorMessage=" + errorMessage);
+			
 		} 
 	}
 

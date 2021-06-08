@@ -14,8 +14,9 @@ import javax.servlet.http.HttpSession;
 import in.pritha.controller.PaymentController;
 import in.pritha.exception.ControllerException;
 import in.pritha.exception.ServiceException;
-import in.pritha.model.Payment;
+
 import in.pritha.service.BookingManager;
+import in.pritha.util.Logger;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -37,7 +38,7 @@ public class CheckOtpServlet extends HttpServlet {
 		String otpIndex4=  request.getParameter("4");
 		HttpSession session = request.getSession();
 		String generatedOTP = (String) session.getAttribute("OTP"); 
-		System.out.println("ORGOTP "+generatedOTP);
+		Logger.println("ORGOTP "+generatedOTP);
 		PaymentController payment = new PaymentController();
 		
 		boolean isOtpCorrect = payment.validateOTP(otpIndex1,otpIndex2,otpIndex3,otpIndex4,generatedOTP);
@@ -45,35 +46,35 @@ public class CheckOtpServlet extends HttpServlet {
 			ServletContext servletcontext = getServletContext();
 		
 			String cardUserName = (String)servletcontext.getAttribute("CARDUSERNAME");
-		System.out.println("*"+cardUserName);
+		Logger.println("*"+cardUserName);
 		
 		Integer bookingId = (Integer)session.getAttribute("BOOKING_ID");
-		System.out.println("*"+bookingId);
+		Logger.println("*"+bookingId);
 		
 		
 		String cardType = (String)servletcontext.getAttribute("CARDTYPE");
-		System.out.println("*"+cardType);
+		Logger.println("*"+cardType);
 		
 		
 		
 		Integer amount = (Integer)servletcontext.getAttribute("AMOUNT");
 		
-		System.out.println("*"+amount);
+		Logger.println("*"+amount);
 		String status= "PAID";
 		String transactioncode = (String) session.getAttribute("OTP");
-		System.out.println("*"+transactioncode);
+		Logger.println("*"+transactioncode);
 		boolean isAddPaymentDetails =payment.addPaymentDetails(cardUserName,bookingId,cardType,amount,status,transactioncode);
 		String userName = (String) session.getAttribute("VerfiedLoggedInUser");
-		System.out.println(userName);
+		Logger.println(userName);
 	
 		Integer numberOfBookings = BookingManager.calculateNumberOfBookingsForUser(userName);
-		System.out.println("Number of Bookings" +numberOfBookings);
+		Logger.println("Number of Bookings" +numberOfBookings);
 		Integer originalFare = (Integer) session.getAttribute("FARE");
-		System.out.println(originalFare);
+		Logger.println(originalFare);
 		//that means they used their discount- we have to update it in db
 		if(originalFare > amount && isAddPaymentDetails) {
 		boolean isAddDiscountDetails = payment.updateDiscountDetails(userName);
-		System.out.println("DiscountUpdated"+isAddDiscountDetails);
+		Logger.println("DiscountUpdated"+isAddDiscountDetails);
 		String infoMessage ="Booking Successful With Applied Discount";
 		RequestDispatcher dispatcher = request.getRequestDispatcher("final.jsp?infoMessage="+infoMessage);
 		dispatcher.forward(request, response);

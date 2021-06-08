@@ -23,6 +23,7 @@ import in.pritha.service.BookingManager;
 import in.pritha.util.LocalDateAdapter;
 
 import in.pritha.util.LocalTimeAdapter;
+import in.pritha.util.Logger;
 import in.pritha.util.ServletUtil;
 
 
@@ -40,9 +41,9 @@ public class ViewBookingServlet extends HttpServlet {
 		
 			HttpSession session = request.getSession();
 			String bookedUserName = (String) session.getAttribute("BookedUserName");
-		System.out.println("LISTBOOKINGSERVLET USERNAME:"+ bookedUserName);
+		Logger.println("LISTBOOKINGSERVLET USERNAME:"+ bookedUserName);
 		List<Booking> bookingDetailsList = BookingManager.listBookingDetails(bookedUserName);
-		System.out.println("Booking List"+ bookingDetailsList);
+		Logger.println("Booking List"+ bookingDetailsList);
 		
 		//for date
 		Gson gson = new GsonBuilder().setPrettyPrinting()
@@ -54,7 +55,7 @@ public class ViewBookingServlet extends HttpServlet {
 		//GSON
 		 
 		  String json = gson.toJson(bookingDetailsList);
-		 System.out.println("Approach #2: GSON JAR \n" + json); // Step 2: Write the
+		 Logger.println("Approach #2: GSON JAR \n" + json); // Step 2: Write the
 		 // json in response and flush it
 		  PrintWriter out = response.getWriter();
 		  out.print(json); 

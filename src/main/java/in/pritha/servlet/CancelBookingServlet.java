@@ -2,7 +2,6 @@ package in.pritha.servlet;
 
 import java.io.IOException;
 
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import in.pritha.service.BookingManager;
+import in.pritha.util.Logger;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -27,18 +27,17 @@ public class CancelBookingServlet extends HttpServlet {
 			// Step 1: called service and Convert to Json string
 			
 			
-			System.out.println("CANCEL SERVLET");
+			Logger.println("CANCEL SERVLET");
 			HttpSession session = request.getSession();
 			String bookedUserName = (String) session.getAttribute("BookedUserName");
-			System.out.println(bookedUserName);
+			Logger.println(bookedUserName);
 			Integer bookingId = (Integer) session.getAttribute("BOOKING_ID");
-			System.out.println(bookingId);
+			Logger.println(bookingId);
 			String bookingStatus = (String) session.getAttribute("BOOKING_STATUS");
-			System.out.println(bookingStatus);
+			Logger.println(bookingStatus);
 			String reason = request.getParameter("reason");
-			System.out.println(reason);
-			boolean iscancelled = BookingManager.cancelBooking(bookingId,bookedUserName,bookingStatus,reason) ;
-			System.out.println(iscancelled);
+			Logger.println(reason);
+			BookingManager.cancelBooking(bookingId,bookedUserName,bookingStatus,reason) ;
 			//we should remove the session values as the booking is cancelled
 			session.removeAttribute("BookedUserName");
 			session.removeAttribute("BOOKING_ID");

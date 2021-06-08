@@ -25,7 +25,7 @@ String role = (String)session.getAttribute("Role");
 	<table class="table table-bordered">
 	<caption> Wedding styles with Packages </caption>
 	<thead>
-	<tr><th scope="col">S.no</th><th scope="col">Image</th><th scope="col">Wedding Styles</th><th scope="col">Package(Rs)</th></tr>
+	<tr><th scope="col">S.no</th><th scope="col">Image</th><th scope="col">Wedding Styles</th><th scope="col">Package(Rs)</th><th scope="col">Action</tr>
 	</thead>
 	<tbody>
 	<%List<WeddingStyle> weddingstyle = WeddingStylesService.getWeddingStylesWithImage();
@@ -36,10 +36,15 @@ String role = (String)session.getAttribute("Role");
  <tr>
  <td><%=i%></td>
  <td>
- <img src="assets/img/<%=wedding.getImage()%>"width="400" height="200" >
+ <img alt="wedding styles" src="assets/img/<%=wedding.getImage()%>"width="400" height="200" >
  </td>
  <td><%=wedding.getWeddingStyles() %></td>
  <td><%=wedding.getPackages() %></td>
+ <% if (loggedInUserName !=null){ %>
+ <td><a href="RedirectBookingServlet?value=<%=wedding.getWeddingStyles() %>&jsp=cardweddingstyles.jsp" class="btn btn-primary ">Add To Cart</a>
+ <%} else { %>
+ <td><a href="RedirectBookingServlet?value=<%=wedding.getWeddingStyles()%>&jsp=cardweddingstyles.jsp" class="btn btn-primary disabled">Add To Cart</a>
+<%} %>
  </tr>
  <%} %>
 	

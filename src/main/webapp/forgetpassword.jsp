@@ -16,18 +16,33 @@
 	<br><br/>
 	<h3 id="heading">***FORGET PASSWORD?****</h3>
 	<br><br/>
+	<% 
+	String infoMessage = request.getParameter("infoMessage");
+	if(infoMessage!=null){
+		out.println("<p style='font-size:40px'>&#128525<font colour ='#008000'>"+infoMessage+"</font>");
+	}
+	%>
+	<%
+	String errorMessage = request.getParameter("errorMessage");
+	if(errorMessage!=null){
+		out.println("<p style='font-size:40px'>&#128543<font color = '#F32013'>"+errorMessage+"</font></p>");
+		
+		
+	}
+	
+	%> 
 <form action="ForgetPasswordServlet" method="get" >
-<label for="Username"><strong>USERNAME</strong></label> 
+<label for="Username"><strong>USERNAME *</strong></label> 
 			<input type="text"
-				name="Username" id="Username" title="Username can be either case characters and length should be(4-8)" placeholder="Username"
-				pattern="[a-zA-Z]{4,8}" required autofocus> <br /> <br />
-<label for="Password"><strong>CREATE PASSWORD</strong>></label> 
+				name="Username" id="Username" title="Username can be either case characters and length should be(4-20)" placeholder="Username"
+				pattern="[a-zA-Z]{4,20}" required autofocus> <br /> <br />
+<label for="Password"><strong>CREATE PASSWORD *</strong>></label> 
 <input type="password"
 				name="CreatePassword" title="Password must be numeric characters and length should be(8-20)"  id="Password" placeholder="Password"
 				inputmode="numeric"  pattern=".{8,20}" required
 				autofocus> <br /> <br />
 			<p id="heading"><em>Hint : Password must be numeric and 8-20 characters in length</em>></p>
-<label for="Password"><strong>CONFIRM PASSWORD</strong>></label> 			
+<label for="Password"><strong>CONFIRM PASSWORD *</strong>></label> 			
 <input type="password"
 				name="ConfirmPassword" title="Password must be numeric characters and length should be(8-20)"  id="Password" placeholder="Password"
 				inputmode="numeric"  pattern=".{8,20}" required

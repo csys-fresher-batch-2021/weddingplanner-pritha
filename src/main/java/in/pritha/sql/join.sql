@@ -1,5 +1,5 @@
 
-/*Inner Join*/
+
 
 SELECT user_details.username, booking_details.bookingid,payment_details.transactioncode,payment_details.amount,payment_details.paymentdate
 FROM ((booking_details

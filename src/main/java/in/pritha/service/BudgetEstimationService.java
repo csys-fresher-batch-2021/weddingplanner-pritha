@@ -15,7 +15,12 @@ public class BudgetEstimationService {
 	private BudgetEstimationService() {
 		
 	}
-	
+	/**
+	 * It calculates the for the items added in cart
+	 * @param wed
+	 * @return wed
+	 * @throws ServiceException
+	 */
 	public static int fareEstimation(WeddingStyle wed) throws ServiceException {
 		int fare = 0;
 			

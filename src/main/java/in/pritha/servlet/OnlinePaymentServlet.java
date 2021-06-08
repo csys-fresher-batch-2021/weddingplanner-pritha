@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import in.pritha.controller.PaymentController;
-import in.pritha.service.SendOtp;
+import in.pritha.exception.ControllerException;
+import in.pritha.util.Logger;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -48,11 +49,11 @@ public class OnlinePaymentServlet extends HttpServlet {
 				servletcontext.setAttribute("AMOUNT", amount);
 				String purpose= request.getParameter("purpose");
 				String discountCode = request.getParameter("discount");
-				System.out.println("discountcode"+discountCode);
+				Logger.println("discountcode"+discountCode);
 				
 				//2-call controller
 				PaymentController payment = new PaymentController();
-				System.out.println("Validating Card Details");
+				Logger.println("Validating Card Details");
 				String otp = payment.validateCard(cardType,cardUserName,cardNumber,cardExpiryDate,cvv,amount,purpose,discountCode);
 				HttpSession session = request.getSession();
 				session.setAttribute("OTP", otp);
@@ -60,9 +61,9 @@ public class OnlinePaymentServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 				
-	}catch(Exception e) {
+	}catch(ControllerException e) {
 		String errorMessage = "Card validation Failed! Try Again";
-		ServletUtil.sendRedirect(response,"onlinepayment.jsp="+errorMessage);
+		ServletUtil.sendRedirect(response,"onlinepayment.jsp?errorMessage="+errorMessage);
 	}
 	}
 	

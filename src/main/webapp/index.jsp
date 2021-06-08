@@ -1,12 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script>
+            function verify(){
+               alert("You must Login to explore this");
+            }
+            </script>
 </head>
  <head>
+ 
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -22,9 +28,19 @@
     </head>
    
     <body>
-     <jsp:include page="header.jsp"></jsp:include>
+    <jsp:include page="header.jsp"></jsp:include>
 	<main class="container-fluid">
-	
+    <div class="float-right"><br>
+	<nav aria-label="Page navigation example">
+  <ul class="pagination">
+   <li class="page-item"><a class="page-link" href="weddingstyles.jsp"> Wedding Styles</a></li>
+    <li class="page-item"><a class="page-link" href="cardweddingstyles.jsp"> Wedding Locations</a></li>
+   
+    <li class="page-item"><a class="page-link" href="foodstyle.jsp"> Food Styles</a></li>
+    <li class="page-item"><a class="page-link" href="decor.jsp">Decoration Themes</a></li>
+  </ul>
+</nav>
+</div>	
 <%
 String loggedInUserName = (String)session.getAttribute("VerfiedLoggedInUser");
 String role = (String)session.getAttribute("Role");
@@ -65,7 +81,7 @@ Integer fare =(Integer) session.getAttribute("FARE");
             <div class="row">
                 <div class="col-lg-3">
                     <div class="card" style="width: 16rem;">
-                        <img class="card-img-top" src="assets/img/login.jpg" alt="Card image cap">
+                        <img class="card-img-top" alt="Login" src="assets/img/login.jpg" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">SIGN UP/LOGIN</h5>
                           <p class="card-text">Sign in to explore more!<br><br><br></p>
@@ -78,6 +94,7 @@ Integer fare =(Integer) session.getAttribute("FARE");
                            
                         <% }  else { %>
                          <a href="LoginJSP.jsp" class="btn btn-primary ">Login</a>
+                       
                         
                          <% } %>
                         </div>
@@ -85,29 +102,29 @@ Integer fare =(Integer) session.getAttribute("FARE");
                 </div>
                 <div class="col-lg-3">
                     <div class="card" style="width: 16rem;">
-                        <img class="card-img-top" src="assets/img/book.png" alt="Card image cap">
+                        <img class="card-img-top" alt="Booking" src="assets/img/book.png" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">BOOKING</h5>
                           <p class="card-text">Design Your Dream Wedding by booking in India's best Wedding Planar Platform<br></p>
                           <% if(loggedInUserName !=null ){ %>
-                          <a href="booking.jsp" class="btn btn-primary">Explore</a>
+                          <a href="weddingstyles.jsp" class="btn btn-primary">Explore</a>
                        <% }   else { %>
    
-                        	 <a href="booking.jsp" class="btn btn-primary disabled">Explore</a>
+                        	 <a href="weddingstyles.jsp" class="btn btn-primary disabled onclick="verify()">Explore</a>
                         <% } %>
                         </div>
                       </div>
                 </div>
                 <div class="col-lg-3">
                     <div class="card" style="width: 16rem;">
-                        <img class="card-img-top" src="assets/img/discount.jpg" alt="Card image cap">
+                        <img class="card-img-top" alt="Discount" src="assets/img/discount.jpg" alt="Card image cap">
                         <div class="card-body">
                           <h5 class="card-title">DISCOUNT</h5>
                           <p class="card-text">Get discount for your number of bookings!<br><br><br><br> </p>
-                         <% if(loggedInUserName !=null ){ %> 
+                         <% if(loggedInUserName !=null && fare !=null){ %> 
                           <a href="DiscountServlet" class="btn btn-primary">Explore</a>
                         <% }   else { %>
-                          <a href="DiscountServlet" class="btn btn-primary disabled">Explore</a>
+                          <a href="DiscountServlet" class="btn btn-primary disabled onclick="verify()">Explore</a>
                          <% } %>
                         </div>
                          
@@ -115,7 +132,7 @@ Integer fare =(Integer) session.getAttribute("FARE");
                 </div>
                 <div class="col-lg-3">
                     <div class="card" style="width: 16rem;">
-                        <img class="card-img-top" src="assets/img/login.jpg" alt="Card image cap">
+                        <img class="card-img-top" alt="Payment" src="assets/img/login.jpg" alt="Card image cap">
                         <div class="card-body">
                         
                           <h5 class="card-title">Make Payment</h5>
@@ -126,12 +143,13 @@ Integer fare =(Integer) session.getAttribute("FARE");
                        
                         <% } else { 
                          %>
-                         <a href="onlinepayment.jsp?" class="btn btn-primary disabled">Explore</a>
+                         <a href="onlinepayment.jsp?" class="btn btn-primary disabled onclick="verify()">Explore</a>
                         <% } %>
                         </div>
                       </div>
                 </div>
             </div>
+             
             </main>
-            </main>
+  </main>         
 </html>
