@@ -50,7 +50,7 @@ out.println(booking);
 <tr>
 <td><%=booking.getBooking_id() %>
 <td><%=booking.getUserName() %></td>
-<td><%=booking.getWeddingDate()%></td>
+<td id="wdate"><%=booking.getWeddingDate()%></td>
 <td><%=booking.getWeddingTime() %></td>
 <td><%=booking.getWeddingLocation() %></td>
 <td><%=booking.getWeddingStyle() %></td>
@@ -67,7 +67,7 @@ out.println(booking);
 <button type="submit"  value="goto" class="btn btn-danger" onclick="cancel()" >CANCEL BOOKING</button>
 
 <br><br>
-
+<em>Note : You can cancel only from your wedding date of below 1 year</em>
 
  <%
 	Integer fare = (Integer) request.getAttribute("FARE");
@@ -82,8 +82,28 @@ out.println(booking);
 	 <a href="onlinepayment.jsp?fare=<%=fare %>" > Click here to proceed for Online Payment.. </a>  
 	<script>
 	 function cancel() {
+		 //weddingdate
+		 var weddingDate = document.getElementById("wdate").innerHTML;
+		 var wedStr = weddingDate.toLocaleString().substring(0, 4);
+		 document.write("Wedding date "+weddingDate);
+		 document.write("Wed date "+wedStr);
+		 
+		 //current date
+		 var today = new Date().getFullYear()+1;
+		 //getting date only
+		 
+		 document.write("today date"+today);
+		 
+		 
+		 
+		 if(wedStr > today){
 	       window.location.href="http://localhost:8080/app/cancelbooking.jsp";  
+	       
+		 }
+		 else{
+			 alert("You can cancel only from your wedding date of below 1 year");
 	     }
+	 }
 	
 	</script> 
 	

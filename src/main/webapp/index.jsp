@@ -111,6 +111,7 @@ Integer fare =(Integer) session.getAttribute("FARE");
                        <% }   else { %>
    
                         	 <a href="weddingstyles.jsp" class="btn btn-primary disabled onclick="verify()">Explore</a>
+                      
                         <% } %>
                         </div>
                       </div>
