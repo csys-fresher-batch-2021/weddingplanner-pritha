@@ -12,9 +12,9 @@ import in.pritha.exception.DBException;
 
 import in.pritha.exception.ServiceException;
 import in.pritha.exception.ValidationException;
-import in.pritha.model.Booking;
-import in.pritha.model.User;
 
+import in.pritha.model.User;
+import in.pritha.util.Logger;
 import in.pritha.validator.UserValidator;
 
 public class UserService {
@@ -22,6 +22,15 @@ public class UserService {
 		// private constructor
 	}
 
+	/**
+	 * This metho used to register user.
+	 * if user not existed already, it will let the user to register
+	 * Or else it throw exception
+	 * it calls the dao to add the new user details
+	 * @param user
+	 * @return true if registered
+	 * @throws ServiceException
+	 */
 	public static boolean register(User user) throws ServiceException {
 		boolean validUser = false;
 		// validate it
@@ -89,7 +98,13 @@ public class UserService {
 		}
 		return allUserDetails;
 	}
-
+	
+	/**
+	 * This method used to check whether the created and confirmed password matches
+	 * @param user
+	 * @return true if matches
+	 * @throws ServiceException
+	 */
 	public static boolean createAndConfirmPassword(User user) throws  ServiceException{
 		boolean isPasswordMatched = false;
 		try {
@@ -105,6 +120,12 @@ public class UserService {
 					
 		}
 
+	/**
+	 * This method used to list user history
+	 * @param userName
+	 * @return list of details
+	 * @throws ServiceException
+	 */
 	public static List<UserHistoryDTO> listUserDetailsByUsername(String userName) throws ServiceException {
 		List<UserHistoryDTO> userHistory=null;
 		try {
@@ -120,8 +141,14 @@ public class UserService {
 		
 	}
 
+	/**
+	 * this method used to inactivate the user from the user table when they logout
+	 * @param logoutUser
+	 * @return true if table updated
+	 * @throws ServiceException
+	 */
 	public static boolean inActivateUser(String logoutUser) throws ServiceException {
-		System.out.println("service");
+		Logger.println("service");
 		boolean isInActivated=false;
 		try {
 			if(UserDAO.deleteUser(logoutUser)) {

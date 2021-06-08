@@ -3,7 +3,7 @@ package in.pritha.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,7 +15,7 @@ import com.google.gson.Gson;
 
 import in.pritha.dto.BookingDTO;
 import in.pritha.service.BookingManager;
-
+import in.pritha.util.Logger;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -25,7 +25,7 @@ import in.pritha.util.ServletUtil;
 public class LeaderBoardBookingsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    
+    @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		try {
@@ -33,7 +33,7 @@ public class LeaderBoardBookingsServlet extends HttpServlet {
 		Gson gson = new Gson();
 		
 		String json = gson.toJson(noOfBookings);
-		 System.out.println("Approach #2: GSON JAR \n" + json); // Step 2: Write the
+		 Logger.println("Approach #2: GSON JAR \n" + json); // Step 2: Write the
 		 // json in response and flush it
 		  PrintWriter out = response.getWriter();
 		  out.print(json); 

@@ -11,6 +11,7 @@ import in.pritha.exception.DBException;
 import in.pritha.util.ConnectionUtil;
 
 
+
 public class RegisterDAO {
 
 	private RegisterDAO() {
@@ -30,7 +31,7 @@ public class RegisterDAO {
 			pst.setString(1, userName.toUpperCase()); // to avoid case sensitive
 			pst.setString(2, passWord);
 			pst.executeUpdate();
-			System.out.println(pst); 
+			
 			
 		} catch (ClassNotFoundException | SQLException e) {			
 			e.printStackTrace();

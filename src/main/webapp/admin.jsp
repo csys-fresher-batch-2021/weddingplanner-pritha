@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +12,8 @@
 <title>Gracewed-admin</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
+	<main class="container-fluid">
 <div class="p-3 mb-2 bg-info text-white">ADMIN PAGE</div>
 <ul class="nav justify-content-end">
 
@@ -41,6 +43,6 @@
 
 
 
-       
+ </main>      
 </body>
 </html>

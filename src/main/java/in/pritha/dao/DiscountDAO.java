@@ -1,24 +1,25 @@
 package in.pritha.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 import in.pritha.exception.DBException;
-import in.pritha.model.Discount;
+
 import in.pritha.util.ConnectionUtil;
+import in.pritha.util.Logger;
 
 public class DiscountDAO {
 	
 	private DiscountDAO() {
 		
 	}
-	
+
 public static void addDiscountDetails(String username, Integer bookingId, String status) throws DBException {
-		System.out.println("inserted discount table");
+		Logger.println("inserted discount table");
 		//2-Get Connection
 		Connection connection=null;
 		PreparedStatement pst=null;
@@ -71,7 +72,7 @@ public static Integer countEarnedCoins(String userName) throws DBException {
 				// Getting the Values
 				
 				  earnedCoins = result.getInt("earned_coins");
-				  System.out.println("EarnedCoins"+earnedCoins);
+				  Logger.println("EarnedCoins"+earnedCoins);
 			}
 		}catch(SQLException  | ClassNotFoundException |NullPointerException e) {
 			e.printStackTrace();

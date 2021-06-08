@@ -7,10 +7,20 @@ import java.net.URLEncoder;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import in.pritha.util.Logger;
 import in.pritha.util.OTPUtil;
 
 public class SendOtp {
 	
+	private SendOtp() {
+		
+	}
+	/**
+	 * This method has the sms gateway credentials to send the otp to real time number
+	 * @param message
+	 * @param number
+	 * @param apiKey
+	 */
 	public static void sendOtp(String message, String number, String apiKey) {
 		//input paramters passed in url
 		try {
@@ -27,9 +37,9 @@ public class SendOtp {
 		con.setRequestMethod("GET");
 		con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		con.setRequestProperty("cache-control", "no-cache");
-		System.out.println("wait.....");
+		Logger.println("wait.....");
 		int responseCode = con.getResponseCode();
-		System.out.println("Response Code"+responseCode);
+		Logger.println("Response Code"+responseCode);
 		
 		StringBuffer response = new StringBuffer();
 		BufferedReader br=new BufferedReader(new InputStreamReader(con.getInputStream()));
@@ -49,10 +59,14 @@ public class SendOtp {
 	}
 	}
 	
+	/**
+	 * This method calls the generation of otp and send to mobile function
+	 * @return otp
+	 */
 	public static String sendOtpToMobile() {
-		System.out.println("Program Started");
+		Logger.println("Program Started");
 		String otpMessage = OTPUtil.generateOTP();
-		System.out.println(otpMessage);
+		Logger.println(otpMessage);
 		String apiKey ="P9YGSEQHiJtr2V50puD3OqwbhZydR6sLATFfU1WlcIxan4kKjN5akoSxAJ2g8LGRI9q6MHyC4NnEKpOX";
 		String number="9952652890";
 		//call sendotp with proper parameters

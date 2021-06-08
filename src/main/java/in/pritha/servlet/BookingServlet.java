@@ -2,10 +2,8 @@ package in.pritha.servlet;
 
 
 import java.io.IOException;
-
 import java.time.LocalDate;
 import java.time.LocalTime;
-
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -16,13 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.pritha.exception.DBException;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.Booking;
-
 import in.pritha.model.WeddingStyle;
 import in.pritha.service.BookingManager;
 import in.pritha.service.BudgetEstimationService;
+import in.pritha.util.Logger;
 
 
 
@@ -43,7 +40,7 @@ public class BookingServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//1-Get Form values
 		Integer bookingId= BookingManager.generateBookingId(1000,8888);
-		System.out.println("****"+bookingId);
+		Logger.println("****"+bookingId);
 		String status="BOOKED";
 		String userName = request.getParameter("BookingUsername");
 		LocalDate weddingDate = LocalDate.parse(request.getParameter("wdate"));

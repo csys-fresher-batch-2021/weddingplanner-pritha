@@ -13,9 +13,9 @@ import javax.servlet.http.HttpSession;
 
 import in.pritha.dto.UserHistoryDTO;
 import in.pritha.exception.ServiceException;
-import in.pritha.model.Booking;
-import in.pritha.service.BookingManager;
+
 import in.pritha.service.UserService;
+import in.pritha.util.Logger;
 
 /**
  * Servlet implementation class ListUserDetailsServlet
@@ -32,7 +32,7 @@ public class ListUserHistoryServlet extends HttpServlet {
 				String userName =(String) session.getAttribute("VerfiedLoggedInUser");
 				
 				
-				System.out.println(userName);
+				Logger.println(userName);
 				
 				userDetailsList = UserService.listUserDetailsByUsername(userName);
 				request.setAttribute("USERHISTORY", userDetailsList);

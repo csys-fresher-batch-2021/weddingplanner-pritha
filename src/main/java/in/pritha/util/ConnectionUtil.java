@@ -15,10 +15,14 @@ public class ConnectionUtil {
 	}
 
 	public static Connection getConnection() throws ClassNotFoundException, SQLException {
+		
 		String driverClass = "org.postgresql.Driver";
 		String url = "jdbc:postgresql://localhost/weddingapp_db";
 		String username = "postgres";
 		String password = "Cedricliahh@36";
+		
+		
+		
 		// Step 1: Load the jdbc driver in memory
 		Class.forName(driverClass);
 		// Step 2: Get the connection

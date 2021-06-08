@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.pritha.exception.ServiceException;
-import in.pritha.model.Booking;
+
 import in.pritha.model.Payment;
 import in.pritha.service.BookingManager;
 

@@ -28,7 +28,11 @@
 	session.removeAttribute("FARE");
 	session.removeAttribute("BookedUserName");
 	session.removeAttribute("BOOKING_ID");
-	
+	session.removeAttribute("WEDDINGSTYLECHOOSEN");
+	session.removeAttribute("LOCATIONSTYLECHOOSEN");
+	session.removeAttribute("FOODSTYLECHOOSEN");
+	session.removeAttribute("FOODSTYLECHOOSEN");
+	session.removeAttribute("DECORSTYLECHOOSEN");
 	%> 
 	
 	

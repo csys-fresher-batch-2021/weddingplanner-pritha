@@ -41,7 +41,7 @@ public class PaymentValidator {
 		public static boolean isExpired(LocalDate expiryDate) {
 			LocalDate today = LocalDate.now();
 			boolean isValid = today.isBefore(expiryDate);
-			// System.out.println(isValid);
+			
 			return isValid;
 		}
 

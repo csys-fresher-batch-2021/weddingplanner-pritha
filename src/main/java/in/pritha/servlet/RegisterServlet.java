@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import in.pritha.exception.ServiceException;
 import in.pritha.model.User;
 import in.pritha.service.UserService;
+import in.pritha.util.Logger;
 import in.pritha.util.ServletUtil;
 
 /**
@@ -36,7 +37,7 @@ public class RegisterServlet extends HttpServlet {
 				try {
 					//3-call service
 					boolean isNewUser=UserService.register(user);
-					System.out.println("Hi"+isNewUser);
+					Logger.println("Hi"+isNewUser);
 					if(isNewUser){
 						HttpSession session = request.getSession();
 						session.setAttribute("RegisteredUser",username);

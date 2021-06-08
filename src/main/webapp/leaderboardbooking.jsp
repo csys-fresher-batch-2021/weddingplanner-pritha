@@ -18,7 +18,7 @@
 	<table class="table table-bordered">
 <caption>LEADERBOARD-BOOKING </caption>
 <thead>
-<tr><th scope="col">USERNAME</th><th scope="col">NO OF BOOKINGS</th><th> Rank </th>
+<tr><th scope="col">USERNAME</th><th scope="col">NO OF BOOKINGS</th><th scope="col"> Rank </th>
 </tr>
 </thead>
 <tbody id="booking-tbl">

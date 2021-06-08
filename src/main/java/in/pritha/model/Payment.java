@@ -8,7 +8,15 @@ public class Payment {
 
 	
 	private String cardType;
-	private String userName;
+	private String cardUserName;
+	public String getCardUserName() {
+		return cardUserName;
+	}
+
+	public void setCardUserName(String cardUserName) {
+		this.cardUserName = cardUserName;
+	}
+
 	private Integer bookingId;
 	private Long cardNo;
 	private LocalDate expiryDate;
@@ -33,7 +41,7 @@ public class Payment {
 			String transactionCode) {
 		super();
 		this.cardType = cardType;
-		this.userName = userName;
+		this.cardUserName = userName;
 		this.bookingId = bookingId;
 		this.amount = amount;
 		this.status = status;
@@ -41,7 +49,26 @@ public class Payment {
 	}
 
 	public Payment() {
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	
+
+	public Payment(String cardType, String cardUserName, Long cardNo, LocalDate expiryDate, Integer cvv,
+			Integer amount, String purpose, String discountCode) {
+		super();
+		this.cardType=cardType;
+		this.cardUserName =cardUserName;
+		this.cardNo = cardNo;
+		this.expiryDate = expiryDate;
+		this.cvv = cvv;
+		this.amount=amount;
+		this.purpose = purpose;
+		this.discountCode=discountCode;
+		
+		
+	
+	
 	}
 
 	public String getStatus() {
@@ -70,13 +97,7 @@ public class Payment {
 		this.cardType = cardType;
 	}
 
-	public String getUserName() {
-		return userName;
-	}
-
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
+	
 
 	public LocalDate getExpiryDate() {
 		return expiryDate;
@@ -116,7 +137,7 @@ public class Payment {
 	}
 	@Override
 	public String toString() {
-		return "Payment [cardType=" + cardType + ", userName=" + userName + ", cardNo=" + cardNo + ", expiryDate="
+		return "Payment [cardType=" + cardType + ", userName=" + cardUserName + ", cardNo=" + cardNo + ", expiryDate="
 				+ expiryDate + ", cvv=" + cvv + ", amount=" + amount + ", purpose=" + purpose + "]";
 	}
 
@@ -138,6 +159,11 @@ public class Payment {
 
 	public void setBookingId(Integer bookingId) {
 		this.bookingId = bookingId;
+	}
+
+	public void setUserName(String cardUserName) {
+		this.cardUserName= cardUserName;
+		
 	}
 
 }

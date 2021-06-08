@@ -14,9 +14,9 @@ public class Discount {
 	private Integer numberOfBookings;
 	private String discountStatus;
 	public Discount() {
-		// TODO Auto-generated constructor stub
+		
 	}
-	public Discount(Integer bookingId, Integer numberOfBookings, Integer earnedCoins, String discountStatus) {
+	public Discount(Integer bookingId, Integer numberOfBookings,  String discountStatus) {
 		super();
 		this.bookingId = bookingId;
 		this.numberOfBookings = numberOfBookings;
